@@ -1,0 +1,7 @@
+coverage/
+node_modules/
+phantomjsdriver.log
+npm-debug.log
+lib/
+.sake/
+package-lock.json
