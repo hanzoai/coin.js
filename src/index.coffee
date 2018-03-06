@@ -12,13 +12,13 @@ import { renderUICurrencyFromJSON } from 'shop.js-util/src/currency'
 import { renderDate, rfc3339 } from 'shop.js-util/src/dates'
 
 # Containers
-import Deposit                 from 'shop.js/src/deposit'
-import Login                   from 'shop.js/src/login'
-import Profile                 from 'shop.js/src/profile'
-import Register                from 'shop.js/src/register'
-import RegisterComplete        from 'shop.js/src/register-complete'
-import ResetPassword           from 'shop.js/src/reset-password'
-import ResetPasswordComplete   from 'shop.js/src/reset-password-complete'
+import Deposit                 from 'shop.js/src/containers/deposit'
+import Login                   from 'shop.js/src/containers/login'
+import Profile                 from 'shop.js/src/containers/profile'
+import Register                from 'shop.js/src/containers/register'
+import RegisterComplete        from 'shop.js/src/containers/register-complete'
+import ResetPassword           from 'shop.js/src/containers/reset-password'
+import ResetPasswordComplete   from 'shop.js/src/containers/reset-password-complete'
 
 import {
   Control
@@ -57,7 +57,7 @@ import {
   PromoCode
 } from 'shop.js/src/controls'
 
-import m      from '.shop.js/src/mediator'
+import m      from './mediator'
 import Events from './events'
 
 Containers =
