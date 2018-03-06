@@ -43,6 +43,7 @@
     "gmaps": "0.4.24",
     "hanzo.js": "2.5.0",
     "moment-timezone": "0.5.14",
+    "shop.js": "2.2.33",
     "shop.js-util": "0.0.4"
   },
   "devDependencies": {
