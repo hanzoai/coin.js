@@ -7,9 +7,11 @@ import refer        from 'referential'
 import store        from 'akasha'
 import Hanzo        from 'hanzo.js/src/browser'
 
-# Monkey Patch common utils onto every View/Instance
-import { renderUICurrencyFromJSON } from 'shop.js-util/src/currency'
-import { renderDate, rfc3339 } from 'shop.js-util/src/dates'
+import {
+  getQueries,
+  getReferrer,
+  getMCIds
+} from 'shop.js-util/src/uri'
 
 # Containers
 import Deposit                 from 'shop.js/src/containers/deposit'
@@ -19,6 +21,7 @@ import Register                from 'shop.js/src/containers/register'
 import RegisterComplete        from 'shop.js/src/containers/register-complete'
 import ResetPassword           from 'shop.js/src/containers/reset-password'
 import ResetPasswordComplete   from 'shop.js/src/containers/reset-password-complete'
+import ThankYou                from 'shop.js/src/containers/thankyou'
 
 import {
   Control
@@ -56,6 +59,10 @@ import {
   GiftMessage
   PromoCode
 } from 'shop.js/src/controls'
+
+import {
+  ReCaptcha
+} from 'el-controls/src/controls/recaptcha'
 
 import m      from './mediator'
 import Events from './events'
@@ -107,13 +114,145 @@ Controls =
   CardExpiry:   CardExpiry
   CardCVC:      CardCVC
 
+import { renderUICurrencyFromJSON } from 'shop.js-util/src/currency'
+import { renderDate, rfc3339 } from 'shop.js-util/src/dates'
+
+Api = Hanzo.Api
+
 Coin =
   Controls:   Controls
   Containers: Containers
   Widgets:    {}
+  El:         El
 
-Coin.start = ->
-  @mount()
+# initialize the data schema
+initData = (opts)->
+  queries = getQueries()
+
+  referrer = ''
+  referrer = getReferrer(opts.config?.hashReferrer) ? opts.order?.referrer
+  store.set 'referrer', referrer
+
+  items  = store.get 'items'
+  cartId = store.get 'cartId'
+  meta   = store.get 'order.metadata'
+
+  d =
+    taxRates:       null
+    shippingRates:  null
+    countries:      []
+    tokenId:        queries.tokenid
+    terms:          opts.terms ? false
+    order:
+      giftType:     'physical'
+      type:         opts.processor ? opts.order?.type ? 'stripe'
+      shippingRate: opts.config?.shippingRate   ? opts.order?.shippingRate  ? 0
+      taxRate:      opts.config?.taxRate        ? opts.order?.taxRate       ? 0
+      currency:     opts.config?.currency       ? opts.order?.currency      ? 'usd'
+      referrerId:   referrer
+      discount:    0
+      tax:         0
+      subtotal:    0
+      total:       0
+      mode:        opts.mode ? opts.order?.mode ? ''
+      items:       items                    ? []
+      cartId:      cartId                   ? null
+      checkoutUrl: opts.config?.checkoutUrl ? null
+      metadata:    meta                     ? {}
+    user: null
+    payment:
+      type: opts.processor
+
+  for k, v of opts
+    unless d[k]?
+      d[k] = opts[k]
+    else
+      for k2, v2 of d[k]
+        unless v2?
+          d[k][k2] = opts[k]?[k2]
+
+  data = refer d
+
+  return data
+
+# initialize hanzo.js client
+initClient = (opts)->
+  settings = {}
+  settings.key      = opts.key      if opts.key
+  settings.endpoint = opts.endpoint if opts.endpoint
+
+  return new Api settings
+
+initRates = (client, data)->
+  # fetch library data
+  lastChecked   = store.get 'lastChecked'
+  countries     = store.get('countries') ? []
+  taxRates      = store.get 'taxRates'
+  shippingRates = store.get 'shippingRates'
+
+  data.set 'countries', countries
+  data.set 'taxRates', taxRates
+  data.set 'shippingRates', shippingRates
+
+  lastChecked = renderDate(new Date(), rfc3339)
+
+  return client.library.shopjs(
+    hasCountries:       !!countries && countries.length != 0
+    hasTaxRates:        !!taxRates
+    hasShippingRates:   !!shippingRates
+    lastChecked:        renderDate(lastChecked || '2000-01-01', rfc3339)
+  ).then (res) ->
+    countries = res.countries ? countries
+    taxRates = res.taxRates ? taxRates
+    shippingRates = res.shippingRates ? shippingRates
+
+    store.set 'countries', countries
+    store.set 'taxRates', taxRates
+    store.set 'shippingRates', shippingRates
+    store.set 'lastChecked', lastChecked
+
+    data.set 'countries', countries
+    data.set 'taxRates', taxRates
+    data.set 'shippingRates', shippingRates
+
+    if res.currency
+      data.set 'order.currency', res.currency
+
+    El.scheduleUpdate()
+
+Coin.start = (opts = {}) ->
+  unless opts.key?
+    throw new Error 'Please specify your API Key'
+
+  # initialize everything
+  @data     = initData opts
+  @client   = initClient opts
+
+  p         = initRates @client, @data
+
+  [tags, ps] = @mount()
+
+  ps.push p
+
+  # Wait until all processing is done before issuing Ready event
+  # This is different from Shop.js
+  # Shop.js needs to be updated to do it this way
+  p = Promise.settle(ps).then ->
+    requestAnimationFrame ->
+      tagSelectors = tagNames.join ', '
+      for tag in tags
+        $(tag.root)
+          .addClass 'ready'
+          .find tagSelectors
+          .addClass 'ready'
+
+      m.trigger Events.Ready
+    #try to deal with long running stuff
+    El.scheduleUpdate()
+  .catch (err) ->
+    window?.Raven?.captureException err
+
+  return tags
 
 Coin.mount = ->
   # create list of elements to mount
@@ -154,22 +293,15 @@ Coin.mount = ->
         resolve()
     ps.push p
 
-  Promise.settle(ps).then ->
-    requestAnimationFrame ->
-      tagSelectors = tagNames.join ', '
-      for tag in tags
-        $(tag.root)
-          .addClass 'ready'
-          .find tagSelectors
-          .addClass 'ready'
+  El.scheduleUpdate()
 
-      m.trigger Events.Ready
-    #try to deal with long running stuff
-    El.scheduleUpdate()
-  .catch (err) ->
-    window?.Raven?.captureException err
+  return [tags, ps]
 
-  return tags
+Coin.getMediator = ->
+  return m
+
+Coin.getData = ->
+  return @data
 
 # Deal with mounting procedure for only Coin.js components
 tagNames = []
