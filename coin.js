@@ -383,7 +383,6 @@ var browser = (function() {
   }
   return now;
 })();
-
 var frameDuration;
 var id;
 var last;
@@ -566,6 +565,7 @@ function classListPoly() {
 }
 
 // node_modules/shop.js/src/utils/patches.coffee
+
 if (window.Promise == null) {
   window.Promise = Promise$2;
 }
@@ -601,40 +601,68 @@ var isFunction$1 = isFunction = function(value) {
 };
 
 // node_modules/riot/lib/browser/common/global-variables.js
-const __TAGS_CACHE = [];
-const __TAG_IMPL = {};
-const YIELD_TAG = 'yield';
-const GLOBAL_MIXIN = '__global_mixin';
-const ATTRS_PREFIX = 'riot-';
-const REF_DIRECTIVES = ['ref', 'data-ref'];
-const IS_DIRECTIVE = 'data-is';
-const CONDITIONAL_DIRECTIVE = 'if';
-const LOOP_DIRECTIVE = 'each';
-const LOOP_NO_REORDER_DIRECTIVE = 'no-reorder';
-const SHOW_DIRECTIVE = 'show';
-const HIDE_DIRECTIVE = 'hide';
-const KEY_DIRECTIVE = 'key';
-const RIOT_EVENTS_KEY = '__riot-events__';
-const T_STRING = 'string';
-const T_OBJECT = 'object';
-const T_UNDEF  = 'undefined';
-const T_FUNCTION = 'function';
-const XLINK_NS = 'http://www.w3.org/1999/xlink';
-const SVG_NS = 'http://www.w3.org/2000/svg';
-const XLINK_REGEX = /^xlink:(\w+)/;
-const WIN = typeof window === T_UNDEF ? undefined : window;
-const RE_SPECIAL_TAGS = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?|opt(?:ion|group))$/;
-const RE_SPECIAL_TAGS_NO_OPTION = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?)$/;
-const RE_EVENTS_PREFIX = /^on/;
-const RE_HTML_ATTRS = /([-\w]+) ?= ?(?:"([^"]*)|'([^']*)|({[^}]*}))/g;
-const CASE_SENSITIVE_ATTRIBUTES = {
+const
+  // be aware, internal usage
+  // ATTENTION: prefix the global dynamic variables with `__`
+  // tags instances cache
+  __TAGS_CACHE = [],
+  // tags implementation cache
+  __TAG_IMPL = {},
+  YIELD_TAG = 'yield',
+
+  /**
+   * Const
+   */
+  GLOBAL_MIXIN = '__global_mixin',
+
+  // riot specific prefixes or attributes
+  ATTRS_PREFIX = 'riot-',
+
+  // Riot Directives
+  REF_DIRECTIVES = ['ref', 'data-ref'],
+  IS_DIRECTIVE = 'data-is',
+  CONDITIONAL_DIRECTIVE = 'if',
+  LOOP_DIRECTIVE = 'each',
+  LOOP_NO_REORDER_DIRECTIVE = 'no-reorder',
+  SHOW_DIRECTIVE = 'show',
+  HIDE_DIRECTIVE = 'hide',
+  KEY_DIRECTIVE = 'key',
+  RIOT_EVENTS_KEY = '__riot-events__',
+
+  // for typeof == '' comparisons
+  T_STRING = 'string',
+  T_OBJECT = 'object',
+  T_UNDEF  = 'undefined',
+  T_FUNCTION = 'function',
+
+  XLINK_NS = 'http://www.w3.org/1999/xlink',
+  SVG_NS = 'http://www.w3.org/2000/svg',
+  XLINK_REGEX = /^xlink:(\w+)/,
+
+  WIN = typeof window === T_UNDEF ? undefined : window,
+
+  // special native tags that cannot be treated like the others
+  RE_SPECIAL_TAGS = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?|opt(?:ion|group))$/,
+  RE_SPECIAL_TAGS_NO_OPTION = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?)$/,
+  RE_EVENTS_PREFIX = /^on/,
+  RE_HTML_ATTRS = /([-\w]+) ?= ?(?:"([^"]*)|'([^']*)|({[^}]*}))/g,
+  // some DOM attributes must be normalized
+  CASE_SENSITIVE_ATTRIBUTES = {
     'viewbox': 'viewBox',
     'preserveaspectratio': 'preserveAspectRatio'
-  };
-const RE_BOOL_ATTRS = /^(?:disabled|checked|readonly|required|allowfullscreen|auto(?:focus|play)|compact|controls|default|formnovalidate|hidden|ismap|itemscope|loop|multiple|muted|no(?:resize|shade|validate|wrap)?|open|reversed|seamless|selected|sortable|truespeed|typemustmatch)$/;
-const IE_VERSION = (WIN && WIN.document || {}).documentMode | 0;
+  },
+  /**
+   * Matches boolean HTML attributes in the riot tag definition.
+   * With a long list like this, a regex is faster than `[].indexOf` in most browsers.
+   * @const {RegExp}
+   * @see [attributes.md](https://github.com/riot/compiler/blob/dev/doc/attributes.md)
+   */
+  RE_BOOL_ATTRS = /^(?:disabled|checked|readonly|required|allowfullscreen|auto(?:focus|play)|compact|controls|default|formnovalidate|hidden|ismap|itemscope|loop|multiple|muted|no(?:resize|shade|validate|wrap)?|open|reversed|seamless|selected|sortable|truespeed|typemustmatch)$/,
+  // version# for IE 8-11, 0 for others
+  IE_VERSION = (WIN && WIN.document || {}).documentMode | 0;
 
 // node_modules/riot/lib/browser/common/util/dom.js
+
 /**
  * Shorter and fast way to select multiple nodes in the DOM
  * @param   { String } selector - DOM selector
@@ -834,6 +862,7 @@ var dom = Object.freeze({
 });
 
 // node_modules/riot/lib/browser/tag/styleManager.js
+
 let styleNode;
 // Create cache and shortcut to the correct property
 let cssTextProp;
@@ -1430,7 +1459,7 @@ var tmpl = (function () {
 })();
 
 // node_modules/riot-observable/dist/es6.observable.js
-var observable$1 = function(el) {
+var observable = function(el) {
 
   /**
    * Extend the original object or create a new empty one
@@ -1555,6 +1584,7 @@ var observable$1 = function(el) {
 };
 
 // node_modules/riot/lib/browser/common/util/check.js
+
 /**
  * Check if the passed argument is a boolean attribute
  * @param   { String } value -
@@ -1653,6 +1683,7 @@ var check = Object.freeze({
 });
 
 // node_modules/riot/lib/browser/common/util/misc.js
+
 /**
  * Specialized function for looping an array-like collection with `each={}`
  * @param   { Array } list - collection of items
@@ -1767,13 +1798,15 @@ var misc = Object.freeze({
 });
 
 // node_modules/riot/lib/settings.js
-var settings$1 = extend(Object.create(brackets.settings), {
+
+var settings = extend(Object.create(brackets.settings), {
   skipAnonymousTags: true,
   // handle the auto updates on any DOM event
   autoUpdate: true
 })
 
 // node_modules/riot/lib/browser/tag/setEventHandler.js
+
 /**
  * Trigger DOM events
  * @param   { HTMLElement } dom - dom element target of the event
@@ -1803,7 +1836,7 @@ function handleEvent(dom, handler, e) {
   handler.call(this, e);
 
   // avoid auto updates
-  if (!settings$1.autoUpdate) return
+  if (!settings.autoUpdate) return
 
   if (!e.preventUpdate) {
     const p = getImmediateCustomParentTag(this);
@@ -1840,6 +1873,7 @@ function setEventHandler(name, handler, dom, tag) {
 }
 
 // node_modules/riot/lib/browser/tag/update.js
+
 /**
  * Update dynamically created data-is tags with changing expressions
  * @param { Object } expr - expression tag and expression info
@@ -2046,6 +2080,7 @@ function updateAllExpressions(expressions) {
 }
 
 // node_modules/riot/lib/browser/tag/if.js
+
 var IfExpr = {
   init(dom, tag, expr) {
     remAttr(dom, CONDITIONAL_DIRECTIVE);
@@ -2086,6 +2121,7 @@ var IfExpr = {
 }
 
 // node_modules/riot/lib/browser/tag/ref.js
+
 var RefExpr = {
   init(dom, parent, attrName, attrValue) {
     this.dom = dom;
@@ -2136,6 +2172,7 @@ var RefExpr = {
 }
 
 // node_modules/riot/lib/browser/tag/each.js
+
 /**
  * Convert the item looped into an object used to extend the child tag properties
  * @param   { Object } expr - object containing the keys used to extend the children tags
@@ -2406,6 +2443,7 @@ function _each(dom, parent, expr) {
 }
 
 // node_modules/riot/lib/browser/tag/parse.js
+
 /**
  * Walk the tag DOM to detect the expressions to evaluate
  * @this Tag
@@ -2533,20 +2571,22 @@ function parseAttributes(dom, attrs, fn) {
 }
 
 // node_modules/riot/lib/browser/tag/mkdom.js
+
 /*
   Includes hacks needed for the Internet Explorer version 9 and below
   See: http://kangax.github.io/compat-table/es5/#ie8
        http://codeplanet.io/dropping-ie8/
 */
 
-const reHasYield  = /<yield\b/i;
-const reYieldAll  = /<yield\s*(?:\/>|>([\S\s]*?)<\/yield\s*>|>)/ig;
-const reYieldSrc  = /<yield\s+to=['"]([^'">]*)['"]\s*>([\S\s]*?)<\/yield\s*>/ig;
-const reYieldDest = /<yield\s+from=['"]?([-\w]+)['"]?\s*(?:\/>|>([\S\s]*?)<\/yield\s*>)/ig;
-const rootEls = { tr: 'tbody', th: 'tr', td: 'tr', col: 'colgroup' };
-const tblTags = IE_VERSION && IE_VERSION < 10 ? RE_SPECIAL_TAGS : RE_SPECIAL_TAGS_NO_OPTION;
-const GENERIC = 'div';
-const SVG = 'svg';
+const
+  reHasYield  = /<yield\b/i,
+  reYieldAll  = /<yield\s*(?:\/>|>([\S\s]*?)<\/yield\s*>|>)/ig,
+  reYieldSrc  = /<yield\s+to=['"]([^'">]*)['"]\s*>([\S\s]*?)<\/yield\s*>/ig,
+  reYieldDest = /<yield\s+from=['"]?([-\w]+)['"]?\s*(?:\/>|>([\S\s]*?)<\/yield\s*>)/ig,
+  rootEls = { tr: 'tbody', th: 'tr', td: 'tr', col: 'colgroup' },
+  tblTags = IE_VERSION && IE_VERSION < 10 ? RE_SPECIAL_TAGS : RE_SPECIAL_TAGS_NO_OPTION,
+  GENERIC = 'div',
+  SVG = 'svg';
 
 
 /*
@@ -2630,18 +2670,19 @@ function mkdom(tmpl, html, isSvg$$1) {
 }
 
 // node_modules/riot/lib/browser/tag/core.js
+
 /**
  * Another way to create a riot tag a bit more es6 friendly
  * @param { HTMLElement } el - tag DOM selector or DOM node/s
  * @param { Object } opts - tag logic
  * @returns { Tag } new riot tag instance
  */
-function Tag$1(el, opts) {
+function Tag(el, opts) {
   // get the tag properties from the class constructor
   const {name, tmpl, css, attrs, onCreate} = this;
   // register a new tag and cache the class prototype
   if (!__TAG_IMPL[name]) {
-    tag$1(name, tmpl, css, attrs, onCreate);
+    tag(name, tmpl, css, attrs, onCreate);
     // cache the class constructor
     __TAG_IMPL[name].class = this.constructor;
   }
@@ -2663,7 +2704,7 @@ function Tag$1(el, opts) {
  * @param   { Function } fn - user function
  * @returns { String } name/id of the tag just created
  */
-function tag$1(name, tmpl, css, attrs, fn) {
+function tag(name, tmpl, css, attrs, fn) {
   if (isFunction$2(attrs)) {
     fn = attrs;
 
@@ -2696,7 +2737,7 @@ function tag$1(name, tmpl, css, attrs, fn) {
  * @param   { Function } fn - user function
  * @returns { String } name/id of the tag just created
  */
-function tag2$1(name, tmpl, css, attrs, fn) {
+function tag2(name, tmpl, css, attrs, fn) {
   if (css) styleManager.add(css, name);
 
   __TAG_IMPL[name] = { name, tmpl, attrs, fn };
@@ -2711,7 +2752,7 @@ function tag2$1(name, tmpl, css, attrs, fn) {
  * @param   { Object } opts - tag logic
  * @returns { Array } new tags instances
  */
-function mount$1(selector, tagName, opts) {
+function mount(selector, tagName, opts) {
   const tags = [];
   let elem, allTags;
 
@@ -2794,10 +2835,10 @@ let mixins_id = 0;
  * @param   { Boolean } g - is global?
  * @returns { Object }  the mixin logic
  */
-function mixin$1(name, mix, g) {
+function mixin(name, mix, g) {
   // Unnamed global
   if (isObject(name)) {
-    mixin$1(`__${mixins_id++}__`, name, true);
+    mixin(`__${mixins_id++}__`, name, true);
     return
   }
 
@@ -2821,29 +2862,30 @@ function mixin$1(name, mix, g) {
  * Update all the tags instances created
  * @returns { Array } all the tags instances
  */
-function update$1() {
+function update() {
   return each(__TAGS_CACHE, tag => tag.update())
 }
 
-function unregister$1(name) {
+function unregister(name) {
   __TAG_IMPL[name] = null;
 }
 
-const version$1 = 'WIP';
+const version = 'WIP';
 
 
 var core = Object.freeze({
-	Tag: Tag$1,
-	tag: tag$1,
-	tag2: tag2$1,
-	mount: mount$1,
-	mixin: mixin$1,
-	update: update$1,
-	unregister: unregister$1,
-	version: version$1
+	Tag: Tag,
+	tag: tag,
+	tag2: tag2,
+	mount: mount,
+	mixin: mixin,
+	update: update,
+	unregister: unregister,
+	version: version
 });
 
 // node_modules/riot/lib/browser/tag/tag.js
+
 /**
  * We need to update opts for this tag. That requires updating the expressions
  * in any attributes on the tag, and then copying the result onto opts.
@@ -2897,12 +2939,12 @@ function setMountState(value) {
  * @param { String } innerHTML - html that eventually we need to inject in the tag
  */
 function createTag(impl = {}, conf = {}, innerHTML) {
-  const tag = conf.context || {};
+  const tag$$1 = conf.context || {};
   const opts = extend({}, conf.opts);
   const parent = conf.parent;
   const isLoop = conf.isLoop;
   const isAnonymous = !!conf.isAnonymous;
-  const skipAnonymous = settings$1.skipAnonymousTags && isAnonymous;
+  const skipAnonymous = settings.skipAnonymousTags && isAnonymous;
   const item = conf.item;
   // available only for the looped nodes
   const index = conf.index;
@@ -2918,14 +2960,14 @@ function createTag(impl = {}, conf = {}, innerHTML) {
   let dom;
 
   // make this tag observable
-  if (!skipAnonymous) observable$1(tag);
+  if (!skipAnonymous) observable(tag$$1);
   // only call unmount if we have a valid __TAG_IMPL (has name property)
   if (impl.name && root._tag) root._tag.unmount(true);
 
   // not yet mounted
-  defineProperty(tag, 'isMounted', false);
+  defineProperty(tag$$1, 'isMounted', false);
 
-  defineProperty(tag, '__', {
+  defineProperty(tag$$1, '__', {
     isAnonymous,
     instAttrs,
     innerHTML,
@@ -2947,13 +2989,13 @@ function createTag(impl = {}, conf = {}, innerHTML) {
 
   // create a unique id to this tag
   // it could be handy to use it also to improve the virtual dom rendering speed
-  defineProperty(tag, '_riot_id', uid()); // base 1 allows test !t._riot_id
-  defineProperty(tag, 'root', root);
-  extend(tag, { opts }, item);
+  defineProperty(tag$$1, '_riot_id', uid()); // base 1 allows test !t._riot_id
+  defineProperty(tag$$1, 'root', root);
+  extend(tag$$1, { opts }, item);
   // protect the "tags" and "refs" property from being overridden
-  defineProperty(tag, 'parent', parent || null);
-  defineProperty(tag, 'tags', {});
-  defineProperty(tag, 'refs', {});
+  defineProperty(tag$$1, 'parent', parent || null);
+  defineProperty(tag$$1, 'tags', {});
+  defineProperty(tag$$1, 'refs', {});
 
   if (isInline || isLoop && isAnonymous) {
     dom = root;
@@ -2967,38 +3009,38 @@ function createTag(impl = {}, conf = {}, innerHTML) {
    * @param   { * }  data - data we want to use to extend the tag properties
    * @returns { Tag } the current tag instance
    */
-  defineProperty(tag, 'update', function tagUpdate(data) {
+  defineProperty(tag$$1, 'update', function tagUpdate(data) {
     const nextOpts = {};
-    const canTrigger = tag.isMounted && !skipAnonymous;
+    const canTrigger = tag$$1.isMounted && !skipAnonymous;
 
     // inherit properties from the parent tag
-    if (isAnonymous && parent) extend(tag, parent);
-    extend(tag, data);
+    if (isAnonymous && parent) extend(tag$$1, parent);
+    extend(tag$$1, data);
 
-    updateOpts.apply(tag, [isLoop, parent, isAnonymous, nextOpts, instAttrs]);
+    updateOpts.apply(tag$$1, [isLoop, parent, isAnonymous, nextOpts, instAttrs]);
 
     if (
       canTrigger &&
-      tag.isMounted &&
-      isFunction$2(tag.shouldUpdate) && !tag.shouldUpdate(data, nextOpts)
+      tag$$1.isMounted &&
+      isFunction$2(tag$$1.shouldUpdate) && !tag$$1.shouldUpdate(data, nextOpts)
     ) {
-      return tag
+      return tag$$1
     }
 
     extend(opts, nextOpts);
 
-    if (canTrigger) tag.trigger('update', data);
-    updateAllExpressions.call(tag, expressions);
-    if (canTrigger) tag.trigger('updated');
+    if (canTrigger) tag$$1.trigger('update', data);
+    updateAllExpressions.call(tag$$1, expressions);
+    if (canTrigger) tag$$1.trigger('updated');
 
-    return tag
+    return tag$$1
   });
 
   /**
    * Add a mixin to this tag
    * @returns { Tag } the current tag instance
    */
-  defineProperty(tag, 'mixin', function tagMixin() {
+  defineProperty(tag$$1, 'mixin', function tagMixin() {
     each(arguments, (mix) => {
       let instance;
       let obj;
@@ -3007,7 +3049,7 @@ function createTag(impl = {}, conf = {}, innerHTML) {
       // properties blacklisted and will not be bound to the tag instance
       const propsBlacklist = ['init', '__proto__'];
 
-      mix = isString(mix) ? mixin$1(mix) : mix;
+      mix = isString(mix) ? mixin(mix) : mix;
 
       // check if the mixin is a function
       if (isFunction$2(mix)) {
@@ -3031,11 +3073,11 @@ function createTag(impl = {}, conf = {}, innerHTML) {
           const hasGetterSetter = descriptor && (descriptor.get || descriptor.set);
 
           // apply method only if it does not already exist on the instance
-          if (!tag.hasOwnProperty(key) && hasGetterSetter) {
-            Object.defineProperty(tag, key, descriptor);
+          if (!tag$$1.hasOwnProperty(key) && hasGetterSetter) {
+            Object.defineProperty(tag$$1, key, descriptor);
           } else {
-            tag[key] = isFunction$2(instance[key]) ?
-              instance[key].bind(tag) :
+            tag$$1[key] = isFunction$2(instance[key]) ?
+              instance[key].bind(tag$$1) :
               instance[key];
           }
         }
@@ -3043,76 +3085,76 @@ function createTag(impl = {}, conf = {}, innerHTML) {
 
       // init method will be called automatically
       if (instance.init)
-        instance.init.bind(tag)(opts);
+        instance.init.bind(tag$$1)(opts);
     });
 
-    return tag
+    return tag$$1
   });
 
   /**
    * Mount the current tag instance
    * @returns { Tag } the current tag instance
    */
-  defineProperty(tag, 'mount', function tagMount() {
-    root._tag = tag; // keep a reference to the tag just created
+  defineProperty(tag$$1, 'mount', function tagMount() {
+    root._tag = tag$$1; // keep a reference to the tag just created
 
     // Read all the attrs on this instance. This give us the info we need for updateOpts
     parseAttributes.apply(parent, [root, root.attributes, (attr, expr) => {
-      if (!isAnonymous && RefExpr.isPrototypeOf(expr)) expr.tag = tag;
+      if (!isAnonymous && RefExpr.isPrototypeOf(expr)) expr.tag = tag$$1;
       attr.expr = expr;
       instAttrs.push(attr);
     }]);
 
     // update the root adding custom attributes coming from the compiler
     walkAttrs(impl.attrs, (k, v) => { implAttrs.push({name: k, value: v}); });
-    parseAttributes.apply(tag, [root, implAttrs, (attr, expr) => {
+    parseAttributes.apply(tag$$1, [root, implAttrs, (attr, expr) => {
       if (expr) expressions.push(expr);
       else setAttr(root, attr.name, attr.value);
     }]);
 
     // initialiation
-    updateOpts.apply(tag, [isLoop, parent, isAnonymous, opts, instAttrs]);
+    updateOpts.apply(tag$$1, [isLoop, parent, isAnonymous, opts, instAttrs]);
 
     // add global mixins
-    const globalMixin = mixin$1(GLOBAL_MIXIN);
+    const globalMixin = mixin(GLOBAL_MIXIN);
 
     if (globalMixin && !skipAnonymous) {
       for (const i in globalMixin) {
         if (globalMixin.hasOwnProperty(i)) {
-          tag.mixin(globalMixin[i]);
+          tag$$1.mixin(globalMixin[i]);
         }
       }
     }
 
-    if (impl.fn) impl.fn.call(tag, opts);
+    if (impl.fn) impl.fn.call(tag$$1, opts);
 
-    if (!skipAnonymous) tag.trigger('before-mount');
+    if (!skipAnonymous) tag$$1.trigger('before-mount');
 
     // parse layout after init. fn may calculate args for nested custom tags
-    each(parseExpressions.apply(tag, [dom, isAnonymous]), e => expressions.push(e));
+    each(parseExpressions.apply(tag$$1, [dom, isAnonymous]), e => expressions.push(e));
 
-    tag.update(item);
+    tag$$1.update(item);
 
     if (!isAnonymous && !isInline) {
       while (dom.firstChild) root.appendChild(dom.firstChild);
     }
 
-    defineProperty(tag, 'root', root);
+    defineProperty(tag$$1, 'root', root);
 
     // if we need to wait that the parent "mount" or "updated" event gets triggered
-    if (!skipAnonymous && tag.parent) {
-      const p = getImmediateCustomParentTag(tag.parent);
+    if (!skipAnonymous && tag$$1.parent) {
+      const p = getImmediateCustomParentTag(tag$$1.parent);
       p.one(!p.isMounted ? 'mount' : 'updated', () => {
-        setMountState.call(tag, true);
+        setMountState.call(tag$$1, true);
       });
     } else {
       // otherwise it's not a child tag we can trigger its mount event
-      setMountState.call(tag, true);
+      setMountState.call(tag$$1, true);
     }
 
-    tag.__.wasCreated = true;
+    tag$$1.__.wasCreated = true;
 
-    return tag
+    return tag$$1
 
   });
 
@@ -3121,12 +3163,12 @@ function createTag(impl = {}, conf = {}, innerHTML) {
    * @param { Boolean } mustKeepRoot - if it's true the root node will not be removed
    * @returns { Tag } the current tag instance
    */
-  defineProperty(tag, 'unmount', function tagUnmount(mustKeepRoot) {
-    const el = tag.root;
+  defineProperty(tag$$1, 'unmount', function tagUnmount(mustKeepRoot) {
+    const el = tag$$1.root;
     const p = el.parentNode;
-    const tagIndex = __TAGS_CACHE.indexOf(tag);
+    const tagIndex = __TAGS_CACHE.indexOf(tag$$1);
 
-    if (!skipAnonymous) tag.trigger('before-unmount');
+    if (!skipAnonymous) tag$$1.trigger('before-unmount');
 
     // clear all attributes coming from the mounted tag
     walkAttrs(impl.attrs, (name) => {
@@ -3137,7 +3179,7 @@ function createTag(impl = {}, conf = {}, innerHTML) {
     });
 
     // remove all the event listeners
-    tag.__.listeners.forEach((dom) => {
+    tag$$1.__.listeners.forEach((dom) => {
       Object.keys(dom[RIOT_EVENTS_KEY]).forEach((eventName) => {
         dom.removeEventListener(eventName, dom[RIOT_EVENTS_KEY][eventName]);
       });
@@ -3152,16 +3194,16 @@ function createTag(impl = {}, conf = {}, innerHTML) {
 
       if (isVirtual) {
         Object
-          .keys(tag.tags)
-          .forEach(tagName => arrayishRemove(ptag.tags, tagName, tag.tags[tagName]));
+          .keys(tag$$1.tags)
+          .forEach(tagName => arrayishRemove(ptag.tags, tagName, tag$$1.tags[tagName]));
       } else {
-        arrayishRemove(ptag.tags, tagName, tag);
+        arrayishRemove(ptag.tags, tagName, tag$$1);
       }
     }
 
     // unmount all the virtual directives
-    if (tag.__.virts) {
-      each(tag.__.virts, (v) => {
+    if (tag$$1.__.virts) {
+      each(tag$$1.__.virts, (v) => {
         if (v.parentNode) v.parentNode.removeChild(v);
       });
     }
@@ -3176,24 +3218,25 @@ function createTag(impl = {}, conf = {}, innerHTML) {
     else if (p) p.removeChild(el);
 
     // custom internal unmount function to avoid relying on the observable
-    if (tag.__.onUnmount) tag.__.onUnmount();
+    if (tag$$1.__.onUnmount) tag$$1.__.onUnmount();
 
     // weird fix for a weird edge case #2409 and #2436
     // some users might use your software not as you've expected
     // so I need to add these dirty hacks to mitigate unexpected issues
-    if (!tag.isMounted) setMountState.call(tag, true);
+    if (!tag$$1.isMounted) setMountState.call(tag$$1, true);
 
-    setMountState.call(tag, false);
+    setMountState.call(tag$$1, false);
 
-    delete tag.root._tag;
+    delete tag$$1.root._tag;
 
-    return tag
+    return tag$$1
   });
 
-  return tag
+  return tag$$1
 }
 
 // node_modules/riot/lib/browser/common/util/tags.js
+
 /**
  * Detect the tag implementation by a DOM node
  * @param   { Object } dom - DOM node we need to parse to get its tag implementation
@@ -3490,10 +3533,11 @@ var tags = Object.freeze({
 });
 
 // node_modules/riot/lib/riot.js
+
 /**
  * Riot public api
  */
-const settings = settings$1;
+const settings$1 = settings;
 const util = {
   tmpl,
   brackets,
@@ -3507,20 +3551,9 @@ const util = {
   tags
 };
 
-// export the core props/methods
-
-
-
-
-
-
-
-
-
-
 var riot$1 = extend({}, core, {
-  observable: observable$1,
-  settings,
+  observable: observable,
+  settings: settings$1,
   util,
 })
 
@@ -3558,7 +3591,7 @@ toObject = function(val) {
 };
 
 shouldUseNative = function() {
-  var err, i, j, k, len, letter, order2, ref, test1, test2, test3;
+  var i, j, k, len, letter, order2, ref, test1, test2, test3;
   try {
     if (!Object.assign) {
       return false;
@@ -3624,10 +3657,11 @@ var index = objectAssign = (function() {
 })();
 
 // node_modules/referential/lib/referential.mjs
+
 // src/ref.coffee
 var Ref;
 var nextId;
-var indexOf$1 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 nextId = (function() {
   var ids;
@@ -3650,8 +3684,7 @@ var Ref$1 = Ref = (function() {
       this.parent._children[this._id] = this;
       this.parent._numChildren++;
     }
-    observable$1(this);
-    
+    observable(this);
   }
 
   Ref.prototype._mutate = function(key) {
@@ -3779,7 +3812,7 @@ var Ref$1 = Ref = (function() {
     results = [];
     for (id in ref) {
       child = ref[id];
-      if (ref1 = child.key, indexOf$1.call(childKeys, ref1) >= 0) {
+      if (ref1 = child.key, indexOf.call(childKeys, ref1) >= 0) {
         childRemainderKey = key.replace(regExps[child.key], '');
         child.trigger('set', childRemainderKey, value, oldValue);
         results.push(child._triggerSetChildren(childRemainderKey, value, oldValue));
@@ -3915,11 +3948,7 @@ refer.Ref = Ref$1;
 var refer$1 = refer;
 
 // node_modules/el.js/src/schedule.coffee
-var id$1;
-var p;
-var rafId;
-var scheduleUpdate;
-var todos;
+var id$1, p, rafId, scheduleUpdate, todos;
 
 todos = {};
 
@@ -3929,7 +3958,7 @@ p = null;
 
 id$1 = 0;
 
-scheduleUpdate = function(tag$$1) {
+scheduleUpdate = function(tag) {
   var currentTag, parentTag;
   if (!p) {
     p = new Promise$2;
@@ -3947,14 +3976,14 @@ scheduleUpdate = function(tag$$1) {
   if (todos['*']) {
     return p;
   }
-  if (!tag$$1) {
+  if (!tag) {
     todos = {
       '*': riot$1
     };
-  } else if (tag$$1.update == null) {
+  } else if (tag.update == null) {
     throw new Error('tag has no update routine');
   } else {
-    currentTag = tag$$1;
+    currentTag = tag;
     while (currentTag != null) {
       parentTag = currentTag.parent;
       if (!currentTag._schedulingId) {
@@ -3964,7 +3993,7 @@ scheduleUpdate = function(tag$$1) {
       }
       currentTag = parentTag;
     }
-    todos[tag$$1._schedulingId] = tag$$1;
+    todos[tag._schedulingId] = tag;
   }
   if (rafId === -1) {
     rafId = raf$1(function() {
@@ -3975,9 +4004,7 @@ scheduleUpdate = function(tag$$1) {
 };
 
 // node_modules/el.js/src/views/view.coffee
-var View;
-var collapsePrototype;
-var setPrototypeOf;
+var View, collapsePrototype, setPrototypeOf;
 
 setPrototypeOf = (function() {
   var mixinProperties, setProtoOf;
@@ -4115,8 +4142,7 @@ View = (function() {
 var View$1 = View;
 
 // node_modules/el.js/src/views/inputify.coffee
-var inputify;
-var isRef;
+var inputify, isRef;
 
 isRef = function(o) {
   return (o != null) && isFunction$1(o.ref);
@@ -4171,7 +4197,7 @@ inputify = function(data, configs) {
       config: config,
       validate: validate
     };
-    observable$1(input);
+    observable(input);
     return inputs[name] = input;
   };
   for (name in configs) {
@@ -4184,9 +4210,9 @@ inputify = function(data, configs) {
 var inputify$1 = inputify;
 
 // node_modules/el.js/src/views/form.coffee
-var Form;
-var extend$1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp = {}.hasOwnProperty;
+var Form,
+  extend$1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 Form = (function(superClass) {
   extend$1(Form, superClass);
@@ -4248,9 +4274,9 @@ Form = (function(superClass) {
 var Form$1 = Form;
 
 // node_modules/el.js/src/views/input.coffee
-var Input;
-var extend$2 = function(child, parent) { for (var key in parent) { if (hasProp$1.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$1 = {}.hasOwnProperty;
+var Input,
+  extend$2 = function(child, parent) { for (var key in parent) { if (hasProp$1.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$1 = {}.hasOwnProperty;
 
 Input = (function(superClass) {
   extend$2(Input, superClass);
@@ -4281,7 +4307,7 @@ Input = (function(superClass) {
           return Promise.resolve([ref, name]);
         }
       };
-      observable$1(this.input);
+      observable(this.input);
     }
     this.input.on('validate', (function(_this) {
       return function(pRef) {
@@ -4369,10 +4395,7 @@ var Views$1 = Views = {
 };
 
 // node_modules/el.js/src/index.coffee
-var El;
-var fn;
-var k$2;
-var v$1;
+var El, fn, k$1, v;
 
 El = {
   Views: Views$1,
@@ -4393,14 +4416,15 @@ fn = function(k, v) {
     };
   }
 };
-for (k$2 in riot$1) {
-  v$1 = riot$1[k$2];
-  fn(k$2, v$1);
+for (k$1 in riot$1) {
+  v = riot$1[k$1];
+  fn(k$1, v);
 }
 
 var El$1 = El;
 
 // node_modules/es-cookies/lib/cookies.mjs
+
 // src/cookies.coffee
 var Cookies;
 
@@ -4436,7 +4460,7 @@ Cookies = (function() {
   }
 
   Cookies.prototype.read = function(key) {
-    var cookie, cookies, err, i, kv, len, name, parts, rdecode, result;
+    var cookie, cookies, i, kv, len, name, parts, rdecode, result;
     if (!key) {
       result = {};
     }
@@ -4459,14 +4483,13 @@ Cookies = (function() {
           result[name] = cookie;
         }
       } catch (error) {
-        
       }
     }
     return result;
   };
 
   Cookies.prototype.write = function(key, value, attrs) {
-    var attr, err, expires, name, result, strAttrs;
+    var attr, expires, name, result, strAttrs;
     attrs = index({
       path: '/'
     }, this.defaults, attrs);
@@ -4482,7 +4505,6 @@ Cookies = (function() {
         value = result;
       }
     } catch (error) {
-      
     }
     value = encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
     key = encodeURIComponent(String(key));
@@ -4510,7 +4532,7 @@ Cookies = (function() {
 var Cookies$1 = Cookies;
 
 // src/index.coffee
-var index$2 = new Cookies$1();
+var index$1 = new Cookies$1();
 
 // node_modules/es-md5/dist/md5.mjs
 var binl2rstr;
@@ -4750,7 +4772,7 @@ hexHMACMD5 = function(k, d) {
   return rstr2hex(rawHMACMD5(k, d));
 };
 
-var index$3 = md5 = function(string, key, raw) {
+var index$2 = md5 = function(string, key, raw) {
   if (!key) {
     if (!raw) {
       return hexMD5(string);
@@ -4764,42 +4786,43 @@ var index$3 = md5 = function(string, key, raw) {
 };
 
 // node_modules/akasha/lib/akasha.mjs
+
 // src/cookie-storage.coffee
 var cookieStorage = (function() {
   var key, postFix;
-  postFix = index$3(window.location.host);
+  postFix = index$2(window.location.host);
   key = function(k) {
     return k + "_" + postFix;
   };
   return {
     get: function(k) {
-      return index$2.getJSON(key(k));
+      return index$1.getJSON(key(k));
     },
     set: function(k, v, opts) {
       var ks, ref;
-      ks = (ref = index$2.getJSON(key('_keys'))) != null ? ref : [];
+      ks = (ref = index$1.getJSON(key('_keys'))) != null ? ref : [];
       ks.push(k);
-      index$2.set(key('_keys'), ks);
-      return index$2.set(key(k, opts), v);
+      index$1.set(key('_keys'), ks);
+      return index$1.set(key(k, opts), v);
     },
     remove: function(k) {
-      return index$2.remove(key(k));
+      return index$1.remove(key(k));
     },
     clear: function() {
       var i, k, ks, len, ref;
-      ks = (ref = index$2.getJSON(key('_keys'))) != null ? ref : [];
+      ks = (ref = index$1.getJSON(key('_keys'))) != null ? ref : [];
       for (i = 0, len = ks.length; i < len; i++) {
         k = ks[i];
-        index$2.remove(k);
+        index$1.remove(k);
       }
-      return index$2.remove(key('_keys'));
+      return index$1.remove(key('_keys'));
     }
   };
 })();
 
 // src/storage.coffee
 var storage = function(backend) {
-  var err, root, store;
+  var root, store;
   root = typeof window === 'undefined' ? global : window;
   try {
     store = root[backend + 'Storage'];
@@ -4847,7 +4870,7 @@ var localStorage = storage('local');
 var pretendStorage = (function() {
   var key, postFix, pretendStorage;
   pretendStorage = {};
-  postFix = index$3(window.location.host);
+  postFix = index$2(window.location.host);
   key = function(k) {
     return k + "_" + postFix;
   };
@@ -4876,7 +4899,7 @@ var pretendStorage = (function() {
 var supported;
 
 supported = function(storage) {
-  var err, ok, testStr;
+  var ok, testStr;
   try {
     testStr = '__akasha__test__';
     storage.set(testStr, testStr);
@@ -4888,7 +4911,7 @@ supported = function(storage) {
   }
 };
 
-var index$1 = (function() {
+var index$3 = (function() {
   if (supported(localStorage)) {
     return localStorage;
   } else if (supported(cookieStorage)) {
@@ -4899,7 +4922,6 @@ var index$1 = (function() {
 })();
 
 // node_modules/es-is/string.js
-// Generated by CoffeeScript 1.12.5
 
 // node_modules/hanzo.js/src/utils.coffee
 var updateParam;
@@ -4911,8 +4933,6 @@ var statusOk = function(res) {
 var statusCreated = function(res) {
   return res.status === 201;
 };
-
-
 
 var GET = 'GET';
 
@@ -4980,9 +5000,9 @@ var updateQuery = function(url, data) {
 };
 
 // node_modules/hanzo.js/src/api.coffee
-var Api$1;
+var Api;
 
-Api$1 = (function() {
+Api = (function() {
   Api.BLUEPRINTS = {};
 
   Api.CLIENT = null;
@@ -5078,9 +5098,10 @@ Api$1 = (function() {
 
 })();
 
-var Api$2 = Api$1;
+var Api$1 = Api;
 
 // node_modules/es-xhr-promise/lib/es-xhr-promise.mjs
+
 // src/parse-headers.coffee
 var isArray$1;
 var parseHeaders;
@@ -5337,10 +5358,10 @@ XhrPromise = (function() {
 var XhrPromise$1 = XhrPromise;
 
 // node_modules/hanzo.js/src/client/client.coffee
-var Client$1;
-var slice$1 = [].slice;
+var Client,
+  slice$1 = [].slice;
 
-Client$1 = (function() {
+Client = (function() {
   function Client(opts) {
     var k, v;
     if (opts == null) {
@@ -5370,7 +5391,7 @@ Client$1 = (function() {
 
   Client.prototype.getCustomerToken = function() {
     var session;
-    if ((session = index$2.getJSON(this.opts.session.name)) != null) {
+    if ((session = index$1.getJSON(this.opts.session.name)) != null) {
       if (session.customerToken != null) {
         this.customerToken = session.customerToken;
       }
@@ -5379,7 +5400,7 @@ Client$1 = (function() {
   };
 
   Client.prototype.setCustomerToken = function(key) {
-    index$2.set(this.opts.session.name, {
+    index$1.set(this.opts.session.name, {
       customerToken: key
     }, {
       expires: this.opts.session.expires
@@ -5388,7 +5409,7 @@ Client$1 = (function() {
   };
 
   Client.prototype.deleteCustomerToken = function() {
-    index$2.set(this.opts.session.name, {
+    index$1.set(this.opts.session.name, {
       customerToken: null
     }, {
       expires: this.opts.session.expires
@@ -5418,12 +5439,12 @@ Client$1 = (function() {
 
 })();
 
-var Client$2 = Client$1;
+var Client$1 = Client;
 
 // node_modules/hanzo.js/src/client/browser.coffee
-var BrowserClient;
-var extend$3 = function(child, parent) { for (var key in parent) { if (hasProp$2.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$2 = {}.hasOwnProperty;
+var BrowserClient,
+  extend$3 = function(child, parent) { for (var key in parent) { if (hasProp$2.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$2 = {}.hasOwnProperty;
 
 BrowserClient = (function(superClass) {
   extend$3(BrowserClient, superClass);
@@ -5486,9 +5507,9 @@ BrowserClient = (function(superClass) {
 
   return BrowserClient;
 
-})(Client$2);
+})(Client$1);
 
-var Client = BrowserClient;
+var Client$2 = BrowserClient;
 
 // node_modules/hanzo.js/src/blueprints/url.coffee
 var sp;
@@ -5545,17 +5566,7 @@ var byId = function(name) {
 };
 
 // node_modules/hanzo.js/src/blueprints/browser.coffee
-var blueprints;
-var createBlueprint;
-var fn$1;
-var fn1;
-var i;
-var j;
-var len;
-var len1;
-var marketingModels;
-var model;
-var models;
+var blueprints, createBlueprint, fn$1, fn1, i, j, len, len1, marketingModels, model, models;
 
 createBlueprint = function(name) {
   var endpoint;
@@ -5776,28 +5787,752 @@ var blueprints$1 = blueprints;
 // node_modules/hanzo.js/src/browser.coffee
 var Hanzo;
 
-Api$2.BLUEPRINTS = blueprints$1;
+Api$1.BLUEPRINTS = blueprints$1;
 
-Api$2.CLIENT = Client;
+Api$1.CLIENT = Client$2;
 
 Hanzo = function(opts) {
   if (opts == null) {
     opts = {};
   }
   if (opts.client == null) {
-    opts.client = new Client(opts);
+    opts.client = new Client$2(opts);
   }
   if (opts.blueprints == null) {
     opts.blueprints = blueprints$1;
   }
-  return new Api$2(opts);
+  return new Api$1(opts);
 };
 
-Hanzo.Api = Api$2;
+Hanzo.Api = Api$1;
 
-Hanzo.Client = Client;
+Hanzo.Client = Client$2;
 
 var Hanzo$1 = Hanzo;
+
+// node_modules/commerce.js/src/analytics.coffee
+var analytics;
+
+var analytics$1 = analytics = {
+  track: function(event, data) {
+    var err;
+    if ((typeof window !== "undefined" && window !== null ? window.analytics : void 0) != null) {
+      try {
+        return window.analytics.track(event, data);
+      } catch (error) {
+        err = error;
+        return console.error(err);
+      }
+    }
+  }
+};
+
+// node_modules/commerce.js/src/util.coffee
+var clean = function(str) {
+  if (str == null) {
+    str = '';
+  }
+  return str.toUpperCase().replace(/\s/g, '');
+};
+
+var matchesGeoRate = function(g, country, state, city, postalCode) {
+  var code, codes, ct, ctr, j, len, pc, st;
+  ctr = clean(country);
+  st = clean(state);
+  ct = clean(city);
+  pc = clean(postalCode);
+  if (!ctr || !st || (!ct && !pc)) {
+    return [false, 0];
+  }
+  if (!g.country) {
+    return [true, 0];
+  }
+  if (g.country === ctr) {
+    if (!g.state) {
+      return [true, 1];
+    }
+    if (g.state === st) {
+      if (!g.city && !g.postalCodes) {
+        return [true, 2];
+      }
+      if (g.city && g.city === ct) {
+        return [true, 3];
+      }
+      if (g.postalCodes) {
+        codes = g.postalCodes.split(',');
+        for (j = 0, len = codes.length; j < len; j++) {
+          code = codes[j];
+          if (code === pc) {
+            return [true, 3];
+          }
+        }
+      }
+      return [false, 2];
+    }
+    return [false, 1];
+  }
+  return [false, 0];
+};
+
+var closestGeoRate = function(grs, ctr, st, ct, pc) {
+  var currentLevel, gr, i, idx, isMatch, level, ref, retGr;
+  retGr = null;
+  currentLevel = -1;
+  idx = -1;
+  for (i in grs) {
+    gr = grs[i];
+    ref = matchesGeoRate(gr, ctr, st, ct, pc), isMatch = ref[0], level = ref[1];
+    if (isMatch && level > currentLevel) {
+      if (level === 3) {
+        return [gr, level, parseInt(i, 10)];
+      }
+      retGr = grs[i];
+      currentLevel = level;
+      idx = i;
+    }
+  }
+  return [retGr, currentLevel, parseInt(idx, 10)];
+};
+
+// node_modules/commerce.js/src/cart.coffee
+var Cart;
+
+Cart = (function() {
+  Cart.prototype.waits = 0;
+
+  Cart.prototype.queue = null;
+
+  Cart.prototype.data = null;
+
+  Cart.prototype.client = null;
+
+  Cart.prototype.promise = null;
+
+  Cart.prototype.reject = null;
+
+  Cart.prototype.resolve = null;
+
+  Cart.prototype.opts = {};
+
+  function Cart(client, data1, opts) {
+    this.client = client;
+    this.data = data1;
+    this.opts = opts != null ? opts : {};
+    this.queue = [];
+    this.data.on('set', (function(_this) {
+      return function(name) {
+        switch (name) {
+          case 'order.mode':
+            if (_this.inItemlessMode()) {
+              return _this.clear();
+            }
+        }
+      };
+    })(this));
+    this.invoice();
+  }
+
+  Cart.prototype.initCart = function() {
+    var cartId, i, item, items, j, len;
+    cartId = this.data.get('order.cartId');
+    if (!cartId && (this.client.cart != null)) {
+      this.client.cart.create().then((function(_this) {
+        return function(cart) {
+          var i, item, items, j, len;
+          _this.data.set('order.cartId', cart.id);
+          items = _this.data.get('order.items');
+          for (i = j = 0, len = items.length; j < len; i = ++j) {
+            item = items[i];
+            _this._cartSet(item.productId, item.quantity);
+          }
+          return _this.onCart(cart.id);
+        };
+      })(this));
+      return this.data.on('set', (function(_this) {
+        return function(name) {
+          switch (name) {
+            case 'order.storeId':
+              return _this._cartSyncStore();
+          }
+        };
+      })(this));
+    } else if (this.client.cart != null) {
+      this.onCart(cartId);
+      items = this.data.get('order.items');
+      for (i = j = 0, len = items.length; j < len; i = ++j) {
+        item = items[i];
+        this._cartSet(item.productId, item.quantity);
+      }
+      this.onCart(cartId);
+      return this.data.on('set', (function(_this) {
+        return function(name) {
+          if (name === 'order.storeId') {
+            _this._cartSyncStore();
+          }
+          if (name === 'user.firstName') {
+            _this._cartSyncName();
+          }
+          if (name === 'user.lastName') {
+            return _this._cartSyncName();
+          }
+        };
+      })(this));
+    }
+  };
+
+  Cart.prototype.inItemlessMode = function() {
+    var mode;
+    mode = this.data.get('order.mode');
+    return mode === 'deposit' || mode === 'contribution';
+  };
+
+  Cart.prototype.onCart = function(cartId) {};
+
+  Cart.prototype._cartSet = function(id, quantity) {
+    var cartId;
+    cartId = this.data.get('order.cartId');
+    if (cartId && (this.client.cart != null)) {
+      return this.client.cart.set({
+        id: cartId,
+        productId: id,
+        quantity: quantity,
+        storeId: this.data.get('order.storeId')
+      });
+    }
+  };
+
+  Cart.prototype._cartUpdate = function(cart) {
+    var cartId;
+    cartId = this.data.get('order.cartId');
+    if (cartId && (this.client.cart != null)) {
+      cart.id = cartId;
+      return this.client.cart.update(cart);
+    }
+  };
+
+  Cart.prototype._cartSyncStore = function() {
+    var cartId;
+    cartId = this.data.get('order.cartId');
+    if (cartId && (this.client.cart != null)) {
+      return this.client.cart.update({
+        id: cartId,
+        storeId: this.data.get('order.storeId')
+      });
+    }
+  };
+
+  Cart.prototype.clear = function() {
+    var item, items, j, len;
+    this.queue.length = 0;
+    items = this.data.get('order.items');
+    for (j = 0, len = items.length; j < len; j++) {
+      item = items[j];
+      this.set(item.productId, 0);
+    }
+    return this.data.get('order.items');
+  };
+
+  Cart.prototype.set = function(id, quantity, locked) {
+    if (locked == null) {
+      locked = false;
+    }
+    this.queue.push([id, quantity, locked]);
+    if (this.queue.length === 1) {
+      this.promise = new Promise$2((function(_this) {
+        return function(resolve, reject) {
+          _this.resolve = resolve;
+          return _this.reject = reject;
+        };
+      })(this));
+      this._set();
+    }
+    return this.promise;
+  };
+
+  Cart.prototype.get = function(id) {
+    var i, item, items, j, k, len, len1, ref;
+    items = this.data.get('order.items');
+    for (i = j = 0, len = items.length; j < len; i = ++j) {
+      item = items[i];
+      if (item.id !== id && item.productId !== id && item.productSlug !== id) {
+        continue;
+      }
+      return item;
+    }
+    ref = this.queue;
+    for (i = k = 0, len1 = ref.length; k < len1; i = ++k) {
+      item = ref[i];
+      if (item[0] !== id) {
+        continue;
+      }
+      return {
+        id: item[0],
+        quantity: item[2],
+        locked: item[3]
+      };
+    }
+  };
+
+  Cart.prototype._set = function() {
+    var a, deltaQuantity, i, id, item, items, j, k, len, len1, locked, newValue, oldValue, quantity, ref;
+    items = this.data.get('order.items');
+    if (this.queue.length === 0) {
+      this.invoice();
+      if (this.resolve != null) {
+        this.resolve(items != null ? items : []);
+      }
+      return;
+    }
+    ref = this.queue[0], id = ref[0], quantity = ref[1], locked = ref[2];
+    if (this.inItemlessMode() && quantity > 0) {
+      this.invoice();
+      if (this.resolve != null) {
+        this.resolve(items != null ? items : []);
+      }
+      return;
+    }
+    if (quantity < 0) {
+      quantity = 0;
+    }
+    if (quantity === 0) {
+      for (i = j = 0, len = items.length; j < len; i = ++j) {
+        item = items[i];
+        if (item.productId === id || item.productSlug === id || item.id === id) {
+          break;
+        }
+      }
+      if (i < items.length) {
+        this.data.set('order.items', []);
+        items.splice(i, 1);
+        this.onUpdate();
+        a = {
+          id: item.productId,
+          sku: item.productSlug,
+          name: item.productName,
+          quantity: item.quantity,
+          price: parseFloat(item.price / 100)
+        };
+        if (this.opts.analyticsProductTransform != null) {
+          a = this.opts.analyticsProductTransform(a);
+        }
+        analytics$1.track('Removed Product', a);
+        this.data.set('order.items', items);
+        this._cartSet(item.productId, 0);
+        item.quantity = 0;
+        this.onUpdate(item);
+      }
+      this.queue.shift();
+      this._set();
+      return;
+    }
+    for (i = k = 0, len1 = items.length; k < len1; i = ++k) {
+      item = items[i];
+      if (item.id !== id && item.productId !== id && item.productSlug !== id) {
+        continue;
+      }
+      oldValue = item.quantity;
+      item.quantity = quantity;
+      item.locked = locked;
+      newValue = quantity;
+      deltaQuantity = newValue - oldValue;
+      if (deltaQuantity > 0) {
+        a = {
+          id: item.productId,
+          sku: item.productSlug,
+          name: item.productName,
+          quantity: deltaQuantity,
+          price: parseFloat(item.price / 100)
+        };
+        if (this.opts.analyticsProductTransform != null) {
+          a = this.opts.analyticsProductTransform(a);
+        }
+        analytics$1.track('Added Product', a);
+      } else if (deltaQuantity < 0) {
+        a = {
+          id: item.productId,
+          sku: item.productSlug,
+          name: item.productName,
+          quantity: deltaQuantity,
+          price: parseFloat(item.price / 100)
+        };
+        if (this.opts.analyticsProductTransform != null) {
+          a = this.opts.analyticsProductTransform(a);
+        }
+        analytics$1.track('Removed Product', a);
+      }
+      this.data.set('order.items.' + i + '.quantity', quantity);
+      this.data.set('order.items.' + i + '.locked', locked);
+      this._cartSet(item.productId, quantity);
+      this.onUpdate(item);
+      this.queue.shift();
+      this._set();
+      return;
+    }
+    items.push({
+      id: id,
+      quantity: quantity,
+      locked: locked
+    });
+    this.waits++;
+    return this.load(id);
+  };
+
+  Cart.prototype.load = function(id) {
+    return this.client.product.get(id).then((function(_this) {
+      return function(product) {
+        var a, i, item, items, j, len;
+        _this.waits--;
+        items = _this.data.get('order.items');
+        for (i = j = 0, len = items.length; j < len; i = ++j) {
+          item = items[i];
+          if (product.id === item.id || product.slug === item.id) {
+            a = {
+              id: product.id,
+              sku: product.slug,
+              name: product.name,
+              quantity: item.quantity,
+              price: parseFloat(product.price / 100)
+            };
+            if (_this.opts.analyticsProductTransform != null) {
+              a = _this.opts.analyticsProductTransform(a);
+            }
+            analytics$1.track('Added Product', a);
+            _this.update(product, item);
+            _this.data.set('order.items.' + i, item);
+            _this._cartSet(product.id, item.quantity);
+            break;
+          }
+        }
+        _this.queue.shift();
+        return _this._set();
+      };
+    })(this))["catch"]((function(_this) {
+      return function(err) {
+        var i, item, items, j, len;
+        _this.waits--;
+        console.log("setItem Error: " + err.stack);
+        items = _this.data.get('order.items');
+        for (i = j = 0, len = items.length; j < len; i = ++j) {
+          item = items[i];
+          if (item.id === id) {
+            items.splice(i, 1);
+            _this.data.set('order.items', items);
+            break;
+          }
+        }
+        _this.queue.shift();
+        return _this._set();
+      };
+    })(this));
+  };
+
+  Cart.prototype.refresh = function(id) {
+    var items;
+    items = this.data.get('order.items');
+    return this.client.product.get(id).then((function(_this) {
+      return function(product) {
+        var i, item, j, len;
+        _this.waits--;
+        for (i = j = 0, len = items.length; j < len; i = ++j) {
+          item = items[i];
+          if (product.id === item.productId || product.slug === item.productSlug) {
+            _this.update(product, item);
+            break;
+          }
+        }
+        return items;
+      };
+    })(this))["catch"](function(err) {
+      return console.log("setItem Error: " + err);
+    });
+  };
+
+  Cart.prototype.update = function(product, item) {
+    delete item.id;
+    item.productId = product.id;
+    item.productSlug = product.slug;
+    item.productName = product.name;
+    item.price = product.price;
+    item.listPrice = product.listPrice;
+    item.description = product.description;
+    return this.onUpdate(item);
+  };
+
+  Cart.prototype.onUpdate = function(item) {};
+
+  Cart.prototype.promoCode = function(promoCode) {
+    if (promoCode != null) {
+      this.invoice();
+      return this.client.coupon.get(promoCode).then((function(_this) {
+        return function(coupon) {
+          if (coupon.enabled) {
+            _this.data.set('order.coupon', coupon);
+            _this.data.set('order.couponCodes', [promoCode]);
+            _this._cartUpdate({
+              coupon: coupon,
+              couponCodes: [promoCode]
+            });
+            if (coupon.freeProductId !== "" && coupon.freeQuantity > 0) {
+              return _this.client.product.get(coupon.freeProductId).then(function(freeProduct) {
+                return _this.invoice();
+              })["catch"](function(err) {
+                throw new Error('This coupon is invalid.');
+              });
+            } else {
+              _this.invoice();
+            }
+          } else {
+            throw new Error('This code is expired.');
+          }
+        };
+      })(this));
+    }
+    return this.data.get('order.promoCode');
+  };
+
+  Cart.prototype.taxRates = function(taxRates) {
+    if (taxRates != null) {
+      this.data.set('taxRates', taxRates);
+      this.invoice();
+    }
+    return this.data.get('taxRates');
+  };
+
+  Cart.prototype.shippingRates = function(shippingRates) {
+    if (shippingRates != null) {
+      this.data.set('shippingRates', shippingRates);
+      this.invoice();
+    }
+    return this.data.get('shippingRates');
+  };
+
+  Cart.prototype.invoice = function() {
+    var city, country, coupon, discount, gr, i, item, items, j, k, l, len, len1, len2, len3, m, n, postalCode, quantity, rate, ref, ref1, ref10, ref11, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, shipping, shippingRate, shippingRates, state, subtotal, tax, taxRate, taxRates;
+    if (this.inItemlessMode()) {
+      subtotal = (ref = this.data.get('order.subtotal')) != null ? ref : 0;
+      this.data.set('order.subtotal', subtotal);
+      this.data.set('order.total', subtotal);
+      return;
+    }
+    items = this.data.get('order.items');
+    discount = 0;
+    coupon = this.data.get('order.coupon');
+    if (coupon != null) {
+      switch (coupon.type) {
+        case 'flat':
+          if ((coupon.productId == null) || coupon.productId === '') {
+            discount = coupon.amount || 0;
+          } else {
+            ref1 = this.data.get('order.items');
+            for (j = 0, len = ref1.length; j < len; j++) {
+              item = ref1[j];
+              if (item.productId === coupon.productId) {
+                quantity = item.quantity;
+                if (coupon.once) {
+                  quantity = 1;
+                }
+                discount += (coupon.amount || 0) * quantity;
+              }
+            }
+          }
+          break;
+        case 'percent':
+          if ((coupon.productId == null) || coupon.productId === '') {
+            ref2 = this.data.get('order.items');
+            for (k = 0, len1 = ref2.length; k < len1; k++) {
+              item = ref2[k];
+              quantity = item.quantity;
+              if (coupon.once) {
+                quantity = 1;
+              }
+              discount += (coupon.amount || 0) * item.price * quantity * 0.01;
+            }
+          } else {
+            ref3 = this.data.get('order.items');
+            for (m = 0, len2 = ref3.length; m < len2; m++) {
+              item = ref3[m];
+              if (item.productId === coupon.productId) {
+                quantity = item.quantity;
+                if (coupon.once) {
+                  quantity = 1;
+                }
+                discount += (coupon.amount || 0) * item.price * quantity * 0.01;
+              }
+            }
+          }
+          discount = Math.floor(discount);
+      }
+    }
+    this.data.set('order.discount', discount);
+    items = this.data.get('order.items');
+    subtotal = -discount;
+    for (n = 0, len3 = items.length; n < len3; n++) {
+      item = items[n];
+      subtotal += item.price * item.quantity;
+    }
+    this.data.set('order.subtotal', subtotal);
+    taxRates = this.data.get('taxRates');
+    rate = this.data.get('order.taxRate');
+    if (rate == null) {
+      rate = {
+        percent: 0,
+        cost: 0
+      };
+      this.data.set('order.taxRate', rate);
+    }
+    if (taxRates != null) {
+      country = this.data.get('order.shippingAddress.country');
+      state = this.data.get('order.shippingAddress.state');
+      city = this.data.get('order.shippingAddress.city');
+      postalCode = this.data.get('order.shippingAddress.postalCode');
+      ref4 = closestGeoRate(taxRates.geoRates, country, state, city, postalCode), gr = ref4[0], l = ref4[1], i = ref4[2];
+      if (gr == null) {
+        gr = rate;
+      }
+      this.data.set('order.taxRate', gr);
+    }
+    shippingRates = this.data.get('shippingRates');
+    rate = this.data.get('order.shippingRate');
+    if (rate == null) {
+      rate = {
+        percent: 0,
+        cost: 0
+      };
+      this.data.set('order.shippingRate', rate);
+    }
+    if (shippingRates != null) {
+      country = this.data.get('order.shippingAddress.country');
+      state = this.data.get('order.shippingAddress.state');
+      city = this.data.get('order.shippingAddress.city');
+      postalCode = this.data.get('order.shippingAddress.postalCode');
+      ref5 = closestGeoRate(shippingRates.geoRates, country, state, city, postalCode), gr = ref5[0], l = ref5[1], i = ref5[2];
+      if (gr == null) {
+        gr = rate;
+      }
+      this.data.set('order.shippingRate', gr);
+    }
+    taxRate = (ref6 = this.data.get('order.taxRate')) != null ? ref6 : {
+      percent: 0,
+      cost: 0
+    };
+    tax = Math.ceil(((ref7 = taxRate.percent) != null ? ref7 : 0) * subtotal + ((ref8 = taxRate.cost) != null ? ref8 : 0));
+    shippingRate = (ref9 = this.data.get('order.shippingRate')) != null ? ref9 : {
+      percent: 0,
+      cost: 0
+    };
+    shipping = Math.ceil(((ref10 = shippingRate.percent) != null ? ref10 : 0) * subtotal + ((ref11 = shippingRate.cost) != null ? ref11 : 0));
+    this.data.set('order.shipping', shipping);
+    this.data.set('order.tax', tax);
+    return this.data.set('order.total', subtotal + shipping + tax);
+  };
+
+  Cart.prototype.checkout = function() {
+    var data;
+    this.invoice();
+    data = {
+      user: this.data.get('user'),
+      order: this.data.get('order'),
+      payment: this.data.get('payment')
+    };
+    return this.client.checkout.authorize(data).then((function(_this) {
+      return function(order) {
+        var a, i, item, items, j, len, options, p, p2, ref, referralProgram;
+        _this.data.set('coupon', _this.data.get('order.coupon') || {});
+        items = _this.data.get('order.items').slice(0);
+        _this.data.set('order', order);
+        _this.data.set('order.items', items);
+        if (order.type === 'ethereum' || order.type === 'bitcoin') {
+          p = new Promise$2(function(resolve) {
+            return resolve(order);
+          });
+        } else {
+          p = _this.client.checkout.capture(order.id).then(function(order) {
+            items = _this.data.get('order.items').slice(0);
+            _this.data.set('order', order);
+            _this.data.set('order.items', items);
+            return order;
+          })["catch"](function(err) {
+            var ref;
+            if (typeof window !== "undefined" && window !== null) {
+              if ((ref = window.Raven) != null) {
+                ref.captureException(err);
+              }
+            }
+            return console.log("capture Error: " + err);
+          });
+        }
+        referralProgram = _this.data.get('referralProgram');
+        if (referralProgram != null) {
+          p2 = _this.client.referrer.create({
+            userId: _this.data.get('order.userId'),
+            orderId: _this.data.get('order.id'),
+            program: referralProgram,
+            programId: _this.data.get('referralProgram.id')
+          })["catch"](function(err) {
+            var ref;
+            if (typeof window !== "undefined" && window !== null) {
+              if ((ref = window.Raven) != null) {
+                ref.captureException(err);
+              }
+            }
+            return console.log("new referralProgram Error: " + err);
+          });
+          p = Promise$2.settle([p, p2]).then(function(pis) {
+            var referrer;
+            order = pis[0].value;
+            referrer = pis[1].value;
+            _this.data.set('referrerId', referrer.id);
+            return order;
+          })["catch"](function(err) {
+            var ref;
+            if (typeof window !== "undefined" && window !== null) {
+              if ((ref = window.Raven) != null) {
+                ref.captureException(err);
+              }
+            }
+            return console.log("order/referralProgram Error: " + err);
+          });
+        }
+        options = {
+          orderId: _this.data.get('order.id'),
+          total: parseFloat(_this.data.get('order.total') / 100),
+          shipping: parseFloat(_this.data.get('order.shipping') / 100),
+          tax: parseFloat(_this.data.get('order.tax') / 100),
+          discount: parseFloat(_this.data.get('order.discount') / 100),
+          coupon: _this.data.get('order.couponCodes.0') || '',
+          currency: _this.data.get('order.currency'),
+          products: []
+        };
+        ref = _this.data.get('order.items');
+        for (i = j = 0, len = ref.length; j < len; i = ++j) {
+          item = ref[i];
+          a = {
+            id: item.productId,
+            sku: item.productSlug,
+            name: item.productName,
+            quantity: item.quantity,
+            price: parseFloat(item.price / 100)
+          };
+          if (_this.opts.analyticsProductTransform != null) {
+            a = _this.opts.analyticsProductTransform(a);
+          }
+          options.products[i] = a;
+        }
+        analytics$1.track('Completed Order', options);
+        return {
+          p: p
+        };
+      };
+    })(this));
+  };
+
+  return Cart;
+
+})();
+
+var Cart$1 = Cart;
+
+// node_modules/commerce.js/src/index.coffee
 
 // node_modules/shop.js-util/src/uri.coffee
 var queries;
@@ -5805,7 +6540,7 @@ var queries;
 queries = null;
 
 var getQueries = function() {
-  var err, k, match, q, qs, search, v;
+  var k, match, q, qs, search, v;
   if (queries) {
     return queries;
   }
@@ -5822,7 +6557,6 @@ var getQueries = function() {
       try {
         v = decodeURIComponent(v);
       } catch (error) {
-        
       }
       qs[k] = v;
     }
@@ -5839,7 +6573,7 @@ var getReferrer = function(hashReferrer) {
   if (getQueries().referrer != null) {
     ref = getQueries().referrer;
   } else {
-    ref = index$1.get('referrer');
+    ref = index$3.get('referrer');
   }
   if (hashReferrer) {
     r = window.location.hash.replace('#', '');
@@ -5853,7 +6587,12 @@ var getReferrer = function(hashReferrer) {
   }
 };
 
+var getMCIds = function() {
+  return [getQueries().mc_eid, getQueries().mc_cid];
+};
+
 // node_modules/el.js/lib/el.mjs
+
 // src/schedule.coffee
 var id$2;
 var p$1;
@@ -5869,7 +6608,7 @@ p$1 = null;
 
 id$2 = 0;
 
-scheduleUpdate$1 = function(tag$$1) {
+scheduleUpdate$1 = function(tag) {
   var currentTag, parentTag;
   if (!p$1) {
     p$1 = new Promise$2;
@@ -5887,14 +6626,14 @@ scheduleUpdate$1 = function(tag$$1) {
   if (todos$1['*']) {
     return p$1;
   }
-  if (!tag$$1) {
+  if (!tag) {
     todos$1 = {
       '*': riot$1
     };
-  } else if (tag$$1.update == null) {
+  } else if (tag.update == null) {
     throw new Error('tag has no update routine');
   } else {
-    currentTag = tag$$1;
+    currentTag = tag;
     while (currentTag != null) {
       parentTag = currentTag.parent;
       if (!currentTag._schedulingId) {
@@ -5904,7 +6643,7 @@ scheduleUpdate$1 = function(tag$$1) {
       }
       currentTag = parentTag;
     }
-    todos$1[tag$$1._schedulingId] = tag$$1;
+    todos$1[tag._schedulingId] = tag;
   }
   if (rafId$1 === -1) {
     rafId$1 = raf$1(function() {
@@ -6111,7 +6850,7 @@ inputify$2 = function(data, configs) {
       config: config,
       validate: validate
     };
-    observable$1(input);
+    observable(input);
     return inputs[name] = input;
   };
   for (name in configs) {
@@ -6125,11 +6864,11 @@ var inputify$1$1 = inputify$2;
 
 // src/views/form.coffee
 var Form$2;
-var extend$6 = function(child, parent) { for (var key in parent) { if (hasProp$5.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$5 = {}.hasOwnProperty;
+var extend$4 = function(child, parent) { for (var key in parent) { if (hasProp$3.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var hasProp$3 = {}.hasOwnProperty;
 
 Form$2 = (function(superClass) {
-  extend$6(Form, superClass);
+  extend$4(Form, superClass);
 
   function Form() {
     return Form.__super__.constructor.apply(this, arguments);
@@ -6221,7 +6960,7 @@ Input$2 = (function(superClass) {
           return Promise.resolve([ref, name]);
         }
       };
-      observable$1(this.input);
+      observable(this.input);
     }
     this.input.on('validate', (function(_this) {
       return function(pRef) {
@@ -6311,8 +7050,8 @@ var Views$1$1 = Views$2 = {
 // src/index.coffee
 var El$2;
 var fn$2;
-var k$3;
-var v$2;
+var k$2;
+var v$1;
 
 El$2 = {
   Views: Views$1$1,
@@ -6333,26 +7072,26 @@ fn$2 = function(k, v) {
     };
   }
 };
-for (k$3 in riot$1) {
-  v$2 = riot$1[k$3];
-  fn$2(k$3, v$2);
+for (k$2 in riot$1) {
+  v$1 = riot$1[k$2];
+  fn$2(k$2, v$1);
 }
 
 var El$1$1 = El$2;
 
 // node_modules/el-controls/src/events.coffee
-var Events$2;
+var Events;
 
-var ControlEvents = Events$2 = {
+var ControlEvents = Events = {
   Change: 'change',
   ChangeSuccess: 'change-success',
   ChangeFailed: 'change-failed'
 };
 
 // node_modules/shop.js/src/events.coffee
-var Events;
+var Events$1;
 
-var Events$1 = Events = {
+var Events$2 = Events$1 = {
   Started: 'started',
   Ready: 'ready',
   AsyncReady: 'async-ready',
@@ -6434,8 +7173,7 @@ var requiresState = function(code, countries) {
 };
 
 // node_modules/shop.js-util/src/card.coffee
-var cards;
-var defaultFormat;
+var cards, defaultFormat;
 
 defaultFormat = /(\d{1,4})/g;
 
@@ -6557,8 +7295,6 @@ var cardFromNumber = function(num) {
   }
 };
 
-
-
 var restrictNumeric = function(e) {
   var input, key;
   if (e.metaKey || e.ctrlKey) {
@@ -6582,9 +7318,8 @@ var restrictNumeric = function(e) {
 };
 
 // node_modules/shop.js/src/containers/middleware.coffee
-var emailRe;
-var usernameRe;
-var indexOf$2 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var emailRe, usernameRe,
+  indexOf$1 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 emailRe = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -6691,8 +7426,6 @@ var requiresStripe = function(value) {
   return value;
 };
 
-
-
 var cardNumber = function(value) {
   var card, length, number;
   if (!value) {
@@ -6710,7 +7443,7 @@ var cardNumber = function(value) {
   if (!/^\d+$/.test(number)) {
     throw new Error('Enter a valid card number');
   }
-  if (!(indexOf$2.call(card.length, length) >= 0 && (card.luhn === false || luhnCheck(number)))) {
+  if (!(indexOf$1.call(card.length, length) >= 0 && (card.luhn === false || luhnCheck(number)))) {
     throw new Error('Enter a valid card number');
   }
   return value;
@@ -6762,7 +7495,7 @@ var cvc = function(value) {
     throw new Error('Enter a valid cvc');
   }
   if (card && card.type) {
-    if (ref = cvc_.length, indexOf$2.call(card != null ? card.cvcLength : void 0, ref) < 0) {
+    if (ref = cvc_.length, indexOf$1.call(card != null ? card.cvcLength : void 0, ref) < 0) {
       throw new Error('Enter a valid cvc');
     }
   } else {
@@ -6810,9 +7543,9 @@ var configs = config = {
 var html = "\n<form onsubmit=\"{ submit }\">\n  <yield>\n    <div class=\"contact checkout-section\">\n      <h2>Contact</h2>\n      <div class=\"fields\">\n        <user-name class=\"input\" label=\"Name\"></user-name>\n        <user-email class=\"input\" label=\"Email\"></user-email>\n      </div>\n    </div>\n    <div class=\"payment checkout-section\">\n      <h2>Payment</h2><span class=\"secured-text\">SSL Secure<span>Checkout</span><img class=\"lock-icon\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/lock-icon.svg\"></span>\n      <div class=\"fields\">\n        <card-name class=\"input\" label=\"Name on Card\"></card-name>\n        <card-number class=\"input\" name=\"number\" label=\"Card Number\">\n          <div class=\"cards-accepted\"><img class=\"card-logo amex-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/card-logos/amex.svg\"><img class=\"card-logo visa-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/card-logos/visa.svg\"><img class=\"card-logo discover-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/card-logos/discover.svg\"><img class=\"card-logo jcb-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/card-logos/jcb.svg\"><img class=\"card-logo mastercard-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/card-logos/mastercard.svg\"><a class=\"stripe-link\" href=\"//www.stripe.com\" target=\"_blank\"><img class=\"stripe-logo\" src=\"//cdn.jsdelivr.net/gh/hanzo-io/shop.js/img/stripelogo.png\"></a></div>\n        </card-number>\n        <div class=\"inline-fields\">\n          <card-expiry class=\"input\" name=\"expiry\" label=\"MM / YY\"></card-expiry>\n          <card-cvc class=\"input\" name=\"cvc\" label=\"CVC\"></card-cvc>\n        </div>\n      </div>\n    </div>\n    <div class=\"shipping checkout-section\">\n      <h2>Shipping</h2>\n      <shippingaddress-name class=\"input\" label=\"Recipient\"></shippingaddress-name>\n      <div class=\"inline-fields line1-line2\">\n        <shippingaddress-line1 class=\"input\" label=\"Address\"></shippingaddress-line1>\n        <shippingaddress-line2 class=\"input\" label=\"Suite\"></shippingaddress-line2>\n      </div>\n      <shippingaddress-city class=\"input\" label=\"City\"></shippingaddress-city>\n      <shippingaddress-country class=\"input\" label=\"Country\" placeholder=\"Select a Country\"></shippingaddress-country>\n      <div class=\"inline-fields state-postal-code\">\n        <shippingaddress-state class=\"input\" label=\"State\" placeholder=\"Select a State\"></shippingaddress-state>\n        <shippingaddress-postalcode class=\"input\" label=\"Postal Code\"></shippingaddress-postalcode>\n      </div>\n    </div>\n    <div class=\"complete checkout-section\">\n      <h2>Complete Checkout</h2>\n      <terms class=\"checkbox\">\n        <label for=\"{ getId() }\">I have read and accept the&nbsp;<a href=\"{ termsUrl }\" target=\"_blank\">terms and conditions</a></label>\n      </terms>\n      <button class=\"{ loading: loading || checkedOut }\" disabled=\"{ loading || checkedOut }\" type=\"submit\"><span>Checkout</span></button>\n      <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    </div>\n  </yield>\n</form>";
 
 // node_modules/shop.js/src/containers/checkout.coffee
-var CheckoutForm;
-var extend$5 = function(child, parent) { for (var key in parent) { if (hasProp$4.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$4 = {}.hasOwnProperty;
+var CheckoutForm,
+  extend$5 = function(child, parent) { for (var key in parent) { if (hasProp$4.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$4 = {}.hasOwnProperty;
 
 CheckoutForm = (function(superClass) {
   extend$5(CheckoutForm, superClass);
@@ -6881,7 +7614,7 @@ CheckoutForm = (function(superClass) {
       return;
     }
     this.loading = true;
-    this.mediator.trigger(Events$1.Submit, this.tag);
+    this.mediator.trigger(Events$2.Submit, this.tag);
     this.errorMessage = '';
     El$1$1.scheduleUpdate();
     email = '';
@@ -6910,15 +7643,15 @@ CheckoutForm = (function(superClass) {
             setTimeout(function() {
               if (!hasErrored) {
                 _this.loading = false;
-                index$1.clear();
+                index$3.clear();
                 _this.checkedOut = true;
                 return El$1$1.scheduleUpdate();
               }
             }, 200);
-            _this.mediator.trigger(Events$1.SubmitSuccess, order);
+            _this.mediator.trigger(Events$2.SubmitSuccess, order);
             return order;
           })["catch"](function(err) {
-            var hasErrored, ref;
+            var ref;
             if (typeof window !== "undefined" && window !== null) {
               if ((ref = window.Raven) != null) {
                 ref.captureException(err);
@@ -6927,7 +7660,7 @@ CheckoutForm = (function(superClass) {
             _this.loading = false;
             console.log("checkout submit Error: " + err);
             _this.errorMessage = 'Unable to complete your transaction. Please try again later.';
-            _this.mediator.trigger(Events$1.SubmitFailed, err);
+            _this.mediator.trigger(Events$2.SubmitFailed, err);
             return El$1$1.scheduleUpdate();
           });
         })["catch"](function(err) {
@@ -6944,7 +7677,7 @@ CheckoutForm = (function(superClass) {
             }
             _this.errorMessage = 'Unable to complete your transaction. Please try again later.';
           }
-          _this.mediator.trigger(Events$1.SubmitFailed, err);
+          _this.mediator.trigger(Events$2.SubmitFailed, err);
           return El$1$1.scheduleUpdate();
         });
       };
@@ -6963,7 +7696,7 @@ CheckoutForm = (function(superClass) {
           }
           _this.errorMessage = 'Unable to complete your transaction. Please try again later.';
         }
-        _this.mediator.trigger(Events$1.SubmitFailed, err);
+        _this.mediator.trigger(Events$2.SubmitFailed, err);
         return El$1$1.scheduleUpdate();
       };
     })(this));
@@ -6981,12 +7714,12 @@ var CheckoutForm$1 = CheckoutForm;
 var html$1 = "\n<form onsubmit=\"{ submit }\">\n  <yield>\n    <div class=\"deposit checkout-section\" if=\"{ data.get(&quot;order.mode&quot;) }\">\n      <h2 if=\"{ data.get(&quot;order.mode&quot;) == &quot;deposit&quot; }\">Deposit Funds</h2>\n      <h2 if=\"{ data.get(&quot;order.mode&quot;) == &quot;contribution&quot; }\">Contribute</h2>\n      <div class=\"fields\">\n        <text class=\"input\" label=\"Deposit Amount\"></text>\n      </div>\n    </div>\n    <div class=\"complete checkout-section\" if=\"{ data.get(&quot;order.mode&quot;) }\">\n      <button class=\"{ loading: loading || checkedOut }\" disabled=\"{ loading || checkedOut }\" type=\"submit\"><span>Checkout</span></button>\n      <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    </div>\n    <div class=\"deposit checkout-section\" if=\"{ !data.get(&quot;order.mode&quot;) }\">\n      <p>Error: <deposit> requires order.mode to be 'deposit' or 'contribution'</p>\n    </div>\n  </yield>\n</form>";
 
 // node_modules/shop.js/src/containers/deposit.coffee
-var DepositForm;
-var extend$4 = function(child, parent) { for (var key in parent) { if (hasProp$3.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$3 = {}.hasOwnProperty;
+var DepositForm,
+  extend$6 = function(child, parent) { for (var key in parent) { if (hasProp$5.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$5 = {}.hasOwnProperty;
 
 DepositForm = (function(superClass) {
-  extend$4(DepositForm, superClass);
+  extend$6(DepositForm, superClass);
 
   function DepositForm() {
     return DepositForm.__super__.constructor.apply(this, arguments);
@@ -7012,9 +7745,9 @@ var Deposit = DepositForm;
 var html$2 = "\n<form onsubmit=\"{ submit }\">\n  <yield>\n    <user-email class=\"input\" placeholder=\"Email\"></user-email>\n    <user-password class=\"input\" placeholder=\"Password\"></user-password>\n    <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    <button type=\"submit\">Login</button>\n  </yield>\n</form>";
 
 // node_modules/shop.js/src/containers/login.coffee
-var LoginForm;
-var extend$7 = function(child, parent) { for (var key in parent) { if (hasProp$6.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$6 = {}.hasOwnProperty;
+var LoginForm,
+  extend$7 = function(child, parent) { for (var key in parent) { if (hasProp$6.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$6 = {}.hasOwnProperty;
 
 LoginForm = (function(superClass) {
   extend$7(LoginForm, superClass);
@@ -7042,16 +7775,16 @@ LoginForm = (function(superClass) {
     };
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.Login);
+    this.mediator.trigger(Events$2.Login);
     return this.client.account.login(opts).then((function(_this) {
       return function(res) {
-        _this.mediator.trigger(Events$1.LoginSuccess, res);
+        _this.mediator.trigger(Events$2.LoginSuccess, res);
         return _this.scheduleUpdate();
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.LoginFailed, err);
+        _this.mediator.trigger(Events$2.LoginFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7069,9 +7802,9 @@ var Login = LoginForm;
 var html$3 = "\n<form onsubmit=\"{ submit }\">\n  <yield></yield>\n</form>";
 
 // node_modules/shop.js/src/containers/profile.coffee
-var ProfileForm;
-var extend$8 = function(child, parent) { for (var key in parent) { if (hasProp$7.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$7 = {}.hasOwnProperty;
+var ProfileForm,
+  extend$8 = function(child, parent) { for (var key in parent) { if (hasProp$7.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$7 = {}.hasOwnProperty;
 
 ProfileForm = (function(superClass) {
   extend$8(ProfileForm, superClass);
@@ -7101,7 +7834,7 @@ ProfileForm = (function(superClass) {
   };
 
   ProfileForm.prototype.init = function() {
-    this.mediator.trigger(Events$1.ProfileLoad);
+    this.mediator.trigger(Events$2.ProfileLoad);
     this.client.account.get().then((function(_this) {
       return function(res) {
         var firstName, lastName;
@@ -7111,7 +7844,7 @@ ProfileForm = (function(superClass) {
         _this.data.set('user.name', firstName + ' ' + lastName);
         if (_this.data.get('referralProgram') && ((res.referrers == null) || res.referrers.length === 0)) {
           return raf(function() {
-            _this.mediator.trigger(Events$1.CreateReferralProgram);
+            _this.mediator.trigger(Events$2.CreateReferralProgram);
             return _this.client.referrer.create({
               program: _this.data.get('referralProgram'),
               programId: _this.data.get('referralProgram.id'),
@@ -7120,25 +7853,25 @@ ProfileForm = (function(superClass) {
               var refrs;
               refrs = [res2];
               _this.data.set('user.referrers', refrs);
-              _this.mediator.trigger(Events$1.CreateReferralProgramSuccess, refrs);
-              _this.mediator.trigger(Events$1.ProfileLoadSuccess, res);
+              _this.mediator.trigger(Events$2.CreateReferralProgramSuccess, refrs);
+              _this.mediator.trigger(Events$2.ProfileLoadSuccess, res);
               return El$1$1.scheduleUpdate();
             })["catch"](function(err) {
               _this.errorMessage = err.message;
-              _this.mediator.trigger(Events$1.CreateReferralProgramFailed, err);
-              _this.mediator.trigger(Events$1.ProfileLoadSuccess, res);
+              _this.mediator.trigger(Events$2.CreateReferralProgramFailed, err);
+              _this.mediator.trigger(Events$2.ProfileLoadSuccess, res);
               return El$1$1.scheduleUpdate();
             });
           });
         } else {
-          _this.mediator.trigger(Events$1.ProfileLoadSuccess, res);
+          _this.mediator.trigger(Events$2.ProfileLoadSuccess, res);
           return El$1$1.scheduleUpdate();
         }
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.ProfileLoadFailed, err);
+        _this.mediator.trigger(Events$2.ProfileLoadFailed, err);
         return El$1$1.scheduleUpdate();
       };
     })(this));
@@ -7157,19 +7890,19 @@ ProfileForm = (function(superClass) {
     };
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.ProfileUpdate);
+    this.mediator.trigger(Events$2.ProfileUpdate);
     return this.client.account.update(opts).then((function(_this) {
       return function(res) {
         _this.data.set('user.currentPassword', null);
         _this.data.set('user.password', null);
         _this.data.set('user.passwordConfirm', null);
-        _this.mediator.trigger(Events$1.ProfileUpdateSuccess, res);
+        _this.mediator.trigger(Events$2.ProfileUpdateSuccess, res);
         return _this.scheduleUpdate();
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.ProfileUpdateFailed, err);
+        _this.mediator.trigger(Events$2.ProfileUpdateFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7187,9 +7920,9 @@ var Profile = ProfileForm;
 var html$4 = "\n<form onsubmit=\"{ submit }\">\n  <yield>\n    <user-name class=\"input\" placeholder=\"Name\"></user-name>\n    <user-email class=\"input\" placeholder=\"Email\"></user-email>\n    <user-password class=\"input\" placeholder=\"Password\"></user-password>\n    <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    <button type=\"submit\">Register</button>\n  </yield>\n</form>";
 
 // node_modules/shop.js/src/containers/register.coffee
-var RegisterForm;
-var extend$9 = function(child, parent) { for (var key in parent) { if (hasProp$8.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$8 = {}.hasOwnProperty;
+var RegisterForm,
+  extend$9 = function(child, parent) { for (var key in parent) { if (hasProp$8.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$8 = {}.hasOwnProperty;
 
 RegisterForm = (function(superClass) {
   extend$9(RegisterForm, superClass);
@@ -7245,19 +7978,19 @@ RegisterForm = (function(superClass) {
     }
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.Register);
+    this.mediator.trigger(Events$2.Register);
     return this.client.account.create(opts).then((function(_this) {
       return function(res) {
         var latency;
-        _this.mediator.trigger(Events$1.RegisterSuccess, res);
+        _this.mediator.trigger(Events$2.RegisterSuccess, res);
         _this.scheduleUpdate();
         if (_this.immediateLogin && res.token) {
           _this.client.setCustomerToken(res.token);
           latency = _this.immediateLoginLatency / 2;
           return setTimeout(function() {
-            _this.mediator.trigger(Events$1.Login);
+            _this.mediator.trigger(Events$2.Login);
             return setTimeout(function() {
-              _this.mediator.trigger(Events$1.LoginSuccess, res);
+              _this.mediator.trigger(Events$2.LoginSuccess, res);
               return _this.scheduleUpdate();
             }, latency);
           }, latency);
@@ -7266,7 +7999,7 @@ RegisterForm = (function(superClass) {
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.RegisterFailed, err);
+        _this.mediator.trigger(Events$2.RegisterFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7281,9 +8014,9 @@ RegisterForm.register();
 var Register = RegisterForm;
 
 // node_modules/shop.js/src/containers/register-complete.coffee
-var RegisterCompleteForm;
-var extend$10 = function(child, parent) { for (var key in parent) { if (hasProp$9.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$9 = {}.hasOwnProperty;
+var RegisterCompleteForm,
+  extend$10 = function(child, parent) { for (var key in parent) { if (hasProp$9.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$9 = {}.hasOwnProperty;
 
 RegisterCompleteForm = (function(superClass) {
   extend$10(RegisterCompleteForm, superClass);
@@ -7330,19 +8063,19 @@ RegisterCompleteForm = (function(superClass) {
     }
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.RegisterComplete);
+    this.mediator.trigger(Events$2.RegisterComplete);
     return this.client.account.enable(opts).then((function(_this) {
       return function(res) {
         if (res.token) {
           _this.client.setCustomerToken(res.token);
         }
-        _this.mediator.trigger(Events$1.RegisterCompleteSuccess, res);
+        _this.mediator.trigger(Events$2.RegisterCompleteSuccess, res);
         return _this.scheduleUpdate();
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.RegisterCompleteFailed, err);
+        _this.mediator.trigger(Events$2.RegisterCompleteFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7360,9 +8093,9 @@ var RegisterComplete = RegisterCompleteForm;
 var html$5 = "\n<form onsubmit=\"{ submit }\">\n  <yield >\n    <user-email class=\"input\" placeholder=\"Email\"></user-email>\n    <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    <button type=\"submit\">Reset</button>\n  </yield >\n</form>";
 
 // node_modules/shop.js/src/containers/reset-password.coffee
-var ResetPasswordForm;
-var extend$11 = function(child, parent) { for (var key in parent) { if (hasProp$10.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$10 = {}.hasOwnProperty;
+var ResetPasswordForm,
+  extend$11 = function(child, parent) { for (var key in parent) { if (hasProp$10.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$10 = {}.hasOwnProperty;
 
 ResetPasswordForm = (function(superClass) {
   extend$11(ResetPasswordForm, superClass);
@@ -7392,16 +8125,16 @@ ResetPasswordForm = (function(superClass) {
     };
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.ResetPassword);
+    this.mediator.trigger(Events$2.ResetPassword);
     return this.client.account.reset(opts).then((function(_this) {
       return function(res) {
-        _this.mediator.trigger(Events$1.ResetPasswordSuccess, res);
+        _this.mediator.trigger(Events$2.ResetPasswordSuccess, res);
         return _this.scheduleUpdate();
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message;
-        _this.mediator.trigger(Events$1.ResetPasswordFailed, err);
+        _this.mediator.trigger(Events$2.ResetPasswordFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7419,9 +8152,9 @@ var ResetPassword = ResetPasswordForm;
 var html$6 = "\n<form onsubmit=\"{ submit }\">\n  <yield>\n    <user-password class=\"input\" placeholder=\"Password\"></user-password>\n    <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n    <button type=\"submit\">Reset</button>\n  </yield>\n</form>";
 
 // node_modules/shop.js/src/containers/reset-password-complete.coffee
-var ResetPasswordCompleteForm;
-var extend$12 = function(child, parent) { for (var key in parent) { if (hasProp$11.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$11 = {}.hasOwnProperty;
+var ResetPasswordCompleteForm,
+  extend$12 = function(child, parent) { for (var key in parent) { if (hasProp$11.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$11 = {}.hasOwnProperty;
 
 ResetPasswordCompleteForm = (function(superClass) {
   extend$12(ResetPasswordCompleteForm, superClass);
@@ -7454,19 +8187,19 @@ ResetPasswordCompleteForm = (function(superClass) {
     };
     this.errorMessage = '';
     this.scheduleUpdate();
-    this.mediator.trigger(Events$1.ResetPasswordComplete);
+    this.mediator.trigger(Events$2.ResetPasswordComplete);
     return this.client.account.confirm(opts).then((function(_this) {
       return function(res) {
         if (res.token) {
           _this.client.setCustomerToken(res.token);
         }
-        _this.mediator.trigger(Events$1.ResetPasswordCompleteSuccess, res);
+        _this.mediator.trigger(Events$2.ResetPasswordCompleteSuccess, res);
         return _this.scheduleUpdate();
       };
     })(this))["catch"]((function(_this) {
       return function(err) {
         _this.errorMessage = err.message.replace('Token', 'Link');
-        _this.mediator.trigger(Events$1.ResetPasswordCompleteFailed, err);
+        _this.mediator.trigger(Events$2.ResetPasswordCompleteFailed, err);
         return _this.scheduleUpdate();
       };
     })(this));
@@ -7604,9 +8337,7 @@ var currencies = {
 };
 
 // node_modules/shop.js-util/src/currency.coffee
-var currencySeparator;
-var currencySigns;
-var digitsOnlyRe;
+var currencySeparator, currencySigns, digitsOnlyRe;
 
 currencySeparator = '.';
 
@@ -7627,8 +8358,6 @@ var isZeroDecimal = function(code) {
 var isCrypto = function(code) {
   return code === 'eth' || code === 'btc' || code === 'xbt';
 };
-
-
 
 var renderUICurrencyFromJSON = function(code, jsonCurrency) {
   var currentCurrencySign, ref;
@@ -7678,9 +8407,9 @@ var renderJSONCurrencyFromUI = function(code, uiCurrency) {
 };
 
 // node_modules/shop.js/src/containers/thankyou.coffee
-var ThankYouForm;
-var extend$13 = function(child, parent) { for (var key in parent) { if (hasProp$12.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$12 = {}.hasOwnProperty;
+var ThankYouForm,
+  extend$13 = function(child, parent) { for (var key in parent) { if (hasProp$12.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$12 = {}.hasOwnProperty;
 
 ThankYouForm = (function(superClass) {
   extend$13(ThankYouForm, superClass);
@@ -7733,20 +8462,20 @@ ThankYouForm = (function(superClass) {
   };
 
   ThankYouForm.prototype.payWithMetamask = function() {
-    var err, userAddress;
+    var userAddress;
     if (this.loading) {
       return;
     }
-    this.mediator.trigger(Events$1.PayWithMetamask);
+    this.mediator.trigger(Events$2.PayWithMetamask);
     this.errorMessage = '';
     El$1$1.scheduleUpdate();
     if (!this.isMetamaskInstalled()) {
-      this.mediator.trigger(Events$1.PayWithMetamaskFailed, new Error('Metamask not installed'));
+      this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Metamask not installed'));
       this.errorMessage = 'Metamask not installed';
       return;
     }
     if (this.getCurrency() !== 'eth') {
-      this.mediator.trigger(Events$1.PayWithMetamaskFailed, new Error('Metamask only supports ETH transactions'));
+      this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Metamask only supports ETH transactions'));
       this.errorMessage = 'Metamask only supports ETH transactions';
       return;
     }
@@ -7763,21 +8492,21 @@ ThankYouForm = (function(superClass) {
           _this.checkedOut = true;
           El$1$1.scheduleUpdate();
           if (err) {
-            _this.mediator.trigger(Events$1.PayWithMetamaskFailed, err);
+            _this.mediator.trigger(Events$2.PayWithMetamaskFailed, err);
             _this.errorMessage = err;
             return;
           }
-          return _this.mediator.trigger(Events$1.PayWithMetamaskSuccess, transactionHash);
+          return _this.mediator.trigger(Events$2.PayWithMetamaskSuccess, transactionHash);
         };
       })(this));
     } catch (error) {
       this.loading = false;
       El$1$1.scheduleUpdate();
       if (this.test) {
-        this.mediator.trigger(Events$1.PayWithMetamaskFailed, new Error('Error: <thankyou> is in test mode'));
+        this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Error: <thankyou> is in test mode'));
         return this.errorMessage = 'Error: <thankyou> is in test mode';
       } else {
-        this.mediator.trigger(Events$1.PayWithMetamaskFailed, new Error('Invalid address'));
+        this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Invalid address'));
         return this.errorMessage = 'Invalid address';
       }
     }
@@ -7825,6 +8554,8 @@ ThankYouForm = (function(superClass) {
 
 ThankYouForm.register();
 
+var ThankYou = ThankYouForm;
+
 // node_modules/es6-tween/src/shim.js
 var __assign = (undefined && undefined.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -7834,9 +8565,6 @@ var __assign = (undefined && undefined.__assign) || Object.assign || function(t)
     }
     return t;
 };
-/* global global */
-
-
 var root = typeof window !== 'undefined'
     ? window
     : typeof global !== 'undefined' ? global : undefined;
@@ -7846,7 +8574,6 @@ var cancelAnimationFrame$1 = root.cancelAnimationFrame ||
     (function (id) { return root.clearTimeout(id); });
 
 // node_modules/es6-tween/src/core.js
-/* global process */
 /**
  * Get browser/Node.js current time-stamp
  * @return Normalised current time-stamp in milliseconds
@@ -8199,7 +8926,6 @@ var EVENT_SEEK = 'seek';
 var STRING_PROP = 'STRING_PROP';
 // Also RegExp's for string tweening
 var NUM_REGEX = /\s+|([A-Za-z?().,{}:""[\]#\%]+)|([-+]=+)?([-+]+)?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]=?\d+)?/g;
-
 // Copies everything, duplicates, no shallow-copy
 function deepCopy(source) {
     if ((source && source.nodeType) || source === undefined || typeof source !== 'object') {
@@ -8517,7 +9243,7 @@ var Interpolation = {
                 }
             }
             else if (typeof b === 'string') {
-                var STRING_BUFFER = '', idx = Math.round(n * k), pidx = idx - 1 < 0 ? 0 : idx - 1, nidx = idx + 1 > n ? n : idx + 1, vCurr = v[idx], vPrev = v[pidx];
+                var STRING_BUFFER = '', idx = Math.round(n * k), pidx = idx - 1 < 0 ? 0 : idx - 1, vCurr = v[idx], vPrev = v[pidx];
                 for (var ks = 1, len = vCurr.length; ks < len; ks++) {
                     STRING_BUFFER += vCurr[ks];
                 }
@@ -9435,18 +10161,16 @@ var valueOrCall = function(valueOrFunc) {
 };
 
 // node_modules/el-controls/src/controls/control.coffee
-var Control;
-var _controlId;
-var scrolling;
-var extend$16 = function(child, parent) { for (var key in parent) { if (hasProp$15.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$15 = {}.hasOwnProperty;
+var Control, _controlId, scrolling,
+  extend$14 = function(child, parent) { for (var key in parent) { if (hasProp$13.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$13 = {}.hasOwnProperty;
 
 scrolling = false;
 
 _controlId = 0;
 
 var Control$1 = Control = (function(superClass) {
-  extend$16(Control, superClass);
+  extend$14(Control, superClass);
 
   function Control() {
     return Control.__super__.constructor.apply(this, arguments);
@@ -9523,9 +10247,7 @@ var Control$1 = Control = (function(superClass) {
 })(El$1.Input);
 
 // node_modules/el-controls/src/utils/placeholder.coffee
-var exports$1;
-var hidePlaceholderOnFocus;
-var unfocusOnAnElement;
+var exports$1, hidePlaceholderOnFocus, unfocusOnAnElement;
 
 hidePlaceholderOnFocus = function(event) {
   var target;
@@ -9575,9 +10297,9 @@ var placeholder = exports$1;
 var html$8 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onchange=\"{ change }\" onblur=\"{ change }\" riot-value=\"{ input.ref.get(input.name) }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"{ readonly }\" placeholder=\"{ placeholder }\">\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: input.ref.get(input.name) || placeholder }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
 // node_modules/el-controls/src/controls/text.coffee
-var Text;
-var extend$15 = function(child, parent) { for (var key in parent) { if (hasProp$14.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$14 = {}.hasOwnProperty;
+var Text,
+  extend$15 = function(child, parent) { for (var key in parent) { if (hasProp$14.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$14 = {}.hasOwnProperty;
 
 var Text$1 = Text = (function(superClass) {
   extend$15(Text, superClass);
@@ -9636,13 +10358,13 @@ var keys = {
 };
 
 // node_modules/shop.js/src/controls/card/card-cvc.coffee
-var CardCVC;
-var extend$14 = function(child, parent) { for (var key in parent) { if (hasProp$13.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$13 = {}.hasOwnProperty;
-var indexOf$3 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var CardCVC,
+  extend$16 = function(child, parent) { for (var key in parent) { if (hasProp$15.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$15 = {}.hasOwnProperty,
+  indexOf$2 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 CardCVC = (function(superClass) {
-  extend$14(CardCVC, superClass);
+  extend$16(CardCVC, superClass);
 
   function CardCVC() {
     return CardCVC.__super__.constructor.apply(this, arguments);
@@ -9661,7 +10383,7 @@ CardCVC = (function(superClass) {
         _this._limit4 = function(e) {
           var key, value;
           key = e.keyCode;
-          if (indexOf$3.call(keys.numeric, key) < 0) {
+          if (indexOf$2.call(keys.numeric, key) < 0) {
             return true;
           }
           value = el.value + String.fromCharCode(key);
@@ -9690,10 +10412,10 @@ CardCVC.register();
 var CardCVC$1 = CardCVC;
 
 // node_modules/shop.js/src/controls/card/card-expiry.coffee
-var CardExpiry;
-var extend$17 = function(child, parent) { for (var key in parent) { if (hasProp$16.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$16 = {}.hasOwnProperty;
-var indexOf$4 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var CardExpiry,
+  extend$17 = function(child, parent) { for (var key in parent) { if (hasProp$16.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$16 = {}.hasOwnProperty,
+  indexOf$3 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 CardExpiry = (function(superClass) {
   extend$17(CardExpiry, superClass);
@@ -9715,7 +10437,7 @@ CardExpiry = (function(superClass) {
         _this._limit7 = function(e) {
           var key, value;
           key = e.keyCode;
-          if (indexOf$4.call(keys.numeric, key) < 0) {
+          if (indexOf$3.call(keys.numeric, key) < 0) {
             return true;
           }
           value = el.value + String.fromCharCode(key);
@@ -9753,9 +10475,9 @@ CardExpiry.register();
 var CardExpiry$1 = CardExpiry;
 
 // node_modules/shop.js/src/controls/card/card-name.coffee
-var CardName;
-var extend$18 = function(child, parent) { for (var key in parent) { if (hasProp$17.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$17 = {}.hasOwnProperty;
+var CardName,
+  extend$18 = function(child, parent) { for (var key in parent) { if (hasProp$17.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$17 = {}.hasOwnProperty;
 
 CardName = (function(superClass) {
   extend$18(CardName, superClass);
@@ -9777,10 +10499,10 @@ CardName.register();
 var CardName$1 = CardName;
 
 // node_modules/shop.js/src/controls/card/card-number.coffee
-var CardNumber;
-var extend$19 = function(child, parent) { for (var key in parent) { if (hasProp$18.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$18 = {}.hasOwnProperty;
-var indexOf$5 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var CardNumber,
+  extend$19 = function(child, parent) { for (var key in parent) { if (hasProp$18.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$18 = {}.hasOwnProperty,
+  indexOf$4 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 CardNumber = (function(superClass) {
   extend$19(CardNumber, superClass);
@@ -9804,7 +10526,7 @@ CardNumber = (function(superClass) {
         _this._identifyCard = function(e) {
           var card, i, j, k, key, length, newValue, ref, ref1, upperLength, value;
           key = e.keyCode;
-          if (indexOf$5.call(keys.numeric, key) < 0) {
+          if (indexOf$4.call(keys.numeric, key) < 0) {
             return true;
           }
           if (_this.cardType) {
@@ -9874,9 +10596,9 @@ CardNumber.register();
 var CardNumber$1 = CardNumber;
 
 // node_modules/shop.js/src/controls/checkout/promocode.coffee
-var PromoCode;
-var extend$20 = function(child, parent) { for (var key in parent) { if (hasProp$19.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$19 = {}.hasOwnProperty;
+var PromoCode,
+  extend$20 = function(child, parent) { for (var key in parent) { if (hasProp$19.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$19 = {}.hasOwnProperty;
 
 PromoCode = (function(superClass) {
   extend$20(PromoCode, superClass);
@@ -9899,12 +10621,12 @@ PromoCode.register();
 var html$9 = "\n<yield from=\"input\">\n  <select class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" onchange=\"{ change }\" onblur=\"{ change }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled || !hasOptions() }\" multiple=\"{ multiple }\" size=\"{ size }\">\n    <option if=\"{ placeholder }\" value=\"\">{ placeholder }</option>\n    <option each=\"{ v, k in options() }\" value=\"{ k }\" selected=\"{ k == input.ref.get(input.name) }\">{ v }</option>\n  </select>\n  <div class=\"select-indicator\">▼</div>\n</yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
 // node_modules/el-controls/src/controls/selection.coffee
-var Select;
-var extend$22 = function(child, parent) { for (var key in parent) { if (hasProp$21.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$21 = {}.hasOwnProperty;
+var Select,
+  extend$21 = function(child, parent) { for (var key in parent) { if (hasProp$20.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$20 = {}.hasOwnProperty;
 
 var Select$1 = Select = (function(superClass) {
-  extend$22(Select, superClass);
+  extend$21(Select, superClass);
 
   function Select() {
     return Select.__super__.constructor.apply(this, arguments);
@@ -9963,21 +10685,18 @@ var Select$1 = Select = (function(superClass) {
 Select.register();
 
 // node_modules/shop.js/src/controls/checkout/quantity-select.coffee
-var QuantitySelect;
-var i$1;
-var j$1;
-var opts$1;
-var extend$21 = function(child, parent) { for (var key in parent) { if (hasProp$20.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$20 = {}.hasOwnProperty;
+var QuantitySelect, i$1, j$1, opts,
+  extend$22 = function(child, parent) { for (var key in parent) { if (hasProp$21.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$21 = {}.hasOwnProperty;
 
-opts$1 = {};
+opts = {};
 
 for (i$1 = j$1 = 1; j$1 < 100; i$1 = ++j$1) {
-  opts$1[i$1] = i$1;
+  opts[i$1] = i$1;
 }
 
 var QuantitySelect$1 = QuantitySelect = (function(superClass) {
-  extend$21(QuantitySelect, superClass);
+  extend$22(QuantitySelect, superClass);
 
   function QuantitySelect() {
     return QuantitySelect.__super__.constructor.apply(this, arguments);
@@ -9988,7 +10707,7 @@ var QuantitySelect$1 = QuantitySelect = (function(superClass) {
   QuantitySelect.prototype.bind = 'quantity';
 
   QuantitySelect.prototype.options = function() {
-    return opts$1;
+    return opts;
   };
 
   QuantitySelect.prototype.init = function() {
@@ -10021,9 +10740,9 @@ var QuantitySelect$1 = QuantitySelect = (function(superClass) {
 QuantitySelect.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-city.coffee
-var ShippingAddressCity;
-var extend$23 = function(child, parent) { for (var key in parent) { if (hasProp$22.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$22 = {}.hasOwnProperty;
+var ShippingAddressCity,
+  extend$23 = function(child, parent) { for (var key in parent) { if (hasProp$22.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$22 = {}.hasOwnProperty;
 
 var ShippingAddressCity$1 = ShippingAddressCity = (function(superClass) {
   extend$23(ShippingAddressCity, superClass);
@@ -10043,12 +10762,12 @@ var ShippingAddressCity$1 = ShippingAddressCity = (function(superClass) {
 ShippingAddressCity.register();
 
 // node_modules/el-controls/src/controls/country-select.coffee
-var CountrySelect;
-var extend$25 = function(child, parent) { for (var key in parent) { if (hasProp$24.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$24 = {}.hasOwnProperty;
+var CountrySelect,
+  extend$24 = function(child, parent) { for (var key in parent) { if (hasProp$23.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$23 = {}.hasOwnProperty;
 
 var CountrySelect$1 = CountrySelect = (function(superClass) {
-  extend$25(CountrySelect, superClass);
+  extend$24(CountrySelect, superClass);
 
   function CountrySelect() {
     return CountrySelect.__super__.constructor.apply(this, arguments);
@@ -10097,12 +10816,12 @@ var CountrySelect$1 = CountrySelect = (function(superClass) {
 CountrySelect.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-country.coffee
-var ShippingAddressCountry;
-var extend$24 = function(child, parent) { for (var key in parent) { if (hasProp$23.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$23 = {}.hasOwnProperty;
+var ShippingAddressCountry,
+  extend$25 = function(child, parent) { for (var key in parent) { if (hasProp$24.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$24 = {}.hasOwnProperty;
 
 var ShippingAddressCountry$1 = ShippingAddressCountry = (function(superClass) {
-  extend$24(ShippingAddressCountry, superClass);
+  extend$25(ShippingAddressCountry, superClass);
 
   function ShippingAddressCountry() {
     return ShippingAddressCountry.__super__.constructor.apply(this, arguments);
@@ -10131,9 +10850,9 @@ var ShippingAddressCountry$1 = ShippingAddressCountry = (function(superClass) {
 ShippingAddressCountry.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-line1.coffee
-var ShippingAddressLine1;
-var extend$26 = function(child, parent) { for (var key in parent) { if (hasProp$25.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$25 = {}.hasOwnProperty;
+var ShippingAddressLine1,
+  extend$26 = function(child, parent) { for (var key in parent) { if (hasProp$25.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$25 = {}.hasOwnProperty;
 
 var ShippingAddressLine1$1 = ShippingAddressLine1 = (function(superClass) {
   extend$26(ShippingAddressLine1, superClass);
@@ -10153,9 +10872,9 @@ var ShippingAddressLine1$1 = ShippingAddressLine1 = (function(superClass) {
 ShippingAddressLine1.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-line2.coffee
-var ShippingAddressLine2;
-var extend$27 = function(child, parent) { for (var key in parent) { if (hasProp$26.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$26 = {}.hasOwnProperty;
+var ShippingAddressLine2,
+  extend$27 = function(child, parent) { for (var key in parent) { if (hasProp$26.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$26 = {}.hasOwnProperty;
 
 var ShippingAddressLine2$1 = ShippingAddressLine2 = (function(superClass) {
   extend$27(ShippingAddressLine2, superClass);
@@ -10175,9 +10894,9 @@ var ShippingAddressLine2$1 = ShippingAddressLine2 = (function(superClass) {
 ShippingAddressLine2.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-name.coffee
-var ShippingAddressName;
-var extend$28 = function(child, parent) { for (var key in parent) { if (hasProp$27.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$27 = {}.hasOwnProperty;
+var ShippingAddressName,
+  extend$28 = function(child, parent) { for (var key in parent) { if (hasProp$27.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$27 = {}.hasOwnProperty;
 
 var ShippingAddressName$1 = ShippingAddressName = (function(superClass) {
   extend$28(ShippingAddressName, superClass);
@@ -10197,9 +10916,9 @@ var ShippingAddressName$1 = ShippingAddressName = (function(superClass) {
 ShippingAddressName.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-postalcode.coffee
-var ShippingAddressPostalCode;
-var extend$29 = function(child, parent) { for (var key in parent) { if (hasProp$28.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$28 = {}.hasOwnProperty;
+var ShippingAddressPostalCode,
+  extend$29 = function(child, parent) { for (var key in parent) { if (hasProp$28.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$28 = {}.hasOwnProperty;
 
 var ShippingAddressPostalCode$1 = ShippingAddressPostalCode = (function(superClass) {
   extend$29(ShippingAddressPostalCode, superClass);
@@ -10219,12 +10938,12 @@ var ShippingAddressPostalCode$1 = ShippingAddressPostalCode = (function(superCla
 ShippingAddressPostalCode.register();
 
 // node_modules/el-controls/src/controls/state-select.coffee
-var StateSelect;
-var extend$31 = function(child, parent) { for (var key in parent) { if (hasProp$30.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$30 = {}.hasOwnProperty;
+var StateSelect,
+  extend$30 = function(child, parent) { for (var key in parent) { if (hasProp$29.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$29 = {}.hasOwnProperty;
 
 var StateSelect$1 = StateSelect = (function(superClass) {
-  extend$31(StateSelect, superClass);
+  extend$30(StateSelect, superClass);
 
   function StateSelect() {
     return StateSelect.__super__.constructor.apply(this, arguments);
@@ -10295,12 +11014,12 @@ var StateSelect$1 = StateSelect = (function(superClass) {
 StateSelect.register();
 
 // node_modules/shop.js/src/controls/checkout/shippingaddress-state.coffee
-var ShippingAddressState;
-var extend$30 = function(child, parent) { for (var key in parent) { if (hasProp$29.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$29 = {}.hasOwnProperty;
+var ShippingAddressState,
+  extend$31 = function(child, parent) { for (var key in parent) { if (hasProp$30.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$30 = {}.hasOwnProperty;
 
 var ShippingAddressState$1 = ShippingAddressState = (function(superClass) {
-  extend$30(ShippingAddressState, superClass);
+  extend$31(ShippingAddressState, superClass);
 
   function ShippingAddressState() {
     return ShippingAddressState.__super__.constructor.apply(this, arguments);
@@ -10336,12 +11055,12 @@ ShippingAddressState.register();
 var html$10 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"checkbox\" onchange=\"{ change }\" onblur=\"{ change }\" checked=\"{ input.ref.get(input.name) }\">\n</yield>\n<yield></yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>";
 
 // node_modules/el-controls/src/controls/checkbox.coffee
-var CheckBox;
-var extend$33 = function(child, parent) { for (var key in parent) { if (hasProp$32.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$32 = {}.hasOwnProperty;
+var CheckBox,
+  extend$32 = function(child, parent) { for (var key in parent) { if (hasProp$31.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$31 = {}.hasOwnProperty;
 
 var CheckBox$1 = CheckBox = (function(superClass) {
-  extend$33(CheckBox, superClass);
+  extend$32(CheckBox, superClass);
 
   function CheckBox() {
     return CheckBox.__super__.constructor.apply(this, arguments);
@@ -10362,12 +11081,12 @@ var CheckBox$1 = CheckBox = (function(superClass) {
 CheckBox.register();
 
 // node_modules/shop.js/src/controls/checkout/terms.coffee
-var Terms;
-var extend$32 = function(child, parent) { for (var key in parent) { if (hasProp$31.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$31 = {}.hasOwnProperty;
+var Terms,
+  extend$33 = function(child, parent) { for (var key in parent) { if (hasProp$32.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$32 = {}.hasOwnProperty;
 
 Terms = (function(superClass) {
-  extend$32(Terms, superClass);
+  extend$33(Terms, superClass);
 
   function Terms() {
     return Terms.__super__.constructor.apply(this, arguments);
@@ -10384,9 +11103,9 @@ Terms = (function(superClass) {
 Terms.register();
 
 // node_modules/shop.js/src/controls/user/user-current-password.coffee
-var UserCurrentPassword;
-var extend$34 = function(child, parent) { for (var key in parent) { if (hasProp$33.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$33 = {}.hasOwnProperty;
+var UserCurrentPassword,
+  extend$34 = function(child, parent) { for (var key in parent) { if (hasProp$33.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$33 = {}.hasOwnProperty;
 
 var UserCurrentPassword$1 = UserCurrentPassword = (function(superClass) {
   extend$34(UserCurrentPassword, superClass);
@@ -10414,9 +11133,9 @@ var UserCurrentPassword$1 = UserCurrentPassword = (function(superClass) {
 UserCurrentPassword.register();
 
 // node_modules/shop.js/src/controls/user/user-email.coffee
-var UserEmail;
-var extend$35 = function(child, parent) { for (var key in parent) { if (hasProp$34.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$34 = {}.hasOwnProperty;
+var UserEmail,
+  extend$35 = function(child, parent) { for (var key in parent) { if (hasProp$34.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$34 = {}.hasOwnProperty;
 
 var UserEmail$1 = UserEmail = (function(superClass) {
   extend$35(UserEmail, superClass);
@@ -10436,9 +11155,9 @@ var UserEmail$1 = UserEmail = (function(superClass) {
 UserEmail.register();
 
 // node_modules/shop.js/src/controls/user/user-name.coffee
-var UserName;
-var extend$36 = function(child, parent) { for (var key in parent) { if (hasProp$35.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$35 = {}.hasOwnProperty;
+var UserName,
+  extend$36 = function(child, parent) { for (var key in parent) { if (hasProp$35.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$35 = {}.hasOwnProperty;
 
 var UserName$1 = UserName = (function(superClass) {
   extend$36(UserName, superClass);
@@ -10458,9 +11177,9 @@ var UserName$1 = UserName = (function(superClass) {
 UserName.register();
 
 // node_modules/shop.js/src/controls/user/user-password-confirm.coffee
-var UserPasswordConfirm;
-var extend$37 = function(child, parent) { for (var key in parent) { if (hasProp$36.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$36 = {}.hasOwnProperty;
+var UserPasswordConfirm,
+  extend$37 = function(child, parent) { for (var key in parent) { if (hasProp$36.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$36 = {}.hasOwnProperty;
 
 var UserPasswordConfirm$1 = UserPasswordConfirm = (function(superClass) {
   extend$37(UserPasswordConfirm, superClass);
@@ -10488,9 +11207,9 @@ var UserPasswordConfirm$1 = UserPasswordConfirm = (function(superClass) {
 UserPasswordConfirm.register();
 
 // node_modules/shop.js/src/controls/user/user-password.coffee
-var UserPassword;
-var extend$38 = function(child, parent) { for (var key in parent) { if (hasProp$37.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$37 = {}.hasOwnProperty;
+var UserPassword,
+  extend$38 = function(child, parent) { for (var key in parent) { if (hasProp$37.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$37 = {}.hasOwnProperty;
 
 var UserPassword$1 = UserPassword = (function(superClass) {
   extend$38(UserPassword, superClass);
@@ -10512,9 +11231,9 @@ var UserPassword$1 = UserPassword = (function(superClass) {
 UserPassword.register();
 
 // node_modules/shop.js/src/controls/user/user-username.coffee
-var UserUsername;
-var extend$39 = function(child, parent) { for (var key in parent) { if (hasProp$38.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$38 = {}.hasOwnProperty;
+var UserUsername,
+  extend$39 = function(child, parent) { for (var key in parent) { if (hasProp$38.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$38 = {}.hasOwnProperty;
 
 UserUsername = (function(superClass) {
   extend$39(UserUsername, superClass);
@@ -10534,9 +11253,9 @@ UserUsername = (function(superClass) {
 UserUsername.register();
 
 // node_modules/shop.js/src/controls/gift/gift-email.coffee
-var GiftEmail;
-var extend$40 = function(child, parent) { for (var key in parent) { if (hasProp$39.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$39 = {}.hasOwnProperty;
+var GiftEmail,
+  extend$40 = function(child, parent) { for (var key in parent) { if (hasProp$39.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$39 = {}.hasOwnProperty;
 
 GiftEmail = (function(superClass) {
   extend$40(GiftEmail, superClass);
@@ -10559,12 +11278,12 @@ GiftEmail.register();
 var html$11 = "\n<yield from=\"input\">\n  <textarea class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" onchange=\"{ change }\" onblur=\"{ change }\" rows=\"{ rows }\" cols=\"{ cols }\" disabled=\"{disabled\" maxlength=\"{ maxlength }\" placeholder=\"{ placeholder }\" readonly=\"{ readonly }\" wrap=\"{ wrap }\">{ input.ref.get(input.name) }</textarea>\n</yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
 // node_modules/el-controls/src/controls/textbox.coffee
-var TextBox;
-var extend$42 = function(child, parent) { for (var key in parent) { if (hasProp$41.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$41 = {}.hasOwnProperty;
+var TextBox,
+  extend$41 = function(child, parent) { for (var key in parent) { if (hasProp$40.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$40 = {}.hasOwnProperty;
 
 TextBox = (function(superClass) {
-  extend$42(TextBox, superClass);
+  extend$41(TextBox, superClass);
 
   function TextBox() {
     return TextBox.__super__.constructor.apply(this, arguments);
@@ -10597,12 +11316,12 @@ TextBox.register();
 var TextBox$1 = TextBox;
 
 // node_modules/shop.js/src/controls/gift/gift-message.coffee
-var GiftMessage;
-var extend$41 = function(child, parent) { for (var key in parent) { if (hasProp$40.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$40 = {}.hasOwnProperty;
+var GiftMessage,
+  extend$42 = function(child, parent) { for (var key in parent) { if (hasProp$41.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$41 = {}.hasOwnProperty;
 
 GiftMessage = (function(superClass) {
-  extend$41(GiftMessage, superClass);
+  extend$42(GiftMessage, superClass);
 
   function GiftMessage() {
     return GiftMessage.__super__.constructor.apply(this, arguments);
@@ -10619,9 +11338,9 @@ GiftMessage = (function(superClass) {
 GiftMessage.register();
 
 // node_modules/shop.js/src/controls/gift/gift-toggle.coffee
-var GiftToggle;
-var extend$43 = function(child, parent) { for (var key in parent) { if (hasProp$42.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$42 = {}.hasOwnProperty;
+var GiftToggle,
+  extend$43 = function(child, parent) { for (var key in parent) { if (hasProp$42.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$42 = {}.hasOwnProperty;
 
 GiftToggle = (function(superClass) {
   extend$43(GiftToggle, superClass);
@@ -10641,9 +11360,9 @@ GiftToggle = (function(superClass) {
 GiftToggle.register();
 
 // node_modules/shop.js/src/controls/gift/gift-type.coffee
-var GiftType;
-var extend$44 = function(child, parent) { for (var key in parent) { if (hasProp$43.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$43 = {}.hasOwnProperty;
+var GiftType,
+  extend$44 = function(child, parent) { for (var key in parent) { if (hasProp$43.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$43 = {}.hasOwnProperty;
 
 GiftType = (function(superClass) {
   extend$44(GiftType, superClass);
@@ -10666,9 +11385,9 @@ GiftType.register();
 var html$12 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onclick=\"{ copy }\" riot-value=\"{ getText() }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"true\" placeholder=\"{ placeholder }\">\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: true }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield from=\"copy-text\">\n  <div class=\"copy-text\">{ copied ? 'Copied' : '&#128203;' }</div>\n</yield>\n<yield></yield>";
 
 // node_modules/el-controls/src/controls/copy.coffee
-var Copy;
-var extend$45 = function(child, parent) { for (var key in parent) { if (hasProp$44.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$44 = {}.hasOwnProperty;
+var Copy,
+  extend$45 = function(child, parent) { for (var key in parent) { if (hasProp$44.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$44 = {}.hasOwnProperty;
 
 Copy = (function(superClass) {
   extend$45(Copy, superClass);
@@ -10702,7 +11421,7 @@ Copy = (function(superClass) {
   Copy.prototype.getName = function() {};
 
   Copy.prototype.copy = function(e) {
-    var err, msg, successful, text, textArea;
+    var msg, successful, text, textArea;
     text = this.getText();
     textArea = document.createElement("textarea");
     textArea.style.position = 'fixed';
@@ -10743,9 +11462,9 @@ Copy.register();
 var html$13 = "\n<yield from=\"input\">\n  <div class=\"currency-container {invalid: errorMessage, valid: valid, labeled: label}\">\n    <input class=\"currency-amount right-aligned {invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onchange=\"{ change }\" onblur=\"{ change }\" riot-value=\"{ renderValue() }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"{ readonly }\" placeholder=\"{ placeholder }\">\n    <div class=\"currency-code\">\n      <div class=\"currency-code-text\">{ getCurrency().toUpperCase() }</div>\n    </div>\n  </div>\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: input.ref.get(input.name) || input.ref.get(input.name) == 0 || placeholder }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
 // node_modules/el-controls/src/controls/currency.coffee
-var Currency;
-var extend$46 = function(child, parent) { for (var key in parent) { if (hasProp$45.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$45 = {}.hasOwnProperty;
+var Currency,
+  extend$46 = function(child, parent) { for (var key in parent) { if (hasProp$45.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$45 = {}.hasOwnProperty;
 
 Currency = (function(superClass) {
   extend$46(Currency, superClass);
@@ -10795,13 +11514,11 @@ function commonjsRequire () {
 	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
 }
 
-
-
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var qrcode$1 = createCommonjsModule(function (module, exports) {
+var qrcode = createCommonjsModule(function (module, exports) {
 // node_modules/qrcode/build/qrcode.js
 (function(f){{module.exports=f();}})(function(){return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof commonjsRequire=="function"&&commonjsRequire;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND", f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r);}return n[o].exports}var i=typeof commonjsRequire=="function"&&commonjsRequire;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -11336,7 +12053,17 @@ exports.getEncodedBits = function getEncodedBits (errorCorrectionLevel, mask) {
 var Buffer = require('../utils/buffer');
 
 var EXP_TABLE = new Buffer(512);
-var LOG_TABLE = new Buffer(256);(function initTables () {
+var LOG_TABLE = new Buffer(256)
+
+/**
+ * Precompute the log and anti-log tables for faster computation later
+ *
+ * For each possible value in the galois field 2^8, we will pre-compute
+ * the logarithm and anti-logarithm (exponential) of this value
+ *
+ * ref {@link https://en.wikiversity.org/wiki/Reed%E2%80%93Solomon_codes_for_coders#Introduction_to_mathematical_fields}
+ */
+;(function initTables () {
   var x = 1;
   for (var i = 0; i < 255; i++) {
     EXP_TABLE[i] = x;
@@ -13371,12 +14098,6 @@ exports.qrToImageData = function qrToImageData (imgData, qr, margin, scale, colo
 };
 
 },{}],26:[function(require,module,exports){
-/**
- * Implementation of a subset of node.js Buffer methods for the browser.
- * Based on https://github.com/feross/buffer
- */
-
-/* eslint-disable no-proto */
 
 var isArray = require('isarray');
 
@@ -13883,6 +14604,28 @@ Buffer.isBuffer = function isBuffer (b) {
 module.exports = Buffer;
 
 },{"isarray":28}],27:[function(require,module,exports){
+
+/******************************************************************************
+ * Created 2008-08-19.
+ *
+ * Dijkstra path-finding functions. Adapted from the Dijkstar Python project.
+ *
+ * Copyright (C) 2008
+ *   Wyatt Baldwin <self@wyattbaldwin.com>
+ *   All rights reserved
+ *
+ * Licensed under the MIT license.
+ *
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *****************************************************************************/
 var dijkstra = {
   single_source_shortest_paths: function(graph, s, d) {
     // Predecessor map for each node that has been encountered.
@@ -14039,9 +14782,9 @@ module.exports = Array.isArray || function (arr) {
 });
 
 // node_modules/el-controls/src/controls/qrcode.coffee
-var QRCode;
-var extend$47 = function(child, parent) { for (var key in parent) { if (hasProp$46.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$46 = {}.hasOwnProperty;
+var QRCode,
+  extend$47 = function(child, parent) { for (var key in parent) { if (hasProp$46.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$46 = {}.hasOwnProperty;
 
 QRCode = (function(superClass) {
   extend$47(QRCode, superClass);
@@ -14082,7 +14825,7 @@ QRCode = (function(superClass) {
   QRCode.prototype.onUpdated = function() {
     var canvas;
     canvas = this.root.children[0];
-    return qrcode$1.toCanvas(canvas, this.getText(), {
+    return qrcode.toCanvas(canvas, this.getText(), {
       version: parseInt(this.version, 10),
       errorCorrectionLevel: this.errorCorrectionLevel,
       scale: parseInt(this.scale, 10),
@@ -14113,9 +14856,9 @@ QRCode.register();
 // node_modules/shop.js/src/controls/index.coffee
 
 // node_modules/el-controls/src/controls/recaptcha.coffee
-var ReCaptcha;
-var extend$48 = function(child, parent) { for (var key in parent) { if (hasProp$47.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-var hasProp$47 = {}.hasOwnProperty;
+var ReCaptcha,
+  extend$48 = function(child, parent) { for (var key in parent) { if (hasProp$47.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$47 = {}.hasOwnProperty;
 
 ReCaptcha = (function(superClass) {
   extend$48(ReCaptcha, superClass);
@@ -14163,7 +14906,8 @@ ReCaptcha = (function(superClass) {
 ReCaptcha.register();
 
 // src/mediator.coffee
-var m = observable$1({});
+
+var m = observable({});
 
 // src/events.coffee
 var Events$3;
@@ -14177,6 +14921,7 @@ var Events$4 = Events$3 = {
 };
 
 // node_modules/moment/src/lib/utils/hooks.js
+
 var hookCallback;
 
 function hooks () {
@@ -14246,6 +14991,7 @@ function hasOwnProp(a, b) {
 }
 
 // node_modules/moment/src/lib/utils/extend.js
+
 function extend$49(a, b) {
     for (var i in b) {
         if (hasOwnProp(b, i)) {
@@ -14265,6 +15011,7 @@ function extend$49(a, b) {
 }
 
 // node_modules/moment/src/lib/create/utc.js
+
 function createUTC (input, format, locale, strict) {
     return createLocalOrUTC(input, format, locale, strict, true).utc();
 }
@@ -14317,6 +15064,7 @@ if (Array.prototype.some) {
 }
 
 // node_modules/moment/src/lib/create/valid.js
+
 function isValid(m) {
     if (m._isValid == null) {
         var flags = getParsingFlags(m);
@@ -14364,6 +15112,7 @@ function createInvalid (flags) {
 }
 
 // node_modules/moment/src/lib/moment/constructor.js
+
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
 var momentProperties = hooks.momentProperties = [];
@@ -14448,6 +15197,7 @@ function absFloor (number) {
 }
 
 // node_modules/moment/src/lib/utils/to-int.js
+
 function toInt(argumentForCoercion) {
     var coercedNumber = +argumentForCoercion,
         value = 0;
@@ -14460,6 +15210,7 @@ function toInt(argumentForCoercion) {
 }
 
 // node_modules/moment/src/lib/utils/compare-arrays.js
+
 // compare two arrays, return the number of differences
 function compareArrays(array1, array2, dontConvert) {
     var len = Math.min(array1.length, array2.length),
@@ -14476,6 +15227,7 @@ function compareArrays(array1, array2, dontConvert) {
 }
 
 // node_modules/moment/src/lib/utils/deprecate.js
+
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false &&
             (typeof console !==  'undefined') && console.warn) {
@@ -14534,6 +15286,7 @@ function isFunction$3(input) {
 }
 
 // node_modules/moment/src/lib/locale/set.js
+
 function set (config) {
     var prop, i;
     for (i in config) {
@@ -14587,6 +15340,7 @@ function Locale(config) {
 }
 
 // node_modules/moment/src/lib/utils/keys.js
+
 var keys$1;
 
 if (Object.keys) {
@@ -14689,6 +15443,7 @@ function pastFuture (diff, output) {
 }
 
 // node_modules/moment/src/lib/units/aliases.js
+
 var aliases = {};
 
 function addUnitAlias (unit, shorthand) {
@@ -14745,6 +15500,7 @@ function zeroFill(number, targetLength, forceSign) {
 }
 
 // node_modules/moment/src/lib/format/format.js
+
 var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
 
 var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
@@ -14860,7 +15616,6 @@ var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 // includes scottish gaelic two word and hyphenated months
 var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
 
-
 var regexes = {};
 
 function addRegexToken (token, regex, strictRegex) {
@@ -14889,6 +15644,7 @@ function regexEscape(s) {
 }
 
 // node_modules/moment/src/lib/parse/token.js
+
 var tokens = {};
 
 function addParseToken (token, callback) {
@@ -14931,6 +15687,7 @@ var WEEK = 7;
 var WEEKDAY = 8;
 
 // node_modules/moment/src/lib/units/year.js
+
 // FORMATTING
 
 addFormatToken('Y', 0, 0, function () {
@@ -14998,6 +15755,7 @@ function getIsLeapYear () {
 }
 
 // node_modules/moment/src/lib/moment/get-set.js
+
 function makeGetSet (unit, keepTime) {
     return function (value) {
         if (value != null) {
@@ -15059,12 +15817,12 @@ function mod(n, x) {
 }
 
 // node_modules/moment/src/lib/utils/index-of.js
-var indexOf$6;
+var indexOf$5;
 
 if (Array.prototype.indexOf) {
-    indexOf$6 = Array.prototype.indexOf;
+    indexOf$5 = Array.prototype.indexOf;
 } else {
-    indexOf$6 = function (o) {
+    indexOf$5 = function (o) {
         // I know
         var i;
         for (i = 0; i < this.length; ++i) {
@@ -15077,6 +15835,7 @@ if (Array.prototype.indexOf) {
 }
 
 // node_modules/moment/src/lib/units/month.js
+
 function daysInMonth(year, month) {
     if (isNaN(year) || isNaN(month)) {
         return NaN;
@@ -15172,26 +15931,26 @@ function handleStrictParse(monthName, format, strict) {
 
     if (strict) {
         if (format === 'MMM') {
-            ii = indexOf$6.call(this._shortMonthsParse, llc);
+            ii = indexOf$5.call(this._shortMonthsParse, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf$6.call(this._longMonthsParse, llc);
+            ii = indexOf$5.call(this._longMonthsParse, llc);
             return ii !== -1 ? ii : null;
         }
     } else {
         if (format === 'MMM') {
-            ii = indexOf$6.call(this._shortMonthsParse, llc);
+            ii = indexOf$5.call(this._shortMonthsParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._longMonthsParse, llc);
+            ii = indexOf$5.call(this._longMonthsParse, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf$6.call(this._longMonthsParse, llc);
+            ii = indexOf$5.call(this._longMonthsParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._shortMonthsParse, llc);
+            ii = indexOf$5.call(this._shortMonthsParse, llc);
             return ii !== -1 ? ii : null;
         }
     }
@@ -15374,6 +16133,7 @@ function createUTCDate (y) {
 }
 
 // node_modules/moment/src/lib/units/week-calendar-utils.js
+
 // start-of-first-week - start-of-year
 function firstWeekOffset(year, dow, doy) {
     var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
@@ -15437,6 +16197,7 @@ function weeksInYear(year, dow, doy) {
 }
 
 // node_modules/moment/src/lib/units/week.js
+
 // FORMATTING
 
 addFormatToken('w', ['ww', 2], 'wo', 'week');
@@ -15497,6 +16258,7 @@ function getSetISOWeek (input) {
 }
 
 // node_modules/moment/src/lib/units/day-of-week.js
+
 // FORMATTING
 
 addFormatToken('d', 0, 'do', 'day');
@@ -15621,48 +16383,48 @@ function handleStrictParse$1(weekdayName, format, strict) {
 
     if (strict) {
         if (format === 'dddd') {
-            ii = indexOf$6.call(this._weekdaysParse, llc);
+            ii = indexOf$5.call(this._weekdaysParse, llc);
             return ii !== -1 ? ii : null;
         } else if (format === 'ddd') {
-            ii = indexOf$6.call(this._shortWeekdaysParse, llc);
+            ii = indexOf$5.call(this._shortWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf$6.call(this._minWeekdaysParse, llc);
+            ii = indexOf$5.call(this._minWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         }
     } else {
         if (format === 'dddd') {
-            ii = indexOf$6.call(this._weekdaysParse, llc);
+            ii = indexOf$5.call(this._weekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._shortWeekdaysParse, llc);
+            ii = indexOf$5.call(this._shortWeekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._minWeekdaysParse, llc);
+            ii = indexOf$5.call(this._minWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         } else if (format === 'ddd') {
-            ii = indexOf$6.call(this._shortWeekdaysParse, llc);
+            ii = indexOf$5.call(this._shortWeekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._weekdaysParse, llc);
+            ii = indexOf$5.call(this._weekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._minWeekdaysParse, llc);
+            ii = indexOf$5.call(this._minWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf$6.call(this._minWeekdaysParse, llc);
+            ii = indexOf$5.call(this._minWeekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._weekdaysParse, llc);
+            ii = indexOf$5.call(this._weekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf$6.call(this._shortWeekdaysParse, llc);
+            ii = indexOf$5.call(this._shortWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         }
     }
@@ -15851,6 +16613,7 @@ function computeWeekdaysParse () {
 }
 
 // node_modules/moment/src/lib/units/hour.js
+
 // FORMATTING
 
 function hFormat() {
@@ -15986,10 +16749,7 @@ function localeMeridiem (hours, minutes, isLower) {
 var getSetHour = makeGetSet('Hours', true);
 
 // node_modules/moment/src/lib/locale/base-config.js
-// months
-// week
-// weekdays
-// meridiem
+
 var baseConfig = {
     calendar: defaultCalendar,
     longDateFormat: defaultLongDateFormat,
@@ -16011,6 +16771,7 @@ var baseConfig = {
 };
 
 // node_modules/moment/src/lib/locale/locales.js
+
 // internal storage for locale config files
 var locales = {};
 var localeFamilies = {};
@@ -16188,6 +16949,7 @@ function listLocales() {
 }
 
 // node_modules/moment/src/lib/create/check-overflow.js
+
 function checkOverflow (m) {
     var overflow;
     var a = m._a;
@@ -16231,6 +16993,7 @@ function defaults$1(a, b, c) {
 }
 
 // node_modules/moment/src/lib/create/from-array.js
+
 function currentDateArray(config) {
     // hooks is actually the exported moment object
     var nowValue = new Date(hooks.now());
@@ -16371,6 +17134,7 @@ function dayOfYearFromWeekInfo(config) {
 }
 
 // node_modules/moment/src/lib/create/from-string.js
+
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
 var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
@@ -16594,6 +17358,7 @@ hooks.createFromInputFallback = deprecate(
 );
 
 // node_modules/moment/src/lib/create/from-string-and-format.js
+
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
 
@@ -16699,6 +17464,7 @@ function meridiemFixWrap (locale, hour, meridiem) {
 }
 
 // node_modules/moment/src/lib/create/from-string-and-array.js
+
 // date from string and array of format strings
 function configFromStringAndArray(config) {
     var tempConfig,
@@ -16745,6 +17511,7 @@ function configFromStringAndArray(config) {
 }
 
 // node_modules/moment/src/lib/create/from-object.js
+
 function configFromObject(config) {
     if (config._d) {
         return;
@@ -16759,6 +17526,7 @@ function configFromObject(config) {
 }
 
 // node_modules/moment/src/lib/create/from-anything.js
+
 function createFromConfig (config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));
     if (res._nextDay) {
@@ -16851,11 +17619,13 @@ function createLocalOrUTC (input, format, locale, strict, isUTC) {
 }
 
 // node_modules/moment/src/lib/create/local.js
+
 function createLocal (input, format, locale, strict) {
     return createLocalOrUTC(input, format, locale, strict, false);
 }
 
 // node_modules/moment/src/lib/moment/min-max.js
+
 var prototypeMin = deprecate(
     'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
     function () {
@@ -16921,11 +17691,12 @@ var now$1 = function () {
 };
 
 // node_modules/moment/src/lib/duration/valid.js
+
 var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
 
 function isDurationValid(m) {
     for (var key in m) {
-        if (!(indexOf$6.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+        if (!(indexOf$5.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
             return false;
         }
     }
@@ -16954,6 +17725,7 @@ function createInvalid$1() {
 }
 
 // node_modules/moment/src/lib/duration/constructor.js
+
 function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
         years = normalizedInput.year || 0,
@@ -17005,6 +17777,7 @@ function absRound (number) {
 }
 
 // node_modules/moment/src/lib/units/offset.js
+
 // FORMATTING
 
 function offset (token, separator) {
@@ -17226,6 +17999,7 @@ function isUtc () {
 }
 
 // node_modules/moment/src/lib/duration/create.js
+
 // ASP.NET json date format regex
 var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
 
@@ -17340,6 +18114,8 @@ function momentsDifference(base, other) {
 }
 
 // node_modules/moment/src/lib/moment/add-subtract.js
+
+
 // TODO: remove 'name' arg after deprecation is removed
 function createAdder(direction, name) {
     return function (val, period) {
@@ -17388,6 +18164,7 @@ var add$1      = createAdder(1, 'add');
 var subtract = createAdder(-1, 'subtract');
 
 // node_modules/moment/src/lib/moment/calendar.js
+
 function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);
     return diff < -6 ? 'sameElse' :
@@ -17411,11 +18188,13 @@ function calendar$1 (time, formats) {
 }
 
 // node_modules/moment/src/lib/moment/clone.js
+
 function clone () {
     return new Moment(this);
 }
 
 // node_modules/moment/src/lib/moment/compare.js
+
 function isAfter (input, units) {
     var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
@@ -17472,10 +18251,11 @@ function isSameOrBefore (input, units) {
 }
 
 // node_modules/moment/src/lib/moment/diff.js
+
 function diff (input, units, asFloat) {
     var that,
         zoneDelta,
-        delta, output;
+        output;
 
     if (!this.isValid()) {
         return NaN;
@@ -17528,6 +18308,7 @@ function monthDiff (a, b) {
 }
 
 // node_modules/moment/src/lib/moment/format.js
+
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
@@ -17588,6 +18369,7 @@ function format (inputString) {
 }
 
 // node_modules/moment/src/lib/moment/from.js
+
 function from (time, withoutSuffix) {
     if (this.isValid() &&
             ((isMoment(time) && time.isValid()) ||
@@ -17603,6 +18385,7 @@ function fromNow (withoutSuffix) {
 }
 
 // node_modules/moment/src/lib/moment/to.js
+
 function to (time, withoutSuffix) {
     if (this.isValid() &&
             ((isMoment(time) && time.isValid()) ||
@@ -17618,6 +18401,7 @@ function toNow (withoutSuffix) {
 }
 
 // node_modules/moment/src/lib/moment/locale.js
+
 // If passed a locale key, it will set the locale for this
 // instance.  Otherwise, it will return the locale configuration
 // variables for this instance.
@@ -17651,6 +18435,7 @@ function localeData () {
 }
 
 // node_modules/moment/src/lib/moment/start-end-of.js
+
 function startOf (units) {
     units = normalizeUnits(units);
     // the following switch intentionally omits break keywords
@@ -17746,6 +18531,7 @@ function toJSON () {
 }
 
 // node_modules/moment/src/lib/moment/valid.js
+
 function isValid$2 () {
     return isValid(this);
 }
@@ -17770,6 +18556,7 @@ function creationData() {
 }
 
 // node_modules/moment/src/lib/units/week-year.js
+
 // FORMATTING
 
 addFormatToken(0, ['gg', 2], 0, function () {
@@ -17868,6 +18655,7 @@ function setWeekAll(weekYear, week, weekday, dow, doy) {
 }
 
 // node_modules/moment/src/lib/units/quarter.js
+
 // FORMATTING
 
 addFormatToken('Q', 0, 'Qo', 'quarter');
@@ -17894,6 +18682,7 @@ function getSetQuarter (input) {
 }
 
 // node_modules/moment/src/lib/units/day-of-month.js
+
 // FORMATTING
 
 addFormatToken('D', ['DD', 2], 'Do', 'date');
@@ -17926,6 +18715,7 @@ addParseToken('Do', function (input, array) {
 var getSetDayOfMonth = makeGetSet('Date', true);
 
 // node_modules/moment/src/lib/units/day-of-year.js
+
 // FORMATTING
 
 addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
@@ -17955,6 +18745,7 @@ function getSetDayOfYear (input) {
 }
 
 // node_modules/moment/src/lib/units/minute.js
+
 // FORMATTING
 
 addFormatToken('m', ['mm', 2], 0, 'minute');
@@ -17978,6 +18769,7 @@ addParseToken(['m', 'mm'], MINUTE);
 var getSetMinute = makeGetSet('Minutes', false);
 
 // node_modules/moment/src/lib/units/second.js
+
 // FORMATTING
 
 addFormatToken('s', ['ss', 2], 0, 'second');
@@ -18001,6 +18793,7 @@ addParseToken(['s', 'ss'], SECOND);
 var getSetSecond = makeGetSet('Seconds', false);
 
 // node_modules/moment/src/lib/units/millisecond.js
+
 // FORMATTING
 
 addFormatToken('S', 0, 0, function () {
@@ -18063,6 +18856,7 @@ for (token = 'S'; token.length <= 9; token += 'S') {
 var getSetMillisecond = makeGetSet('Milliseconds', false);
 
 // node_modules/moment/src/lib/units/timezone.js
+
 // FORMATTING
 
 addFormatToken('z',  0, 0, 'zoneAbbr');
@@ -18079,6 +18873,7 @@ function getZoneName () {
 }
 
 // node_modules/moment/src/lib/moment/prototype.js
+
 var proto = Moment.prototype;
 
 proto.add               = add$1;
@@ -18119,48 +18914,26 @@ proto.toString          = toString$1;
 proto.unix              = unix;
 proto.valueOf           = valueOf;
 proto.creationData      = creationData;
-
-// Year
 proto.year       = getSetYear;
 proto.isLeapYear = getIsLeapYear;
-
-// Week Year
 proto.weekYear    = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
-
-// Quarter
 proto.quarter = proto.quarters = getSetQuarter;
-
-// Month
 proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
-
-// Week
 proto.week           = proto.weeks        = getSetWeek;
 proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
 proto.weeksInYear    = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
-
-// Day
 proto.date       = getSetDayOfMonth;
 proto.day        = proto.days             = getSetDayOfWeek;
 proto.weekday    = getSetLocaleDayOfWeek;
 proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear  = getSetDayOfYear;
-
-// Hour
 proto.hour = proto.hours = getSetHour;
-
-// Minute
 proto.minute = proto.minutes = getSetMinute;
-
-// Second
 proto.second = proto.seconds = getSetSecond;
-
-// Millisecond
 proto.millisecond = proto.milliseconds = getSetMillisecond;
-
-// Offset
 proto.utcOffset            = getSetOffset;
 proto.utc                  = setOffsetToUTC;
 proto.local                = setOffsetToLocal;
@@ -18171,12 +18944,8 @@ proto.isLocal              = isLocal;
 proto.isUtcOffset          = isUtcOffset;
 proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
-
-// Timezone
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
-
-// Deprecations
 proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
 proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
@@ -18184,6 +18953,7 @@ proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset in
 proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
 
 // node_modules/moment/src/lib/moment/moment.js
+
 function createUnix (input) {
     return createLocal(input * 1000);
 }
@@ -18198,6 +18968,7 @@ function preParsePostFormat (string) {
 }
 
 // node_modules/moment/src/lib/locale/prototype.js
+
 var proto$1 = Locale.prototype;
 
 proto$1.calendar        = calendar;
@@ -18210,19 +18981,15 @@ proto$1.relativeTime    = relativeTime;
 proto$1.pastFuture      = pastFuture;
 proto$1.set             = set;
 
-// Month
 proto$1.months            =        localeMonths;
 proto$1.monthsShort       =        localeMonthsShort;
 proto$1.monthsParse       =        localeMonthsParse;
 proto$1.monthsRegex       = monthsRegex;
 proto$1.monthsShortRegex  = monthsShortRegex;
-
-// Week
 proto$1.week = localeWeek;
 proto$1.firstDayOfYear = localeFirstDayOfYear;
 proto$1.firstDayOfWeek = localeFirstDayOfWeek;
 
-// Day of Week
 proto$1.weekdays       =        localeWeekdays;
 proto$1.weekdaysMin    =        localeWeekdaysMin;
 proto$1.weekdaysShort  =        localeWeekdaysShort;
@@ -18232,11 +18999,11 @@ proto$1.weekdaysRegex       =        weekdaysRegex;
 proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
 proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
 
-// Hours
 proto$1.isPM = localeIsPM;
 proto$1.meridiem = localeMeridiem;
 
 // node_modules/moment/src/lib/locale/lists.js
+
 function get$2 (format, index, field, setter) {
     var locale = getLocale();
     var utc = createUTC().set(setter, index);
@@ -18328,6 +19095,7 @@ function listWeekdaysMin (localeSorted, format, index) {
 }
 
 // node_modules/moment/src/lib/locale/en.js
+
 getSetGlobalLocale('en', {
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
     ordinal : function (number) {
@@ -18341,7 +19109,7 @@ getSetGlobalLocale('en', {
 });
 
 // node_modules/moment/src/lib/locale/locale.js
-// Side effect imports
+
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
@@ -18366,6 +19134,7 @@ function abs () {
 }
 
 // node_modules/moment/src/lib/duration/add-subtract.js
+
 function addSubtract$1 (duration, input, value, direction) {
     var other = createDuration(input, value);
 
@@ -18396,6 +19165,7 @@ function absCeil (number) {
 }
 
 // node_modules/moment/src/lib/duration/bubble.js
+
 function bubble () {
     var milliseconds = this._milliseconds;
     var days         = this._days;
@@ -18455,6 +19225,7 @@ function monthsToDays (months) {
 }
 
 // node_modules/moment/src/lib/duration/as.js
+
 function as (units) {
     if (!this.isValid()) {
         return NaN;
@@ -18514,11 +19285,13 @@ var asMonths       = makeAs('M');
 var asYears        = makeAs('y');
 
 // node_modules/moment/src/lib/duration/clone.js
+
 function clone$1 () {
     return createDuration(this);
 }
 
 // node_modules/moment/src/lib/duration/get.js
+
 function get$3 (units) {
     units = normalizeUnits(units);
     return this.isValid() ? this[units + 's']() : NaN;
@@ -18543,6 +19316,7 @@ function weeks () {
 }
 
 // node_modules/moment/src/lib/duration/humanize.js
+
 var round = Math.round;
 var thresholds = {
     ss: 44,         // a few seconds to seconds
@@ -18693,6 +19467,7 @@ function toISOString$1() {
 }
 
 // node_modules/moment/src/lib/duration/prototype.js
+
 var proto$2 = Duration.prototype;
 
 proto$2.isValid        = isValid$1;
@@ -18727,14 +19502,13 @@ proto$2.toJSON         = toISOString$1;
 proto$2.locale         = locale;
 proto$2.localeData     = localeData;
 
-// Deprecations
 proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
 proto$2.lang = lang;
 
 // node_modules/moment/src/lib/duration/duration.js
-// Side effect imports
 
 // node_modules/moment/src/lib/units/timestamp.js
+
 // FORMATTING
 
 addFormatToken('X', 0, 0, 'unix');
@@ -18752,14 +19526,8 @@ addParseToken('x', function (input, array, config) {
 });
 
 // node_modules/moment/src/lib/units/units.js
-// Side effect imports
 
 // node_modules/moment/src/moment.js
-//! moment.js
-//! version : 2.20.1
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! momentjs.com
 
 hooks.version = '2.20.1';
 
@@ -18807,16 +19575,14 @@ hooks.HTML5_FMT = {
 };
 
 
-
-
-var moment$2 = Object.freeze({
+var moment = Object.freeze({
 	default: hooks
 });
 
 //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment/src/moment.js
-var require$$0 = ( moment$2 && hooks ) || moment$2;
+ var require$$0 = ( moment && hooks ) || moment;
 
-var momentTimezone$1 = createCommonjsModule(function (module) {
+var momentTimezone = createCommonjsModule(function (module) {
 // node_modules/moment-timezone/moment-timezone.js
 //! moment-timezone.js
 //! version : 0.5.14
@@ -18825,6 +19591,8 @@ var momentTimezone$1 = createCommonjsModule(function (module) {
 //! github.com/moment/moment-timezone
 
 (function (root, factory) {
+
+	/*global define*/
 	if (typeof undefined === 'function' && undefined.amd) {
 		undefined(['moment'], factory);                 // AMD
 	} else if ('object' === 'object' && module.exports) {
@@ -18833,6 +19601,13 @@ var momentTimezone$1 = createCommonjsModule(function (module) {
 		factory(root.moment);                        // Browser
 	}
 }(commonjsGlobal, function (moment) {
+
+	// Do not load moment-timezone a second time.
+	// if (moment.tz !== undefined) {
+	// 	logError('Moment Timezone ' + moment.tz.version + ' was already loaded ' + (moment.tz.dataVersion ? 'with data from ' : 'without any data') + moment.tz.dataVersion);
+	// 	return moment;
+	// }
+
 	var VERSION = "0.5.14",
 		zones = {},
 		links = {},
@@ -19434,11 +20209,11 @@ var latest$1 = Object.freeze({
 //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment-timezone/moment-timezone.js
 
 //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment-timezone/data/packed/latest.json
-var require$$1 = ( latest$1 && latest ) || latest$1;
+ var require$$1 = ( latest$1 && latest ) || latest$1;
 
-var momentTimezone = createCommonjsModule(function (module) {
+var momentTimezone$1 = createCommonjsModule(function (module) {
 // node_modules/moment-timezone/index.js
-var moment = module.exports = momentTimezone$1;
+var moment = module.exports = momentTimezone;
 moment.tz.load(require$$1);
 });
 
@@ -19449,11 +20224,10 @@ var getLanguage = function() {
 };
 
 // node_modules/shop.js-util/src/dates.coffee
+
 var rfc3339 = 'YYYY-MM-DDTHH:mm:ssZ';
 
 var mmddyyyy = 'M-DD-YYYY';
-
-
 
 var ddmmyyyy = 'D-MM-YYYY';
 
@@ -19465,26 +20239,23 @@ var renderDate = function(date, format) {
       format = ddmmyyyy;
     }
   }
-  return momentTimezone(date).format(format);
+  return momentTimezone$1(date).format(format);
+};
+
+// node_modules/shop.js-util/src/qrcodes.coffee
+var renderCryptoQR = function(currency, address, amount) {
+  switch (currency) {
+    case 'eth':
+      return 'ethereum:' + address + '?value=' + amount / 1e9;
+    case 'btc':
+      return 'bitcoin:' + address + '?amount=' + amount / 1e9;
+  }
+  return 'unknown';
 };
 
 // src/index.coffee
-var Api;
-var Coin;
-var Containers;
-var Controls;
-var endpoint;
-var initClient;
-var initData;
-var initRates;
-var k$1;
-var key;
-var opts;
-var ref;
-var ref1;
-var tagNames;
-var v;
-var indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var Api$2, Coin, Containers, Controls, endpoint, initCart, initClient, initData, initMediator, initRates, k$3, key, opts$1, ref, ref1, tagNames, v$2,
+  indexOf$6 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 Containers = {
   Login: Login,
@@ -19493,7 +20264,8 @@ Containers = {
   Register: Register,
   RegisterComplete: RegisterComplete,
   ResetPassword: ResetPassword,
-  ResetPasswordComplete: ResetPasswordComplete
+  ResetPasswordComplete: ResetPasswordComplete,
+  ThankYou: ThankYou
 };
 
 Controls = {
@@ -19521,7 +20293,7 @@ Controls = {
   CardCVC: CardCVC$1
 };
 
-Api = Hanzo$1.Api;
+Api$2 = Hanzo$1.Api;
 
 Coin = {
   Controls: Controls,
@@ -19531,17 +20303,15 @@ Coin = {
 };
 
 initData = function(opts) {
-  var cartId, d, data, items, k, k2, meta, queries, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref3, ref4, ref5, ref6, ref7, ref8, ref9, referrer, v, v2;
+  var cartId, d, data, items, k, k2, meta, queries, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref3, ref4, ref5, ref6, ref7, ref8, ref9, referrer, v, v2;
   queries = getQueries();
   referrer = '';
   referrer = (ref = getReferrer((ref1 = opts.config) != null ? ref1.hashReferrer : void 0)) != null ? ref : (ref2 = opts.order) != null ? ref2.referrer : void 0;
-  index$1.set('referrer', referrer);
-  items = index$1.get('items');
-  cartId = index$1.get('cartId');
-  meta = index$1.get('order.metadata');
+  index$3.set('referrer', referrer);
+  items = index$3.get('items');
+  cartId = index$3.get('cartId');
+  meta = index$3.get('order.metadata');
   d = {
-    taxRates: null,
-    shippingRates: null,
     countries: [],
     tokenId: queries.tokenid,
     terms: (ref3 = opts.terms) != null ? ref3 : false,
@@ -19550,16 +20320,16 @@ initData = function(opts) {
       type: (ref4 = (ref5 = opts.processor) != null ? ref5 : (ref6 = opts.order) != null ? ref6.type : void 0) != null ? ref4 : 'stripe',
       shippingRate: (ref7 = (ref8 = (ref9 = opts.config) != null ? ref9.shippingRate : void 0) != null ? ref8 : (ref10 = opts.order) != null ? ref10.shippingRate : void 0) != null ? ref7 : 0,
       taxRate: (ref11 = (ref12 = (ref13 = opts.config) != null ? ref13.taxRate : void 0) != null ? ref12 : (ref14 = opts.order) != null ? ref14.taxRate : void 0) != null ? ref11 : 0,
-      currency: (ref15 = (ref16 = (ref17 = opts.config) != null ? ref17.currency : void 0) != null ? ref16 : (ref18 = opts.order) != null ? ref18.currency : void 0) != null ? ref15 : 'usd',
+      currency: (ref15 = (ref16 = (ref17 = opts.config) != null ? ref17.currency : void 0) != null ? ref16 : (ref18 = opts.order) != null ? ref18.currency : void 0) != null ? ref15 : 'eth',
       referrerId: referrer,
       discount: 0,
       tax: 0,
-      subtotal: 0,
+      subtotal: (ref19 = (ref20 = opts.order) != null ? ref20.subtotal : void 0) != null ? ref19 : 0,
       total: 0,
-      mode: (ref19 = (ref20 = opts.mode) != null ? ref20 : (ref21 = opts.order) != null ? ref21.mode : void 0) != null ? ref19 : '',
+      mode: (ref21 = (ref22 = opts.mode) != null ? ref22 : (ref23 = opts.order) != null ? ref23.mode : void 0) != null ? ref21 : '',
       items: items != null ? items : [],
       cartId: cartId != null ? cartId : null,
-      checkoutUrl: (ref22 = (ref23 = opts.config) != null ? ref23.checkoutUrl : void 0) != null ? ref22 : null,
+      checkoutUrl: (ref24 = (ref25 = opts.config) != null ? ref25.checkoutUrl : void 0) != null ? ref24 : null,
       metadata: meta != null ? meta : {}
     },
     user: null,
@@ -19572,11 +20342,11 @@ initData = function(opts) {
     if (d[k] == null) {
       d[k] = opts[k];
     } else {
-      ref24 = d[k];
-      for (k2 in ref24) {
-        v2 = ref24[k2];
+      ref26 = d[k];
+      for (k2 in ref26) {
+        v2 = ref26[k2];
         if (v2 == null) {
-          d[k][k2] = (ref25 = opts[k]) != null ? ref25[k2] : void 0;
+          d[k][k2] = (ref27 = opts[k]) != null ? ref27[k2] : void 0;
         }
       }
     }
@@ -19594,15 +20364,15 @@ initClient = function(opts) {
   if (opts.endpoint) {
     settings.endpoint = opts.endpoint;
   }
-  return new Api(settings);
+  return new Api$2(settings);
 };
 
 initRates = function(client, data) {
   var countries, lastChecked, ref, shippingRates, taxRates;
-  lastChecked = index$1.get('lastChecked');
-  countries = (ref = index$1.get('countries')) != null ? ref : [];
-  taxRates = index$1.get('taxRates');
-  shippingRates = index$1.get('shippingRates');
+  lastChecked = index$3.get('lastChecked');
+  countries = (ref = index$3.get('countries')) != null ? ref : [];
+  taxRates = index$3.get('taxRates');
+  shippingRates = index$3.get('shippingRates');
   data.set('countries', countries);
   data.set('taxRates', taxRates);
   data.set('shippingRates', shippingRates);
@@ -19617,10 +20387,10 @@ initRates = function(client, data) {
     countries = (ref1 = res.countries) != null ? ref1 : countries;
     taxRates = (ref2 = res.taxRates) != null ? ref2 : taxRates;
     shippingRates = (ref3 = res.shippingRates) != null ? ref3 : shippingRates;
-    index$1.set('countries', countries);
-    index$1.set('taxRates', taxRates);
-    index$1.set('shippingRates', shippingRates);
-    index$1.set('lastChecked', lastChecked);
+    index$3.set('countries', countries);
+    index$3.set('taxRates', taxRates);
+    index$3.set('shippingRates', shippingRates);
+    index$3.set('lastChecked', lastChecked);
     data.set('countries', countries);
     data.set('taxRates', taxRates);
     data.set('shippingRates', shippingRates);
@@ -19629,6 +20399,72 @@ initRates = function(client, data) {
     }
     return El$1.scheduleUpdate();
   });
+};
+
+initCart = function(client, data) {
+  var cart;
+  cart = new Cart$1(client, data);
+  cart.onCart = function() {
+    var _, mcCId, ref;
+    index$3.set('cartId', data.get('order.cartId'));
+    ref = getMCIds(), _ = ref[0], mcCId = ref[1];
+    cart = {
+      mailchimp: {
+        checkoutUrl: data.get('order.checkoutUrl')
+      },
+      currency: data.get('order.currency')
+    };
+    if (mcCId) {
+      cart.mailchimp.campaignId = mcCId;
+    }
+    return client.account.get().then(function(res) {
+      return cart._cartUpdate({
+        email: res.email,
+        userId: res.email
+      });
+    })["catch"](function() {});
+  };
+  cart.onUpdate = function(item) {
+    var items, meta;
+    items = data.get('order.items');
+    index$3.set('items', items);
+    cart._cartUpdate({
+      tax: data.get('order.tax'),
+      total: data.get('order.total')
+    });
+    if (item != null) {
+      m.trigger(Events$4.UpdateItem, item);
+    }
+    meta = data.get('order.metadata');
+    index$3.set('order.metadata', meta);
+    cart.invoice();
+    return El$1.scheduleUpdate();
+  };
+  return cart;
+};
+
+initMediator = function(data, cart) {
+  m.on(Events$4.Started, function(data) {
+    cart.invoice();
+    return El$1.scheduleUpdate();
+  });
+  m.on(Events$4.DeleteLineItem, function(item) {
+    var id;
+    id = item.get('id');
+    if (!id) {
+      id = item.get('productId');
+    }
+    if (!id) {
+      id = item.get('productSlug');
+    }
+    return Shop.setItem(id, 0);
+  });
+  m.on('error', function(err) {
+    var ref;
+    console.log(err);
+    return typeof window !== "undefined" && window !== null ? (ref = window.Raven) != null ? ref.captureException(err) : void 0 : void 0;
+  });
+  return m;
 };
 
 Coin.start = function(opts) {
@@ -19641,6 +20477,8 @@ Coin.start = function(opts) {
   }
   this.data = initData(opts);
   this.client = initClient(opts);
+  this.cart = initCart(this.client, this.data);
+  this.m = initMediator(this.data, this.cart);
   p = initRates(this.client, this.data);
   ref = this.mount(), tags = ref[0], ps = ref[1];
   ps.push(p);
@@ -19674,7 +20512,7 @@ Coin.mount = function() {
     if (root == null) {
       continue;
     }
-    if ((root.tagName != null) && (ref = root.tagName, indexOf.call(tagNames, ref) >= 0)) {
+    if ((root.tagName != null) && (ref = root.tagName, indexOf$6.call(tagNames, ref) >= 0)) {
       elementsToMount.push(root);
     } else if (((ref1 = root.children) != null ? ref1.length : void 0) > 0) {
       children = Array.prototype.slice.call(root.children);
@@ -19684,11 +20522,13 @@ Coin.mount = function() {
     }
   }
   tags = El$1.mount(elementsToMount, {
+    cart: this.cart,
     client: this.client,
     data: this.data,
     mediator: m,
     renderCurrency: renderUICurrencyFromJSON,
-    renderDate: renderDate
+    renderDate: renderDate,
+    renderCryptoQR: renderCryptoQR
   });
   ps = [];
   for (i = 0, len = tags.length; i < len; i++) {
@@ -19715,18 +20555,18 @@ Coin.getData = function() {
 tagNames = [];
 
 ref = Coin.Containers;
-for (k$1 in ref) {
-  v = ref[k$1];
-  if (v.prototype.tag != null) {
-    tagNames.push(v.prototype.tag.toUpperCase());
+for (k$3 in ref) {
+  v$2 = ref[k$3];
+  if (v$2.prototype.tag != null) {
+    tagNames.push(v$2.prototype.tag.toUpperCase());
   }
 }
 
 ref1 = Coin.Widgets;
-for (k$1 in ref1) {
-  v = ref1[k$1];
-  if (v.prototype.tag != null) {
-    tagNames.push(v.prototype.tag.toUpperCase());
+for (k$3 in ref1) {
+  v$2 = ref1[k$3];
+  if (v$2.prototype.tag != null) {
+    tagNames.push(v$2.prototype.tag.toUpperCase());
   }
 }
 
@@ -19734,14 +20574,14 @@ if ((typeof document !== "undefined" && document !== null ? document.currentScri
   key = document.currentScript.getAttribute('data-key');
   endpoint = document.currentScript.getAttribute('data-endpoint');
   if (key) {
-    opts = {
+    opts$1 = {
       key: key
     };
     if (endpoint) {
-      opts.endpoint = endpoint;
+      opts$1.endpoint = endpoint;
     }
     requestAnimationFrame(function() {
-      return Coin.start(opts);
+      return Coin.start(opts$1);
     });
   }
 }
