@@ -6,6 +6,7 @@ import objectAssign from 'es-object-assign'
 import refer        from 'referential'
 import store        from 'akasha'
 import Hanzo        from 'hanzo.js/src/browser'
+import {Cart}       from 'commerce.js/src'
 
 import {
   getQueries,
@@ -81,6 +82,9 @@ Containers =
   ResetPassword:         ResetPassword
   ResetPasswordComplete: ResetPasswordComplete
 
+  # Thank You
+  ThankYou: ThankYou
+
 Controls =
   # Basic
   Control:  Control
@@ -116,6 +120,7 @@ Controls =
 
 import { renderUICurrencyFromJSON } from 'shop.js-util/src/currency'
 import { renderDate, rfc3339 } from 'shop.js-util/src/dates'
+import { renderCryptoQR } from 'shop.js-util/src/qrcodes'
 
 Api = Hanzo.Api
 
@@ -138,8 +143,6 @@ initData = (opts)->
   meta   = store.get 'order.metadata'
 
   d =
-    taxRates:       null
-    shippingRates:  null
     countries:      []
     tokenId:        queries.tokenid
     terms:          opts.terms ? false
@@ -148,11 +151,11 @@ initData = (opts)->
       type:         opts.processor ? opts.order?.type ? 'stripe'
       shippingRate: opts.config?.shippingRate   ? opts.order?.shippingRate  ? 0
       taxRate:      opts.config?.taxRate        ? opts.order?.taxRate       ? 0
-      currency:     opts.config?.currency       ? opts.order?.currency      ? 'usd'
+      currency:     opts.config?.currency       ? opts.order?.currency      ? 'eth'
       referrerId:   referrer
       discount:    0
       tax:         0
-      subtotal:    0
+      subtotal:     opts.order?.subtotal ? 0
       total:       0
       mode:        opts.mode ? opts.order?.mode ? ''
       items:       items                    ? []
@@ -183,6 +186,7 @@ initClient = (opts)->
 
   return new Api settings
 
+# initialize rate data
 initRates = (client, data)->
   # fetch library data
   lastChecked   = store.get 'lastChecked'
@@ -220,6 +224,69 @@ initRates = (client, data)->
 
     El.scheduleUpdate()
 
+# initialize the cart from commerce.js
+initCart = (client, data)->
+  cart = new Cart client, data
+
+  cart.onCart = ->
+    store.set 'cartId', data.get 'order.cartId'
+    [_, mcCId] = getMCIds()
+    cart =
+      mailchimp:
+        checkoutUrl: data.get 'order.checkoutUrl'
+      currency: data.get 'order.currency'
+
+    if mcCId
+      cart.mailchimp.campaignId = mcCId
+
+    # try get userId
+    client.account.get().then (res) ->
+      cart._cartUpdate
+        email:  res.email
+        userId: res.email
+    .catch ->
+      # ignore error, does not matter
+
+  cart.onUpdate = (item) ->
+    items = data.get 'order.items'
+    store.set 'items', items
+
+    cart._cartUpdate
+      tax:   data.get 'order.tax'
+      total: data.get 'order.total'
+
+    if item?
+      m.trigger Events.UpdateItem, item
+
+    meta = data.get 'order.metadata'
+    store.set 'order.metadata', meta
+
+    cart.invoice()
+    El.scheduleUpdate()
+
+  return cart
+
+# initialize mediator with built in cart events
+initMediator = (data, cart) ->
+  # initialize mediator
+  m.on Events.Started, (data) ->
+    cart.invoice()
+    El.scheduleUpdate()
+
+  m.on Events.DeleteLineItem, (item) ->
+    id = item.get 'id'
+    if !id
+      id = item.get 'productId'
+    if !id
+      id = item.get 'productSlug'
+    Shop.setItem id, 0
+
+  m.on 'error', (err) ->
+    console.log err
+    window?.Raven?.captureException err
+
+  return m
+
 Coin.start = (opts = {}) ->
   unless opts.key?
     throw new Error 'Please specify your API Key'
@@ -228,6 +295,8 @@ Coin.start = (opts = {}) ->
   @data     = initData opts
   @client   = initClient opts
 
+  @cart     = initCart @client, @data
+  @m        = initMediator @data, @cart
   p         = initRates @client, @data
 
   [tags, ps] = @mount()
@@ -279,6 +348,7 @@ Coin.mount = ->
 
   # mount
   tags = El.mount elementsToMount,
+    cart:     @cart
     client:   @client
     data:     @data
     mediator: m
