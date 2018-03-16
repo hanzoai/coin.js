@@ -44,7 +44,7 @@
     "hanzo.js": "2.5.0",
     "moment-timezone": "0.5.14",
     "shop.js": "2.2.33",
-    "shop.js-util": "0.0.4"
+    "shop.js-util": "0.0.5"
   },
   "devDependencies": {
     "autoprefixer": "8.1.0",
@@ -59,7 +59,7 @@
     "coveralls": "3.0.0",
     "css-mqpacker": "6.0.2",
     "debug": "^3.1.0",
-    "electron": "1.8.3",
+    "electron": "1.8.4",
     "es5-shim": "^4.5.10",
     "istanbul": "0.4.5",
     "jquery": "3.3.1",
@@ -78,9 +78,9 @@
     "referential": "0.5.23",
     "rucksack-css": "1.0.2",
     "rupture": "0.7.1",
-    "sake-bundle": "^0.6.3",
+    "sake-bundle": "^0.6.4",
     "sake-cli": "^0.5.24",
-    "sake-outdated": "^0.1.28",
+    "sake-outdated": "^0.2.1",
     "sake-publish": "^0.1.16",
     "sake-version": "^0.1.19",
     "serve-static": "^1.13.2",
