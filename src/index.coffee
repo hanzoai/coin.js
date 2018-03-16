@@ -355,6 +355,7 @@ Coin.mount = ->
 
     renderCurrency: renderUICurrencyFromJSON
     renderDate:     renderDate
+    renderCryptoQR: renderCryptoQR
 
   ps = []
   for tag in tags
