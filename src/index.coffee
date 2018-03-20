@@ -7,6 +7,7 @@ import refer        from 'referential'
 import store        from 'akasha'
 import Hanzo        from 'hanzo.js/src/browser'
 import {Cart}       from 'commerce.js/src'
+import Web3         from 'web3'
 
 import {
   getQueries,
@@ -164,7 +165,9 @@ initData = (opts)->
       metadata:    meta                     ? {}
     user: null
     payment:
-      type: opts.processor
+      type: opts.processor ? 'ethereum'
+
+    eth: opts.eth
 
   for k, v of opts
     unless d[k]?
@@ -287,6 +290,20 @@ initMediator = (data, cart) ->
 
   return m
 
+initWeb3 = (opts = {}) ->
+  ethNode = opts?.eth?.node
+
+  if !ethNode
+    return web3
+
+  if typeof web3 !== 'undefined'
+    web3 = new Web3(web3.currentProvider)
+  else
+    # set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
+
+  return web3
+
 Coin.start = (opts = {}) ->
   unless opts.key?
     throw new Error 'Please specify your API Key'
@@ -294,6 +311,7 @@ Coin.start = (opts = {}) ->
   # initialize everything
   @data     = initData opts
   @client   = initClient opts
+  @web3     = initWeb3 opts
 
   @cart     = initCart @client, @data
   @m        = initMediator @data, @cart
@@ -351,6 +369,7 @@ Coin.mount = ->
     cart:     @cart
     client:   @client
     data:     @data
+    web3:     @web3
     mediator: m
 
     renderCurrency: renderUICurrencyFromJSON
@@ -367,6 +386,9 @@ Coin.mount = ->
   El.scheduleUpdate()
 
   return [tags, ps]
+
+Coin.getWeb3 = ->
+  return @web3
 
 Coin.getMediator = ->
   return m
