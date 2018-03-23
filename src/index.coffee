@@ -7,7 +7,7 @@ import refer        from 'referential'
 import store        from 'akasha'
 import Hanzo        from 'hanzo.js/src/browser'
 import {Cart}       from 'commerce.js/src'
-import Web3         from 'web3'
+# import Web3         from 'web3'
 
 import {
   getQueries,
@@ -183,245 +183,245 @@ initData = (opts)->
   return data
 
 # initialize hanzo.js client
-#initClient = (opts)->
-#  settings = {}
-#  settings.key      = opts.key      if opts.key
-#  settings.endpoint = opts.endpoint if opts.endpoint
+initClient = (opts)->
+  settings = {}
+  settings.key      = opts.key      if opts.key
+  settings.endpoint = opts.endpoint if opts.endpoint
 
-#  return new Api settings
+  return new Api settings
 
-## initialize rate data
-#initRates = (client, data)->
-#  # fetch library data
-#  lastChecked   = store.get 'lastChecked'
-#  countries     = store.get('countries') ? []
-#  taxRates      = store.get 'taxRates'
-#  shippingRates = store.get 'shippingRates'
+# initialize rate data
+initRates = (client, data)->
+  # fetch library data
+  lastChecked   = store.get 'lastChecked'
+  countries     = store.get('countries') ? []
+  taxRates      = store.get 'taxRates'
+  shippingRates = store.get 'shippingRates'
 
-#  data.set 'countries', countries
-#  data.set 'taxRates', taxRates
-#  data.set 'shippingRates', shippingRates
+  data.set 'countries', countries
+  data.set 'taxRates', taxRates
+  data.set 'shippingRates', shippingRates
 
-#  lastChecked = renderDate(new Date(), rfc3339)
+  lastChecked = renderDate(new Date(), rfc3339)
 
-#  return client.library.shopjs(
-#    hasCountries:       !!countries && countries.length != 0
-#    hasTaxRates:        !!taxRates
-#    hasShippingRates:   !!shippingRates
-#    lastChecked:        renderDate(lastChecked || '2000-01-01', rfc3339)
-#  ).then (res) ->
-#    countries = res.countries ? countries
-#    taxRates = res.taxRates ? taxRates
-#    shippingRates = res.shippingRates ? shippingRates
+  return client.library.shopjs(
+    hasCountries:       !!countries && countries.length != 0
+    hasTaxRates:        !!taxRates
+    hasShippingRates:   !!shippingRates
+    lastChecked:        renderDate(lastChecked || '2000-01-01', rfc3339)
+  ).then (res) ->
+    countries = res.countries ? countries
+    taxRates = res.taxRates ? taxRates
+    shippingRates = res.shippingRates ? shippingRates
 
-#    store.set 'countries', countries
-#    store.set 'taxRates', taxRates
-#    store.set 'shippingRates', shippingRates
-#    store.set 'lastChecked', lastChecked
+    store.set 'countries', countries
+    store.set 'taxRates', taxRates
+    store.set 'shippingRates', shippingRates
+    store.set 'lastChecked', lastChecked
 
-#    data.set 'countries', countries
-#    data.set 'taxRates', taxRates
-#    data.set 'shippingRates', shippingRates
+    data.set 'countries', countries
+    data.set 'taxRates', taxRates
+    data.set 'shippingRates', shippingRates
 
-#    if res.currency
-#      data.set 'order.currency', res.currency
+    if res.currency
+      data.set 'order.currency', res.currency
 
-#    El.scheduleUpdate()
+    El.scheduleUpdate()
 
-## initialize the cart from commerce.js
-#initCart = (client, data)->
-#  cart = new Cart client, data
+# initialize the cart from commerce.js
+initCart = (client, data)->
+  cart = new Cart client, data
 
-#  cart.onCart = ->
-#    store.set 'cartId', data.get 'order.cartId'
-#    [_, mcCId] = getMCIds()
-#    cart =
-#      mailchimp:
-#        checkoutUrl: data.get 'order.checkoutUrl'
-#      currency: data.get 'order.currency'
+  cart.onCart = ->
+    store.set 'cartId', data.get 'order.cartId'
+    [_, mcCId] = getMCIds()
+    cart =
+      mailchimp:
+        checkoutUrl: data.get 'order.checkoutUrl'
+      currency: data.get 'order.currency'
 
-#    if mcCId
-#      cart.mailchimp.campaignId = mcCId
+    if mcCId
+      cart.mailchimp.campaignId = mcCId
 
-#    # try get userId
-#    client.account.get().then (res) ->
-#      cart._cartUpdate
-#        email:  res.email
-#        userId: res.email
-#    .catch ->
-#      # ignore error, does not matter
+    # try get userId
+    client.account.get().then (res) ->
+      cart._cartUpdate
+        email:  res.email
+        userId: res.email
+    .catch ->
+      # ignore error, does not matter
 
-#  cart.onUpdate = (item) ->
-#    items = data.get 'order.items'
-#    store.set 'items', items
+  cart.onUpdate = (item) ->
+    items = data.get 'order.items'
+    store.set 'items', items
 
-#    cart._cartUpdate
-#      tax:   data.get 'order.tax'
-#      total: data.get 'order.total'
+    cart._cartUpdate
+      tax:   data.get 'order.tax'
+      total: data.get 'order.total'
 
-#    if item?
-#      m.trigger Events.UpdateItem, item
+    if item?
+      m.trigger Events.UpdateItem, item
 
-#    meta = data.get 'order.metadata'
-#    store.set 'order.metadata', meta
+    meta = data.get 'order.metadata'
+    store.set 'order.metadata', meta
 
-#    cart.invoice()
-#    El.scheduleUpdate()
+    cart.invoice()
+    El.scheduleUpdate()
 
-#  return cart
+  return cart
 
-## initialize mediator with built in cart events
-#initMediator = (data, cart) ->
-#  # initialize mediator
-#  m.on Events.Started, (data) ->
-#    cart.invoice()
-#    El.scheduleUpdate()
+# initialize mediator with built in cart events
+initMediator = (data, cart) ->
+  # initialize mediator
+  m.on Events.Started, (data) ->
+    cart.invoice()
+    El.scheduleUpdate()
 
-#  m.on Events.DeleteLineItem, (item) ->
-#    id = item.get 'id'
-#    if !id
-#      id = item.get 'productId'
-#    if !id
-#      id = item.get 'productSlug'
-#    Shop.setItem id, 0
+  m.on Events.DeleteLineItem, (item) ->
+    id = item.get 'id'
+    if !id
+      id = item.get 'productId'
+    if !id
+      id = item.get 'productSlug'
+    Shop.setItem id, 0
 
-#  m.on 'error', (err) ->
-#    console.log err
-#    window?.Raven?.captureException err
+  m.on 'error', (err) ->
+    console.log err
+    window?.Raven?.captureException err
 
-#  return m
+  return m
 
-#initWeb3 = (opts = {}) ->
-#  ethNode = opts?.eth?.node
+# initWeb3 = (opts = {}) ->
+#   ethNode = opts?.eth?.node
 
-#  if !ethNode
-#    return web3
+#   if !ethNode
+#     return web3
 
-#  if typeof web3 !== 'undefined'
-#    web3 = new Web3(web3.currentProvider)
-#  else
-#    # set the provider you want from Web3.providers
-#    web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
+#   if typeof web3 !== 'undefined'
+#     web3 = new Web3(web3.currentProvider)
+#   else
+#     # set the provider you want from Web3.providers
+#     web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
 
-#  return web3
+#   return web3
 
-#Coin.start = (opts = {}) ->
-#  unless opts.key?
-#    throw new Error 'Please specify your API Key'
+Coin.start = (opts = {}) ->
+  unless opts.key?
+    throw new Error 'Please specify your API Key'
 
-#  # initialize everything
-#  @data     = initData opts
-#  @client   = initClient opts
-#  @web3     = initWeb3 opts
+  # initialize everything
+  @data     = initData opts
+  @client   = initClient opts
+  # @web3     = initWeb3 opts
 
-#  @cart     = initCart @client, @data
-#  @m        = initMediator @data, @cart
-#  p         = initRates @client, @data
+  @cart     = initCart @client, @data
+  @m        = initMediator @data, @cart
+  p         = initRates @client, @data
 
-#  [tags, ps] = @mount()
+  [tags, ps] = @mount()
 
-#  ps.push p
+  ps.push p
 
-#  # Wait until all processing is done before issuing Ready event
-#  # This is different from Shop.js
-#  # Shop.js needs to be updated to do it this way
-#  p = Promise.settle(ps).then ->
-#    requestAnimationFrame ->
-#      tagSelectors = tagNames.join ', '
-#      for tag in tags
-#        $(tag.root)
-#          .addClass 'ready'
-#          .find tagSelectors
-#          .addClass 'ready'
+  # Wait until all processing is done before issuing Ready event
+  # This is different from Shop.js
+  # Shop.js needs to be updated to do it this way
+  p = Promise.settle(ps).then ->
+    requestAnimationFrame ->
+      tagSelectors = tagNames.join ', '
+      for tag in tags
+        $(tag.root)
+          .addClass 'ready'
+          .find tagSelectors
+          .addClass 'ready'
 
-#      m.trigger Events.Ready
-#    #try to deal with long running stuff
-#    El.scheduleUpdate()
-#  .catch (err) ->
-#    window?.Raven?.captureException err
+      m.trigger Events.Ready
+    #try to deal with long running stuff
+    El.scheduleUpdate()
+  .catch (err) ->
+    window?.Raven?.captureException err
 
-#  return tags
+  return tags
 
-#Coin.mount = ->
-#  # create list of elements to mount
-#  searchQueue     = [document.body]
-#  elementsToMount = []
+Coin.mount = ->
+  # create list of elements to mount
+  searchQueue     = [document.body]
+  elementsToMount = []
 
-#  # move to El
-#  loop
-#    if searchQueue.length == 0
-#      break
+  # move to El
+  loop
+    if searchQueue.length == 0
+      break
 
-#    root = searchQueue.shift()
+    root = searchQueue.shift()
 
-#    if !root?
-#      continue
+    if !root?
+      continue
 
-#    if root.tagName? && root.tagName in tagNames
-#      elementsToMount.push root
-#    else if root.children?.length > 0
-#      children = Array.prototype.slice.call root.children
-#      children.unshift 0
-#      children.unshift searchQueue.length
-#      searchQueue.splice.apply searchQueue, children
+    if root.tagName? && root.tagName in tagNames
+      elementsToMount.push root
+    else if root.children?.length > 0
+      children = Array.prototype.slice.call root.children
+      children.unshift 0
+      children.unshift searchQueue.length
+      searchQueue.splice.apply searchQueue, children
 
-#  # mount
-#  tags = El.mount elementsToMount,
-#    cart:     @cart
-#    client:   @client
-#    data:     @data
-#    web3:     @web3
-#    mediator: m
+  # mount
+  tags = El.mount elementsToMount,
+    cart:     @cart
+    client:   @client
+    data:     @data
+    # web3:     @web3
+    mediator: m
 
-#    renderCurrency: renderUICurrencyFromJSON
-#    renderDate:     renderDate
-#    renderCryptoQR: renderCryptoQR
+    renderCurrency: renderUICurrencyFromJSON
+    renderDate:     renderDate
+    renderCryptoQR: renderCryptoQR
 
-#  ps = []
-#  for tag in tags
-#    p = new Promise (resolve) ->
-#      tag.one 'updated', ->
-#        resolve()
-#    ps.push p
+  ps = []
+  for tag in tags
+    p = new Promise (resolve) ->
+      tag.one 'updated', ->
+        resolve()
+    ps.push p
 
-#  El.scheduleUpdate()
+  El.scheduleUpdate()
 
-#  return [tags, ps]
+  return [tags, ps]
 
-#Coin.getWeb3 = ->
-#  return @web3
+# Coin.getWeb3 = ->
+#   return @web3
 
-#Coin.getMediator = ->
-#  return m
+Coin.getMediator = ->
+  return m
 
-#Coin.getData = ->
-#  return @data
+Coin.getData = ->
+  return @data
 
-## Deal with mounting procedure for only Coin.js components
-#tagNames = []
-#for k, v of Coin.Containers
-#  tagNames.push(v::tag.toUpperCase()) if v::tag?
-#for k, v of Coin.Widgets
-#  tagNames.push(v::tag.toUpperCase()) if v::tag?
+# Deal with mounting procedure for only Coin.js components
+tagNames = []
+for k, v of Coin.Containers
+  tagNames.push(v::tag.toUpperCase()) if v::tag?
+for k, v of Coin.Widgets
+  tagNames.push(v::tag.toUpperCase()) if v::tag?
 
-## Support inline load
-#if document?.currentScript?
-#  key = document.currentScript.getAttribute('data-key')
-#  endpoint = document.currentScript.getAttribute('data-endpoint')
+# Support inline load
+if document?.currentScript?
+  key = document.currentScript.getAttribute('data-key')
+  endpoint = document.currentScript.getAttribute('data-endpoint')
 
-#  if key
-#    opts =
-#      key: key
+  if key
+    opts =
+      key: key
 
-#    if endpoint
-#      opts.endpoint = endpoint
+    if endpoint
+      opts.endpoint = endpoint
 
-#    requestAnimationFrame ()->
-#      Coin.start opts
+    requestAnimationFrame ()->
+      Coin.start opts
 
-#if window?
-#  window.Coin = Coin
+if window?
+  window.Coin = Coin
 
-#export default Coin
+export default Coin
 
 
