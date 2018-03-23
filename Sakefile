@@ -19,6 +19,7 @@ task 'build', 'build js', ['build:static'], ->
         version: 1
     # quiet: false
     # details: true
+    format:    'web'
     external: false
     commonjs:  true
 
