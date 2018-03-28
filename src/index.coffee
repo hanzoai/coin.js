@@ -7,7 +7,6 @@ import refer        from 'referential'
 import store        from 'akasha'
 import Hanzo        from 'hanzo.js/src/browser'
 import {Cart}       from 'commerce.js/src'
-# import Web3         from 'web3'
 
 import {
   getQueries,
@@ -168,7 +167,7 @@ initData = (opts)->
     user: null
     payment:
       type: opts.processor ? 'ethereum'
-    eth: opts.eth
+    eth: opts.eth ? {}
 
   for k, v of opts
     unless d[k]?
@@ -291,19 +290,39 @@ initMediator = (data, cart) ->
 
   return m
 
-# initWeb3 = (opts = {}) ->
-#   ethNode = opts?.eth?.node
+initWeb3 = (opts = {}, data) ->
+  return if !opts.eth
+  return if !Web3
 
-#   if !ethNode
-#     return web3
+  ethNode = opts?.eth?.node
 
-#   if typeof web3 !== 'undefined'
-#     web3 = new Web3(web3.currentProvider)
-#   else
-#     # set the provider you want from Web3.providers
-#     web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
+  return web3 if !ethNode
 
-#   return web3
+  if typeof web3 != 'undefined'
+    web3 = new Web3(web3.currentProvider)
+  else
+    # set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
+
+  # Start Update Loop
+
+  update = ->
+    address = data.get 'eth.address'
+
+    if address
+      web3.eth.getBalance address, 'latest', (err, balance)->
+        if err
+          console.log 'web3 update error:', err
+          return
+
+        data.set 'eth.balance', parseInt(web3.fromWei(balance, 'gwei').toNumber())
+        El.scheduleUpdate()
+
+  update()
+
+  setInterval update, 10000
+
+  return web3
 
 Coin.start = (opts = {}) ->
   unless opts.key?
@@ -312,8 +331,8 @@ Coin.start = (opts = {}) ->
   # initialize everything
   @data     = initData opts
   @client   = initClient opts
-  # @web3     = initWeb3 opts
 
+  @web3     = initWeb3 opts, @data
   @cart     = initCart @client, @data
   @m        = initMediator @data, @cart
   p         = initRates @client, @data
@@ -370,7 +389,7 @@ Coin.mount = ->
     cart:     @cart
     client:   @client
     data:     @data
-    # web3:     @web3
+    web3:     @web3
     mediator: m
 
     renderCurrency: renderUICurrencyFromJSON

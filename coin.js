@@ -7079,7 +7079,7 @@ for (k$2 in riot$1) {
 
 var El$1$1 = El$2;
 
-// node_modules/el-controls/src/events.coffee
+// ../el-controls/src/events.coffee
 var Events;
 
 var ControlEvents = Events = {
@@ -8458,7 +8458,7 @@ ThankYouForm = (function(superClass) {
   };
 
   ThankYouForm.prototype.isMetamaskInstalled = function() {
-    return typeof web3 !== 'undefined';
+    return (typeof web3 !== 'undefined') && web3.currentProvider.isMetaMask;
   };
 
   ThankYouForm.prototype.payWithMetamask = function() {
@@ -8506,8 +8506,8 @@ ThankYouForm = (function(superClass) {
         this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Error: <thankyou> is in test mode'));
         return this.errorMessage = 'Error: <thankyou> is in test mode';
       } else {
-        this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Invalid address'));
-        return this.errorMessage = 'Invalid address';
+        this.mediator.trigger(Events$2.PayWithMetamaskFailed, new Error('Invalid sender address, are you logged into Metamask?'));
+        return this.errorMessage = 'Invalid sender address, are you logged into Metamask?';
       }
     }
   };
@@ -10181,7 +10181,7 @@ var Tween = /** @class */ (function () {
 
 // node_modules/es6-tween/src/index.js
 
-// node_modules/el-controls/src/utils/valueOrCall.coffee
+// ../el-controls/src/utils/valueOrCall.coffee
 var valueOrCall = function(valueOrFunc) {
   if (typeof valueOrFunc === 'function') {
     return valueOrFunc();
@@ -10189,7 +10189,7 @@ var valueOrCall = function(valueOrFunc) {
   return valueOrFunc;
 };
 
-// node_modules/el-controls/src/controls/control.coffee
+// ../el-controls/src/controls/control.coffee
 var Control, _controlId, scrolling,
   extend$15 = function(child, parent) { for (var key in parent) { if (hasProp$14.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$14 = {}.hasOwnProperty;
@@ -10275,7 +10275,7 @@ var Control$1 = Control = (function(superClass) {
 
 })(El$1.Input);
 
-// node_modules/el-controls/src/utils/placeholder.coffee
+// ../el-controls/src/utils/placeholder.coffee
 var exports$1, hidePlaceholderOnFocus, unfocusOnAnElement;
 
 hidePlaceholderOnFocus = function(event) {
@@ -10322,10 +10322,10 @@ if (document.createElement("input").placeholder == null) {
 
 var placeholder = exports$1;
 
-// node_modules/el-controls/templates/controls/text.pug
+// ../el-controls/templates/controls/text.pug
 var html$9 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onchange=\"{ change }\" onblur=\"{ change }\" riot-value=\"{ input.ref.get(input.name) }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"{ readonly }\" placeholder=\"{ placeholder }\">\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: input.ref.get(input.name) || placeholder }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
-// node_modules/el-controls/src/controls/text.coffee
+// ../el-controls/src/controls/text.coffee
 var Text,
   extend$16 = function(child, parent) { for (var key in parent) { if (hasProp$15.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$15 = {}.hasOwnProperty;
@@ -10646,10 +10646,10 @@ PromoCode = (function(superClass) {
 
 PromoCode.register();
 
-// node_modules/el-controls/templates/controls/selection.pug
+// ../el-controls/templates/controls/selection.pug
 var html$10 = "\n<yield from=\"input\">\n  <select class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" onchange=\"{ change }\" onblur=\"{ change }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled || !hasOptions() }\" multiple=\"{ multiple }\" size=\"{ size }\">\n    <option if=\"{ placeholder }\" value=\"\">{ placeholder }</option>\n    <option each=\"{ v, k in options() }\" value=\"{ k }\" selected=\"{ k == input.ref.get(input.name) }\">{ v }</option>\n  </select>\n  <div class=\"select-indicator\">▼</div>\n</yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
-// node_modules/el-controls/src/controls/selection.coffee
+// ../el-controls/src/controls/selection.coffee
 var Select,
   extend$22 = function(child, parent) { for (var key in parent) { if (hasProp$21.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$21 = {}.hasOwnProperty;
@@ -10790,7 +10790,7 @@ var ShippingAddressCity$1 = ShippingAddressCity = (function(superClass) {
 
 ShippingAddressCity.register();
 
-// node_modules/el-controls/src/controls/country-select.coffee
+// ../el-controls/src/controls/country-select.coffee
 var CountrySelect,
   extend$25 = function(child, parent) { for (var key in parent) { if (hasProp$24.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$24 = {}.hasOwnProperty;
@@ -10966,7 +10966,7 @@ var ShippingAddressPostalCode$1 = ShippingAddressPostalCode = (function(superCla
 
 ShippingAddressPostalCode.register();
 
-// node_modules/el-controls/src/controls/state-select.coffee
+// ../el-controls/src/controls/state-select.coffee
 var StateSelect,
   extend$31 = function(child, parent) { for (var key in parent) { if (hasProp$30.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$30 = {}.hasOwnProperty;
@@ -11080,10 +11080,10 @@ var ShippingAddressState$1 = ShippingAddressState = (function(superClass) {
 
 ShippingAddressState.register();
 
-// node_modules/el-controls/templates/controls/checkbox.pug
+// ../el-controls/templates/controls/checkbox.pug
 var html$11 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"checkbox\" onchange=\"{ change }\" onblur=\"{ change }\" checked=\"{ input.ref.get(input.name) }\">\n</yield>\n<yield></yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>";
 
-// node_modules/el-controls/src/controls/checkbox.coffee
+// ../el-controls/src/controls/checkbox.coffee
 var CheckBox,
   extend$33 = function(child, parent) { for (var key in parent) { if (hasProp$32.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$32 = {}.hasOwnProperty;
@@ -11303,10 +11303,10 @@ GiftEmail = (function(superClass) {
 
 GiftEmail.register();
 
-// node_modules/el-controls/templates/controls/textarea.pug
+// ../el-controls/templates/controls/textarea.pug
 var html$12 = "\n<yield from=\"input\">\n  <textarea class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" onchange=\"{ change }\" onblur=\"{ change }\" rows=\"{ rows }\" cols=\"{ cols }\" disabled=\"{disabled\" maxlength=\"{ maxlength }\" placeholder=\"{ placeholder }\" readonly=\"{ readonly }\" wrap=\"{ wrap }\">{ input.ref.get(input.name) }</textarea>\n</yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
-// node_modules/el-controls/src/controls/textbox.coffee
+// ../el-controls/src/controls/textbox.coffee
 var TextBox,
   extend$42 = function(child, parent) { for (var key in parent) { if (hasProp$41.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$41 = {}.hasOwnProperty;
@@ -11410,16 +11410,56 @@ GiftType = (function(superClass) {
 
 GiftType.register();
 
-// node_modules/el-controls/templates/controls/copy.pug
-var html$13 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onclick=\"{ copy }\" riot-value=\"{ getText() }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"true\" placeholder=\"{ placeholder }\">\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: true }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield from=\"copy-text\">\n  <div class=\"copy-text\">{ copied ? 'Copied' : '&#128203;' }</div>\n</yield>\n<yield></yield>";
-
-// node_modules/el-controls/src/controls/copy.coffee
-var Copy,
+// ../el-controls/src/controls/readonly.coffee
+var ReadOnly,
   extend$46 = function(child, parent) { for (var key in parent) { if (hasProp$45.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp$45 = {}.hasOwnProperty;
 
+var ReadOnly$1 = ReadOnly = (function(superClass) {
+  extend$46(ReadOnly, superClass);
+
+  function ReadOnly() {
+    return ReadOnly.__super__.constructor.apply(this, arguments);
+  }
+
+  ReadOnly.prototype.tag = 'readonly';
+
+  ReadOnly.prototype.readonly = true;
+
+  ReadOnly.prototype.text = '';
+
+  ReadOnly.prototype.init = function() {
+    if (!this.text) {
+      return ReadOnly.__super__.init.apply(this, arguments);
+    }
+  };
+
+  ReadOnly.prototype.getText = function() {
+    return valueOrCall(this.text) || this.input.ref.get(input.name);
+  };
+
+  ReadOnly.prototype.change = function() {};
+
+  ReadOnly.prototype._change = function() {};
+
+  ReadOnly.prototype.getName = function() {};
+
+  return ReadOnly;
+
+})(Text$1);
+
+ReadOnly.register();
+
+// ../el-controls/templates/controls/copy.pug
+var html$13 = "\n<yield from=\"input\">\n  <input class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onclick=\"{ copy }\" riot-value=\"{ getText() }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"true\" placeholder=\"{ placeholder }\">\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: true }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield from=\"copy-text\">\n  <div class=\"copy-text\">{ copied ? 'Copied' : '&#128203;' }</div>\n</yield>\n<yield></yield>";
+
+// ../el-controls/src/controls/copy.coffee
+var Copy,
+  extend$47 = function(child, parent) { for (var key in parent) { if (hasProp$46.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$46 = {}.hasOwnProperty;
+
 Copy = (function(superClass) {
-  extend$46(Copy, superClass);
+  extend$47(Copy, superClass);
 
   function Copy() {
     return Copy.__super__.constructor.apply(this, arguments);
@@ -11434,20 +11474,8 @@ Copy = (function(superClass) {
   Copy.prototype.copied = false;
 
   Copy.prototype.init = function() {
-    if (!this.text) {
-      return Copy.__super__.init.apply(this, arguments);
-    }
+    return Copy.__super__.init.apply(this, arguments);
   };
-
-  Copy.prototype.getText = function() {
-    return valueOrCall(this.text) || this.input.ref.get(input.name);
-  };
-
-  Copy.prototype.change = function() {};
-
-  Copy.prototype._change = function() {};
-
-  Copy.prototype.getName = function() {};
 
   Copy.prototype.copy = function(e) {
     var msg, successful, text, textArea;
@@ -11483,20 +11511,20 @@ Copy = (function(superClass) {
 
   return Copy;
 
-})(Text$1);
+})(ReadOnly$1);
 
 Copy.register();
 
-// node_modules/el-controls/templates/controls/currency.pug
+// ../el-controls/templates/controls/currency.pug
 var html$14 = "\n<yield from=\"input\">\n  <div class=\"currency-container {invalid: errorMessage, valid: valid, labeled: label}\">\n    <input class=\"currency-amount right-aligned {invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" type=\"{ type }\" onchange=\"{ change }\" onblur=\"{ change }\" riot-value=\"{ renderValue() }\" autocomplete=\"{ autocomplete }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled }\" maxlength=\"{ maxlength }\" readonly=\"{ readonly }\" placeholder=\"{ placeholder }\">\n    <div class=\"currency-code\">\n      <div class=\"currency-code-text\">{ getCurrency().toUpperCase() }</div>\n    </div>\n  </div>\n</yield>\n<yield from=\"label\">\n  <div class=\"label { active: input.ref.get(input.name) || input.ref.get(input.name) == 0 || placeholder }\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
-// node_modules/el-controls/src/controls/currency.coffee
+// ../el-controls/src/controls/currency.coffee
 var Currency,
-  extend$47 = function(child, parent) { for (var key in parent) { if (hasProp$46.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp$46 = {}.hasOwnProperty;
+  extend$48 = function(child, parent) { for (var key in parent) { if (hasProp$47.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$47 = {}.hasOwnProperty;
 
 Currency = (function(superClass) {
-  extend$47(Currency, superClass);
+  extend$48(Currency, superClass);
 
   function Currency() {
     return Currency.__super__.constructor.apply(this, arguments);
@@ -11532,7 +11560,7 @@ Currency = (function(superClass) {
 
 Currency.register();
 
-// node_modules/el-controls/templates/controls/qrcode.pug
+// ../el-controls/templates/controls/qrcode.pug
 var html$15 = "\n<canvas></canvas>";
 
 //  commonjsHelpers
@@ -14810,13 +14838,13 @@ module.exports = Array.isArray || function (arr) {
 
 });
 
-// node_modules/el-controls/src/controls/qrcode.coffee
+// ../el-controls/src/controls/qrcode.coffee
 var QRCode,
-  extend$48 = function(child, parent) { for (var key in parent) { if (hasProp$47.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp$47 = {}.hasOwnProperty;
+  extend$49 = function(child, parent) { for (var key in parent) { if (hasProp$48.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$48 = {}.hasOwnProperty;
 
 QRCode = (function(superClass) {
-  extend$48(QRCode, superClass);
+  extend$49(QRCode, superClass);
 
   function QRCode() {
     return QRCode.__super__.constructor.apply(this, arguments);
@@ -14846,9 +14874,7 @@ QRCode = (function(superClass) {
   };
 
   QRCode.prototype.init = function() {
-    if (!this.text) {
-      return QRCode.__super__.init.apply(this, arguments);
-    }
+    return QRCode.__super__.init.apply(this, arguments);
   };
 
   QRCode.prototype.onUpdated = function() {
@@ -14866,31 +14892,21 @@ QRCode = (function(superClass) {
     });
   };
 
-  QRCode.prototype.getText = function() {
-    return valueOrCall(this.text) || this.input.ref.get(input.name);
-  };
-
-  QRCode.prototype.change = function() {};
-
-  QRCode.prototype._change = function() {};
-
-  QRCode.prototype.getName = function() {};
-
   return QRCode;
 
-})(Text$1);
+})(ReadOnly$1);
 
 QRCode.register();
 
 // ../shop.js/src/controls/index.coffee
 
-// node_modules/el-controls/src/controls/recaptcha.coffee
+// ../el-controls/src/controls/recaptcha.coffee
 var ReCaptcha,
-  extend$49 = function(child, parent) { for (var key in parent) { if (hasProp$48.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp$48 = {}.hasOwnProperty;
+  extend$50 = function(child, parent) { for (var key in parent) { if (hasProp$49.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp$49 = {}.hasOwnProperty;
 
 ReCaptcha = (function(superClass) {
-  extend$49(ReCaptcha, superClass);
+  extend$50(ReCaptcha, superClass);
 
   function ReCaptcha() {
     return ReCaptcha.__super__.constructor.apply(this, arguments);
@@ -15021,7 +15037,7 @@ function hasOwnProp(a, b) {
 
 // node_modules/moment/src/lib/utils/extend.js
 
-function extend$50(a, b) {
+function extend$51(a, b) {
     for (var i in b) {
         if (hasOwnProp(b, i)) {
             a[i] = b[i];
@@ -15131,7 +15147,7 @@ function isValid(m) {
 function createInvalid (flags) {
     var m = createUTC(NaN);
     if (flags != null) {
-        extend$50(getParsingFlags(m), flags);
+        extend$51(getParsingFlags(m), flags);
     }
     else {
         getParsingFlags(m).userInvalidated = true;
@@ -15267,7 +15283,7 @@ function warn(msg) {
 function deprecate(msg, fn) {
     var firstTime = true;
 
-    return extend$50(function () {
+    return extend$51(function () {
         if (hooks.deprecationHandler != null) {
             hooks.deprecationHandler(null, msg);
         }
@@ -15336,13 +15352,13 @@ function set (config) {
 }
 
 function mergeConfigs(parentConfig, childConfig) {
-    var res = extend$50({}, parentConfig), prop;
+    var res = extend$51({}, parentConfig), prop;
     for (prop in childConfig) {
         if (hasOwnProp(childConfig, prop)) {
             if (isObject$3(parentConfig[prop]) && isObject$3(childConfig[prop])) {
                 res[prop] = {};
-                extend$50(res[prop], parentConfig[prop]);
-                extend$50(res[prop], childConfig[prop]);
+                extend$51(res[prop], parentConfig[prop]);
+                extend$51(res[prop], childConfig[prop]);
             } else if (childConfig[prop] != null) {
                 res[prop] = childConfig[prop];
             } else {
@@ -15355,7 +15371,7 @@ function mergeConfigs(parentConfig, childConfig) {
                 !hasOwnProp(childConfig, prop) &&
                 isObject$3(parentConfig[prop])) {
             // make sure changes to properties don't modify parent config
-            res[prop] = extend$50({}, res[prop]);
+            res[prop] = extend$51({}, res[prop]);
         }
     }
     return res;
@@ -17547,7 +17563,7 @@ function configFromStringAndArray(config) {
         }
     }
 
-    extend$50(config, bestMoment || tempConfig);
+    extend$51(config, bestMoment || tempConfig);
 }
 
 // node_modules/moment/src/lib/create/from-object.js
@@ -18577,7 +18593,7 @@ function isValid$2 () {
 }
 
 function parsingFlags () {
-    return extend$50({}, getParsingFlags(this));
+    return extend$51({}, getParsingFlags(this));
 }
 
 function invalidAt () {
@@ -20294,7 +20310,7 @@ var renderCryptoQR = function(currency, address, amount) {
 };
 
 // src/index.coffee
-var Api$2, Coin, Containers, Controls, endpoint, initCart, initClient, initData, initMediator, initRates, k$3, key, opts$1, ref, ref1, tagNames, v$2,
+var Api$2, Coin, Containers, Controls, endpoint, initCart, initClient, initData, initMediator, initRates, initWeb3, k$3, key, opts$1, ref, ref1, tagNames, v$2,
   indexOf$6 = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 Containers = {
@@ -20344,7 +20360,7 @@ Coin = {
 };
 
 initData = function(opts) {
-  var cartId, d, data, items, k, k2, meta, queries, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref3, ref4, ref5, ref6, ref7, ref8, ref9, referrer, v, v2;
+  var cartId, d, data, items, k, k2, meta, queries, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref4, ref5, ref6, ref7, ref8, ref9, referrer, v, v2;
   queries = getQueries();
   referrer = '';
   referrer = (ref = getReferrer((ref1 = opts.config) != null ? ref1.hashReferrer : void 0)) != null ? ref : (ref2 = opts.order) != null ? ref2.referrer : void 0;
@@ -20377,18 +20393,18 @@ initData = function(opts) {
     payment: {
       type: (ref26 = opts.processor) != null ? ref26 : 'ethereum'
     },
-    eth: opts.eth
+    eth: (ref27 = opts.eth) != null ? ref27 : {}
   };
   for (k in opts) {
     v = opts[k];
     if (d[k] == null) {
       d[k] = opts[k];
     } else {
-      ref27 = d[k];
-      for (k2 in ref27) {
-        v2 = ref27[k2];
+      ref28 = d[k];
+      for (k2 in ref28) {
+        v2 = ref28[k2];
         if (v2 == null) {
-          d[k][k2] = (ref28 = opts[k]) != null ? ref28[k2] : void 0;
+          d[k][k2] = (ref29 = opts[k]) != null ? ref29[k2] : void 0;
         }
       }
     }
@@ -20509,6 +20525,45 @@ initMediator = function(data, cart) {
   return m;
 };
 
+initWeb3 = function(opts, data) {
+  var ethNode, ref, update, web3;
+  if (opts == null) {
+    opts = {};
+  }
+  if (!opts.eth) {
+    return;
+  }
+  if (!Web3) {
+    return;
+  }
+  ethNode = opts != null ? (ref = opts.eth) != null ? ref.node : void 0 : void 0;
+  if (!ethNode) {
+    return web3;
+  }
+  if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+  } else {
+    web3 = new Web3(new Web3.providers.HttpProvider(ethNode));
+  }
+  update = function() {
+    var address;
+    address = data.get('eth.address');
+    if (address) {
+      return web3.eth.getBalance(address, 'latest', function(err, balance) {
+        if (err) {
+          console.log('web3 update error:', err);
+          return;
+        }
+        data.set('eth.balance', parseInt(web3.fromWei(balance, 'gwei').toNumber()));
+        return El$1.scheduleUpdate();
+      });
+    }
+  };
+  update();
+  setInterval(update, 10000);
+  return web3;
+};
+
 Coin.start = function(opts) {
   var p, ps, ref, tags;
   if (opts == null) {
@@ -20519,6 +20574,7 @@ Coin.start = function(opts) {
   }
   this.data = initData(opts);
   this.client = initClient(opts);
+  this.web3 = initWeb3(opts, this.data);
   this.cart = initCart(this.client, this.data);
   this.m = initMediator(this.data, this.cart);
   p = initRates(this.client, this.data);
@@ -20567,6 +20623,7 @@ Coin.mount = function() {
     cart: this.cart,
     client: this.client,
     data: this.data,
+    web3: this.web3,
     mediator: m,
     renderCurrency: renderUICurrencyFromJSON,
     renderDate: renderDate,
