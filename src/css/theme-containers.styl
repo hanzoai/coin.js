@@ -6,7 +6,6 @@ register
 reset-password
 reset-password-complete
 thankyou
-view
   box-sizing: border-box
 
   *
@@ -20,6 +19,26 @@ view
 
   @import 'shop.js/src/css/ready'
   @import 'shop.js/src/css/form'
+  @import 'shop.js/src/css/font'
+  @import 'shop.js/src/css/buttons'
+
+  .disabled
+  :disabled
+    opacity: 0.5
+
+view
+  box-sizing: border-box
+
+  *
+    box-sizing: border-box
+
+  .input
+    @import 'el-controls/src/css/theme-inputs-no-context'
+
+  .checkbox
+    @import 'el-controls/src/css/theme-checkboxes-no-context'
+
+  @import 'shop.js/src/css/ready'
   @import 'shop.js/src/css/font'
   @import 'shop.js/src/css/buttons'
 
