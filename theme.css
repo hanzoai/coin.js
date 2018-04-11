@@ -5,8 +5,7 @@ profile,
 register,
 reset-password,
 reset-password-complete,
-thankyou,
-view{
+thankyou{
   box-sizing:border-box;
 }
 deposit *,
@@ -16,8 +15,7 @@ profile *,
 register *,
 reset-password *,
 reset-password-complete *,
-thankyou *,
-view *{
+thankyou *{
   box-sizing:border-box;
 }
 deposit .input .selectize-input,
@@ -27,8 +25,7 @@ profile .input .selectize-input,
 register .input .selectize-input,
 reset-password .input .selectize-input,
 reset-password-complete .input .selectize-input,
-thankyou .input .selectize-input,
-view .input .selectize-input{
+thankyou .input .selectize-input{
   background-color:transparent !important;
   font-weight:bold !important;
   color:$textColor1 !important;
@@ -49,8 +46,7 @@ profile .input .selectize-input:after,
 register .input .selectize-input:after,
 reset-password .input .selectize-input:after,
 reset-password-complete .input .selectize-input:after,
-thankyou .input .selectize-input:after,
-view .input .selectize-input:after{
+thankyou .input .selectize-input:after{
   border-color:#000 transparent transparent !important;
   top:12px;
   right:0 !important;
@@ -63,8 +59,7 @@ profile .input .selectize-input.dropdown-active:before,
 register .input .selectize-input.dropdown-active:before,
 reset-password .input .selectize-input.dropdown-active:before,
 reset-password-complete .input .selectize-input.dropdown-active:before,
-thankyou .input .selectize-input.dropdown-active:before,
-view .input .selectize-input.dropdown-active:before{
+thankyou .input .selectize-input.dropdown-active:before{
   display:none !important;
 }
 deposit .input .selectize-input.dropdown-active:after,
@@ -74,8 +69,7 @@ profile .input .selectize-input.dropdown-active:after,
 register .input .selectize-input.dropdown-active:after,
 reset-password .input .selectize-input.dropdown-active:after,
 reset-password-complete .input .selectize-input.dropdown-active:after,
-thankyou .input .selectize-input.dropdown-active:after,
-view .input .selectize-input.dropdown-active:after{
+thankyou .input .selectize-input.dropdown-active:after{
   border-color:transparent transparent #000 !important;
 }
 deposit .input .selectize-input.full,
@@ -85,8 +79,7 @@ profile .input .selectize-input.full,
 register .input .selectize-input.full,
 reset-password .input .selectize-input.full,
 reset-password-complete .input .selectize-input.full,
-thankyou .input .selectize-input.full,
-view .input .selectize-input.full{
+thankyou .input .selectize-input.full{
   min-height:0 !important;
 }
 deposit .input .selectize-input input,
@@ -96,8 +89,7 @@ profile .input .selectize-input input,
 register .input .selectize-input input,
 reset-password .input .selectize-input input,
 reset-password-complete .input .selectize-input input,
-thankyou .input .selectize-input input,
-view .input .selectize-input input{
+thankyou .input .selectize-input input{
   position:absolute !important;
   width:100% !important;
   margin-top:-6px !important;
@@ -111,8 +103,7 @@ profile .input .selectize-input .item,
 register .input .selectize-input .item,
 reset-password .input .selectize-input .item,
 reset-password-complete .input .selectize-input .item,
-thankyou .input .selectize-input .item,
-view .input .selectize-input .item{
+thankyou .input .selectize-input .item{
   position:absolute !important;
   font-size:1em;
   font-weight:400;
@@ -125,8 +116,7 @@ profile .input,
 register .input,
 reset-password .input,
 reset-password-complete .input,
-thankyou .input,
-view .input{
+thankyou .input{
   color:#000;
   position:relative;
 }
@@ -138,7 +128,6 @@ register .input.input.input,
 reset-password .input.input.input,
 reset-password-complete .input.input.input,
 thankyou .input.input.input,
-view .input.input.input,
 deposit .input .input.input,
 login .input .input.input,
 orders .input .input.input,
@@ -146,8 +135,7 @@ profile .input .input.input,
 register .input .input.input,
 reset-password .input .input.input,
 reset-password-complete .input .input.input,
-thankyou .input .input.input,
-view .input .input.input{
+thankyou .input .input.input{
   width:100%;
   display:block;
   margin-top:1em;
@@ -160,7 +148,6 @@ register .input.input.input .labeled,
 reset-password .input.input.input .labeled,
 reset-password-complete .input.input.input .labeled,
 thankyou .input.input.input .labeled,
-view .input.input.input .labeled,
 deposit .input .input.input .labeled,
 login .input .input.input .labeled,
 orders .input .input.input .labeled,
@@ -168,8 +155,7 @@ profile .input .input.input .labeled,
 register .input .input.input .labeled,
 reset-password .input .input.input .labeled,
 reset-password-complete .input .input.input .labeled,
-thankyou .input .input.input .labeled,
-view .input .input.input .labeled{
+thankyou .input .input.input .labeled{
   margin-top:0.75em;
 }
 deposit .input .label,
@@ -179,8 +165,7 @@ profile .input .label,
 register .input .label,
 reset-password .input .label,
 reset-password-complete .input .label,
-thankyou .input .label,
-view .input .label{
+thankyou .input .label{
   left:0;
   top:1.25em;
   position:absolute;
@@ -196,8 +181,7 @@ profile .input .valid.valid,
 register .input .valid.valid,
 reset-password .input .valid.valid,
 reset-password-complete .input .valid.valid,
-thankyou .input .valid.valid,
-view .input .valid.valid{
+thankyou .input .valid.valid{
   border-color:#00bcd4;
 }
 deposit .input .invalid.invalid,
@@ -207,8 +191,7 @@ profile .input .invalid.invalid,
 register .input .invalid.invalid,
 reset-password .input .invalid.invalid,
 reset-password-complete .input .invalid.invalid,
-thankyou .input .invalid.invalid,
-view .input .invalid.invalid{
+thankyou .input .invalid.invalid{
   border-color:#e91e63;
 }
 deposit .input .valid ~ .label,
@@ -218,8 +201,7 @@ profile .input .valid ~ .label,
 register .input .valid ~ .label,
 reset-password .input .valid ~ .label,
 reset-password-complete .input .valid ~ .label,
-thankyou .input .valid ~ .label,
-view .input .valid ~ .label{
+thankyou .input .valid ~ .label{
   color:#00bcd4;
 }
 deposit .input .invalid ~ .label,
@@ -229,8 +211,7 @@ profile .input .invalid ~ .label,
 register .input .invalid ~ .label,
 reset-password .input .invalid ~ .label,
 reset-password-complete .input .invalid ~ .label,
-thankyou .input .invalid ~ .label,
-view .input .invalid ~ .label{
+thankyou .input .invalid ~ .label{
   color:#e91e63;
 }
 deposit .input .error,
@@ -241,7 +222,6 @@ register .input .error,
 reset-password .input .error,
 reset-password-complete .input .error,
 thankyou .input .error,
-view .input .error,
 deposit .input .helper,
 login .input .helper,
 orders .input .helper,
@@ -249,8 +229,7 @@ profile .input .helper,
 register .input .helper,
 reset-password .input .helper,
 reset-password-complete .input .helper,
-thankyou .input .helper,
-view .input .helper{
+thankyou .input .helper{
   margin-top:0.5em;
   font-size:0.75em;
   line-height:1em;
@@ -263,8 +242,7 @@ profile .input .error,
 register .input .error,
 reset-password .input .error,
 reset-password-complete .input .error,
-thankyou .input .error,
-view .input .error{
+thankyou .input .error{
   color:#e91e63;
 }
 deposit .input input:focus ~ .label,
@@ -275,7 +253,6 @@ register .input input:focus ~ .label,
 reset-password .input input:focus ~ .label,
 reset-password-complete .input input:focus ~ .label,
 thankyou .input input:focus ~ .label,
-view .input input:focus ~ .label,
 deposit .input input:hover ~ .label,
 login .input input:hover ~ .label,
 orders .input input:hover ~ .label,
@@ -284,7 +261,6 @@ register .input input:hover ~ .label,
 reset-password .input input:hover ~ .label,
 reset-password-complete .input input:hover ~ .label,
 thankyou .input input:hover ~ .label,
-view .input input:hover ~ .label,
 deposit .input .label.active,
 login .input .label.active,
 orders .input .label.active,
@@ -292,8 +268,7 @@ profile .input .label.active,
 register .input .label.active,
 reset-password .input .label.active,
 reset-password-complete .input .label.active,
-thankyou .input .label.active,
-view .input .label.active{
+thankyou .input .label.active{
   top:0;
   font-size:0.75em;
   line-height:1em;
@@ -306,7 +281,6 @@ register .input *:disabled,
 reset-password .input *:disabled,
 reset-password-complete .input *:disabled,
 thankyou .input *:disabled,
-view .input *:disabled,
 deposit .input .disabled,
 login .input .disabled,
 orders .input .disabled,
@@ -314,8 +288,7 @@ profile .input .disabled,
 register .input .disabled,
 reset-password .input .disabled,
 reset-password-complete .input .disabled,
-thankyou .input .disabled,
-view .input .disabled{
+thankyou .input .disabled{
   opacity:0.5;
 }
 deposit .input input,
@@ -325,8 +298,7 @@ profile .input input,
 register .input input,
 reset-password .input input,
 reset-password-complete .input input,
-thankyou .input input,
-view .input input{
+thankyou .input input{
   outline:none;
   border:0;
   padding:0;
@@ -339,8 +311,7 @@ profile .input input:-moz-placeholder,
 register .input input:-moz-placeholder,
 reset-password .input input:-moz-placeholder,
 reset-password-complete .input input:-moz-placeholder,
-thankyou .input input:-moz-placeholder,
-view .input input:-moz-placeholder{
+thankyou .input input:-moz-placeholder{
   color:#000;
 }
 deposit .input input::-moz-placeholder,
@@ -350,8 +321,7 @@ profile .input input::-moz-placeholder,
 register .input input::-moz-placeholder,
 reset-password .input input::-moz-placeholder,
 reset-password-complete .input input::-moz-placeholder,
-thankyou .input input::-moz-placeholder,
-view .input input::-moz-placeholder{
+thankyou .input input::-moz-placeholder{
   color:#000;
 }
 deposit .input input:-ms-input-placeholder,
@@ -361,8 +331,7 @@ profile .input input:-ms-input-placeholder,
 register .input input:-ms-input-placeholder,
 reset-password .input input:-ms-input-placeholder,
 reset-password-complete .input input:-ms-input-placeholder,
-thankyou .input input:-ms-input-placeholder,
-view .input input:-ms-input-placeholder{
+thankyou .input input:-ms-input-placeholder{
   color:#000;
 }
 deposit .input input::-webkit-input-placeholder,
@@ -372,8 +341,7 @@ profile .input input::-webkit-input-placeholder,
 register .input input::-webkit-input-placeholder,
 reset-password .input input::-webkit-input-placeholder,
 reset-password-complete .input input::-webkit-input-placeholder,
-thankyou .input input::-webkit-input-placeholder,
-view .input input::-webkit-input-placeholder{
+thankyou .input input::-webkit-input-placeholder{
   color:#000;
 }
 deposit .input input[type=text],
@@ -384,7 +352,6 @@ register .input input[type=text],
 reset-password .input input[type=text],
 reset-password-complete .input input[type=text],
 thankyou .input input[type=text],
-view .input input[type=text],
 deposit .input input[type=password],
 login .input input[type=password],
 orders .input input[type=password],
@@ -392,8 +359,7 @@ profile .input input[type=password],
 register .input input[type=password],
 reset-password .input input[type=password],
 reset-password-complete .input input[type=password],
-thankyou .input input[type=password],
-view .input input[type=password]{
+thankyou .input input[type=password]{
   height:2rem;
   border-bottom:1px solid;
   border-color:#000;
@@ -408,8 +374,7 @@ profile .input textarea,
 register .input textarea,
 reset-password .input textarea,
 reset-password-complete .input textarea,
-thankyou .input textarea,
-view .input textarea{
+thankyou .input textarea{
   outline:none;
   height:6rem;
   border:1px solid $borderColor1;
@@ -423,7 +388,6 @@ register .input input[type=text],
 reset-password .input input[type=text],
 reset-password-complete .input input[type=text],
 thankyou .input input[type=text],
-view .input input[type=text],
 deposit .input input[type=password],
 login .input input[type=password],
 orders .input input[type=password],
@@ -432,7 +396,6 @@ register .input input[type=password],
 reset-password .input input[type=password],
 reset-password-complete .input input[type=password],
 thankyou .input input[type=password],
-view .input input[type=password],
 deposit .input textarea,
 login .input textarea,
 orders .input textarea,
@@ -440,8 +403,7 @@ profile .input textarea,
 register .input textarea,
 reset-password .input textarea,
 reset-password-complete .input textarea,
-thankyou .input textarea,
-view .input textarea{
+thankyou .input textarea{
   width:100%;
   font-size:1em;
 }
@@ -452,8 +414,7 @@ profile .input .select-indicator,
 register .input .select-indicator,
 reset-password .input .select-indicator,
 reset-password-complete .input .select-indicator,
-thankyou .input .select-indicator,
-view .input .select-indicator{
+thankyou .input .select-indicator{
   display:none;
 }
 deposit .input select,
@@ -463,8 +424,7 @@ profile .input select,
 register .input select,
 reset-password .input select,
 reset-password-complete .input select,
-thankyou .input select,
-view .input select{
+thankyou .input select{
   width:100%;
   background:none;
   border:0;
@@ -486,8 +446,7 @@ profile .input select::-ms-expand,
 register .input select::-ms-expand,
 reset-password .input select::-ms-expand,
 reset-password-complete .input select::-ms-expand,
-thankyou .input select::-ms-expand,
-view .input select::-ms-expand{
+thankyou .input select::-ms-expand{
   display:none;
 }
 deposit .input select ~ .select-indicator,
@@ -497,8 +456,7 @@ profile .input select ~ .select-indicator,
 register .input select ~ .select-indicator,
 reset-password .input select ~ .select-indicator,
 reset-password-complete .input select ~ .select-indicator,
-thankyou .input select ~ .select-indicator,
-view .input select ~ .select-indicator{
+thankyou .input select ~ .select-indicator{
   position:absolute;
   top:1rem;
   right:0.375em;
@@ -514,8 +472,7 @@ profile .input select.labeled ~ .select-indicator,
 register .input select.labeled ~ .select-indicator,
 reset-password .input select.labeled ~ .select-indicator,
 reset-password-complete .input select.labeled ~ .select-indicator,
-thankyou .input select.labeled ~ .select-indicator,
-view .input select.labeled ~ .select-indicator{
+thankyou .input select.labeled ~ .select-indicator{
   top:1.75rem;
 }
 deposit .input select:disabled ~ .select-indicator,
@@ -525,8 +482,7 @@ profile .input select:disabled ~ .select-indicator,
 register .input select:disabled ~ .select-indicator,
 reset-password .input select:disabled ~ .select-indicator,
 reset-password-complete .input select:disabled ~ .select-indicator,
-thankyou .input select:disabled ~ .select-indicator,
-view .input select:disabled ~ .select-indicator{
+thankyou .input select:disabled ~ .select-indicator{
   opacity:0.5;
 }
 deposit .input.outlined input[type=text],
@@ -537,7 +493,6 @@ register .input.outlined input[type=text],
 reset-password .input.outlined input[type=text],
 reset-password-complete .input.outlined input[type=text],
 thankyou .input.outlined input[type=text],
-view .input.outlined input[type=text],
 deposit .input.outlined input[type=password],
 login .input.outlined input[type=password],
 orders .input.outlined input[type=password],
@@ -546,7 +501,6 @@ register .input.outlined input[type=password],
 reset-password .input.outlined input[type=password],
 reset-password-complete .input.outlined input[type=password],
 thankyou .input.outlined input[type=password],
-view .input.outlined input[type=password],
 deposit .input.outlined select,
 login .input.outlined select,
 orders .input.outlined select,
@@ -554,8 +508,7 @@ profile .input.outlined select,
 register .input.outlined select,
 reset-password .input.outlined select,
 reset-password-complete .input.outlined select,
-thankyou .input.outlined select,
-view .input.outlined select{
+thankyou .input.outlined select{
   border:1px solid;
   border-radius:2px;
 }
@@ -566,8 +519,7 @@ profile .input .copy-text,
 register .input .copy-text,
 reset-password .input .copy-text,
 reset-password-complete .input .copy-text,
-thankyou .input .copy-text,
-view .input .copy-text{
+thankyou .input .copy-text{
   position:absolute;
   right:0;
   top:50%;
@@ -580,8 +532,7 @@ profile .input .copy-text,
 register .input .copy-text,
 reset-password .input .copy-text,
 reset-password-complete .input .copy-text,
-thankyou .input .copy-text,
-view .input .copy-text{
+thankyou .input .copy-text{
   position:absolute;
   right:0;
   top:1rem;
@@ -594,8 +545,7 @@ profile .input .labeled ~ .copy-text,
 register .input .labeled ~ .copy-text,
 reset-password .input .labeled ~ .copy-text,
 reset-password-complete .input .labeled ~ .copy-text,
-thankyou .input .labeled ~ .copy-text,
-view .input .labeled ~ .copy-text{
+thankyou .input .labeled ~ .copy-text{
   top:1.75rem;
 }
 deposit .input .currency-container,
@@ -605,8 +555,7 @@ profile .input .currency-container,
 register .input .currency-container,
 reset-password .input .currency-container,
 reset-password-complete .input .currency-container,
-thankyou .input .currency-container,
-view .input .currency-container{
+thankyou .input .currency-container{
   display:flex;
 }
 deposit .input .currency-amount,
@@ -616,8 +565,7 @@ profile .input .currency-amount,
 register .input .currency-amount,
 reset-password .input .currency-amount,
 reset-password-complete .input .currency-amount,
-thankyou .input .currency-amount,
-view .input .currency-amount{
+thankyou .input .currency-amount{
   padding-right:0.25em;
 }
 deposit .input .right-aligned,
@@ -627,8 +575,7 @@ profile .input .right-aligned,
 register .input .right-aligned,
 reset-password .input .right-aligned,
 reset-password-complete .input .right-aligned,
-thankyou .input .right-aligned,
-view .input .right-aligned{
+thankyou .input .right-aligned{
   text-align:right;
 }
 deposit .input .currency-code,
@@ -638,8 +585,7 @@ profile .input .currency-code,
 register .input .currency-code,
 reset-password .input .currency-code,
 reset-password-complete .input .currency-code,
-thankyou .input .currency-code,
-view .input .currency-code{
+thankyou .input .currency-code{
   display:flex;
   justify-content:flex-end;
   flex-direction:column;
@@ -651,8 +597,7 @@ profile .input .currency-code .currency-code-text,
 register .input .currency-code .currency-code-text,
 reset-password .input .currency-code .currency-code-text,
 reset-password-complete .input .currency-code .currency-code-text,
-thankyou .input .currency-code .currency-code-text,
-view .input .currency-code .currency-code-text{
+thankyou .input .currency-code .currency-code-text{
   height:2rem;
   line-height:2rem;
   border-bottom:1px solid;
@@ -667,8 +612,7 @@ profile .input .valid ~ .currency-code .currency-code-text,
 register .input .valid ~ .currency-code .currency-code-text,
 reset-password .input .valid ~ .currency-code .currency-code-text,
 reset-password-complete .input .valid ~ .currency-code .currency-code-text,
-thankyou .input .valid ~ .currency-code .currency-code-text,
-view .input .valid ~ .currency-code .currency-code-text{
+thankyou .input .valid ~ .currency-code .currency-code-text{
   border-color:#00bcd4;
 }
 deposit .input .invalid ~ .currency-code .currency-code-text,
@@ -678,8 +622,7 @@ profile .input .invalid ~ .currency-code .currency-code-text,
 register .input .invalid ~ .currency-code .currency-code-text,
 reset-password .input .invalid ~ .currency-code .currency-code-text,
 reset-password-complete .input .invalid ~ .currency-code .currency-code-text,
-thankyou .input .invalid ~ .currency-code .currency-code-text,
-view .input .invalid ~ .currency-code .currency-code-text{
+thankyou .input .invalid ~ .currency-code .currency-code-text{
   border-color:#e91e63;
 }
 deposit .input.input.input .invalid,
@@ -690,7 +633,6 @@ register .input.input.input .invalid,
 reset-password .input.input.input .invalid,
 reset-password-complete .input.input.input .invalid,
 thankyou .input.input.input .invalid,
-view .input.input.input .invalid,
 deposit .input .input.input .invalid,
 login .input .input.input .invalid,
 orders .input .input.input .invalid,
@@ -698,8 +640,7 @@ profile .input .input.input .invalid,
 register .input .input.input .invalid,
 reset-password .input .input.input .invalid,
 reset-password-complete .input .input.input .invalid,
-thankyou .input .input.input .invalid,
-view .input .input.input .invalid{
+thankyou .input .input.input .invalid{
   border-color:#e91e63;
 }
 deposit .checkbox,
@@ -709,8 +650,7 @@ profile .checkbox,
 register .checkbox,
 reset-password .checkbox,
 reset-password-complete .checkbox,
-thankyou .checkbox,
-view .checkbox{
+thankyou .checkbox{
   display:block;
 }
 deposit .checkbox label,
@@ -720,8 +660,7 @@ profile .checkbox label,
 register .checkbox label,
 reset-password .checkbox label,
 reset-password-complete .checkbox label,
-thankyou .checkbox label,
-view .checkbox label{
+thankyou .checkbox label{
   padding-top:2px;
   line-height:1.2rem;
   display:inline-block;
@@ -735,7 +674,6 @@ register .checkbox [type="checkbox"]:not(:checked),
 reset-password .checkbox [type="checkbox"]:not(:checked),
 reset-password-complete .checkbox [type="checkbox"]:not(:checked),
 thankyou .checkbox [type="checkbox"]:not(:checked),
-view .checkbox [type="checkbox"]:not(:checked),
 deposit .checkbox [type="checkbox"]:checked,
 login .checkbox [type="checkbox"]:checked,
 orders .checkbox [type="checkbox"]:checked,
@@ -743,8 +681,7 @@ profile .checkbox [type="checkbox"]:checked,
 register .checkbox [type="checkbox"]:checked,
 reset-password .checkbox [type="checkbox"]:checked,
 reset-password-complete .checkbox [type="checkbox"]:checked,
-thankyou .checkbox [type="checkbox"]:checked,
-view .checkbox [type="checkbox"]:checked{
+thankyou .checkbox [type="checkbox"]:checked{
   position:absolute;
   left:-9999px;
 }
@@ -756,7 +693,6 @@ register .checkbox [type="checkbox"]:not(:checked) + label,
 reset-password .checkbox [type="checkbox"]:not(:checked) + label,
 reset-password-complete .checkbox [type="checkbox"]:not(:checked) + label,
 thankyou .checkbox [type="checkbox"]:not(:checked) + label,
-view .checkbox [type="checkbox"]:not(:checked) + label,
 deposit .checkbox [type="checkbox"]:checked + label,
 login .checkbox [type="checkbox"]:checked + label,
 orders .checkbox [type="checkbox"]:checked + label,
@@ -764,8 +700,7 @@ profile .checkbox [type="checkbox"]:checked + label,
 register .checkbox [type="checkbox"]:checked + label,
 reset-password .checkbox [type="checkbox"]:checked + label,
 reset-password-complete .checkbox [type="checkbox"]:checked + label,
-thankyou .checkbox [type="checkbox"]:checked + label,
-view .checkbox [type="checkbox"]:checked + label{
+thankyou .checkbox [type="checkbox"]:checked + label{
   position:relative;
   text-indent:25px;
   cursor:pointer;
@@ -778,7 +713,6 @@ register .checkbox [type="checkbox"]:not(:checked) + label:before,
 reset-password .checkbox [type="checkbox"]:not(:checked) + label:before,
 reset-password-complete .checkbox [type="checkbox"]:not(:checked) + label:before,
 thankyou .checkbox [type="checkbox"]:not(:checked) + label:before,
-view .checkbox [type="checkbox"]:not(:checked) + label:before,
 deposit .checkbox [type="checkbox"]:checked + label:before,
 login .checkbox [type="checkbox"]:checked + label:before,
 orders .checkbox [type="checkbox"]:checked + label:before,
@@ -786,8 +720,7 @@ profile .checkbox [type="checkbox"]:checked + label:before,
 register .checkbox [type="checkbox"]:checked + label:before,
 reset-password .checkbox [type="checkbox"]:checked + label:before,
 reset-password-complete .checkbox [type="checkbox"]:checked + label:before,
-thankyou .checkbox [type="checkbox"]:checked + label:before,
-view .checkbox [type="checkbox"]:checked + label:before{
+thankyou .checkbox [type="checkbox"]:checked + label:before{
   content:'';
   position:absolute;
   left:0;
@@ -805,7 +738,6 @@ register .checkbox [type="checkbox"]:not(:checked) + label:after,
 reset-password .checkbox [type="checkbox"]:not(:checked) + label:after,
 reset-password-complete .checkbox [type="checkbox"]:not(:checked) + label:after,
 thankyou .checkbox [type="checkbox"]:not(:checked) + label:after,
-view .checkbox [type="checkbox"]:not(:checked) + label:after,
 deposit .checkbox [type="checkbox"]:checked + label:after,
 login .checkbox [type="checkbox"]:checked + label:after,
 orders .checkbox [type="checkbox"]:checked + label:after,
@@ -813,8 +745,7 @@ profile .checkbox [type="checkbox"]:checked + label:after,
 register .checkbox [type="checkbox"]:checked + label:after,
 reset-password .checkbox [type="checkbox"]:checked + label:after,
 reset-password-complete .checkbox [type="checkbox"]:checked + label:after,
-thankyou .checkbox [type="checkbox"]:checked + label:after,
-view .checkbox [type="checkbox"]:checked + label:after{
+thankyou .checkbox [type="checkbox"]:checked + label:after{
   content:'✔';
   position:absolute;
   top:3px;
@@ -832,8 +763,7 @@ profile .checkbox [type="checkbox"]:not(:checked) + label:after,
 register .checkbox [type="checkbox"]:not(:checked) + label:after,
 reset-password .checkbox [type="checkbox"]:not(:checked) + label:after,
 reset-password-complete .checkbox [type="checkbox"]:not(:checked) + label:after,
-thankyou .checkbox [type="checkbox"]:not(:checked) + label:after,
-view .checkbox [type="checkbox"]:not(:checked) + label:after{
+thankyou .checkbox [type="checkbox"]:not(:checked) + label:after{
   opacity:0;
   transform:scale(0);
 }
@@ -844,8 +774,7 @@ profile .checkbox [type="checkbox"]:checked + label:after,
 register .checkbox [type="checkbox"]:checked + label:after,
 reset-password .checkbox [type="checkbox"]:checked + label:after,
 reset-password-complete .checkbox [type="checkbox"]:checked + label:after,
-thankyou .checkbox [type="checkbox"]:checked + label:after,
-view .checkbox [type="checkbox"]:checked + label:after{
+thankyou .checkbox [type="checkbox"]:checked + label:after{
   opacity:1;
   transform:scale(1);
 }
@@ -857,7 +786,6 @@ register .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
 reset-password .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
 reset-password-complete .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
 thankyou .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
-view .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
 deposit .checkbox [type="checkbox"]:disabled:checked + label:before,
 login .checkbox [type="checkbox"]:disabled:checked + label:before,
 orders .checkbox [type="checkbox"]:disabled:checked + label:before,
@@ -865,8 +793,7 @@ profile .checkbox [type="checkbox"]:disabled:checked + label:before,
 register .checkbox [type="checkbox"]:disabled:checked + label:before,
 reset-password .checkbox [type="checkbox"]:disabled:checked + label:before,
 reset-password-complete .checkbox [type="checkbox"]:disabled:checked + label:before,
-thankyou .checkbox [type="checkbox"]:disabled:checked + label:before,
-view .checkbox [type="checkbox"]:disabled:checked + label:before{
+thankyou .checkbox [type="checkbox"]:disabled:checked + label:before{
   box-shadow:none;
   border-color:#bbb;
   background-color:#ddd;
@@ -878,8 +805,7 @@ profile .checkbox [type="checkbox"]:disabled:checked + label:after,
 register .checkbox [type="checkbox"]:disabled:checked + label:after,
 reset-password .checkbox [type="checkbox"]:disabled:checked + label:after,
 reset-password-complete .checkbox [type="checkbox"]:disabled:checked + label:after,
-thankyou .checkbox [type="checkbox"]:disabled:checked + label:after,
-view .checkbox [type="checkbox"]:disabled:checked + label:after{
+thankyou .checkbox [type="checkbox"]:disabled:checked + label:after{
   color:#999;
 }
 deposit .checkbox [type="checkbox"]:disabled + label,
@@ -889,8 +815,7 @@ profile .checkbox [type="checkbox"]:disabled + label,
 register .checkbox [type="checkbox"]:disabled + label,
 reset-password .checkbox [type="checkbox"]:disabled + label,
 reset-password-complete .checkbox [type="checkbox"]:disabled + label,
-thankyou .checkbox [type="checkbox"]:disabled + label,
-view .checkbox [type="checkbox"]:disabled + label{
+thankyou .checkbox [type="checkbox"]:disabled + label{
   color:#aaa;
 }
 deposit .checkbox [type="checkbox"]:checked:focus + label:before,
@@ -901,7 +826,6 @@ register .checkbox [type="checkbox"]:checked:focus + label:before,
 reset-password .checkbox [type="checkbox"]:checked:focus + label:before,
 reset-password-complete .checkbox [type="checkbox"]:checked:focus + label:before,
 thankyou .checkbox [type="checkbox"]:checked:focus + label:before,
-view .checkbox [type="checkbox"]:checked:focus + label:before,
 deposit .checkbox [type="checkbox"]:not(:checked):focus + label:before,
 login .checkbox [type="checkbox"]:not(:checked):focus + label:before,
 orders .checkbox [type="checkbox"]:not(:checked):focus + label:before,
@@ -909,8 +833,7 @@ profile .checkbox [type="checkbox"]:not(:checked):focus + label:before,
 register .checkbox [type="checkbox"]:not(:checked):focus + label:before,
 reset-password .checkbox [type="checkbox"]:not(:checked):focus + label:before,
 reset-password-complete .checkbox [type="checkbox"]:not(:checked):focus + label:before,
-thankyou .checkbox [type="checkbox"]:not(:checked):focus + label:before,
-view .checkbox [type="checkbox"]:not(:checked):focus + label:before{
+thankyou .checkbox [type="checkbox"]:not(:checked):focus + label:before{
   border:1px dotted #000;
 }
 deposit .checkbox label:hover:before,
@@ -920,8 +843,7 @@ profile .checkbox label:hover:before,
 register .checkbox label:hover:before,
 reset-password .checkbox label:hover:before,
 reset-password-complete .checkbox label:hover:before,
-thankyou .checkbox label:hover:before,
-view .checkbox label:hover:before{
+thankyou .checkbox label:hover:before{
   border:1px solid #00bcd4 !important;
 }
 deposit .checkbox .error,
@@ -931,8 +853,7 @@ profile .checkbox .error,
 register .checkbox .error,
 reset-password .checkbox .error,
 reset-password-complete .checkbox .error,
-thankyou .checkbox .error,
-view .checkbox .error{
+thankyou .checkbox .error{
   color:#e91e63;
 }
 deposit:not(.ready) > *,
@@ -942,8 +863,7 @@ profile:not(.ready) > *,
 register:not(.ready) > *,
 reset-password:not(.ready) > *,
 reset-password-complete:not(.ready) > *,
-thankyou:not(.ready) > *,
-view:not(.ready) > *{
+thankyou:not(.ready) > *{
   opacity:0;
 }
 deposit > *,
@@ -953,8 +873,7 @@ profile > *,
 register > *,
 reset-password > *,
 reset-password-complete > *,
-thankyou > *,
-view > *{
+thankyou > *{
   transition:opacity 500ms ease-in;
 }
 deposit,
@@ -964,8 +883,7 @@ profile,
 register,
 reset-password,
 reset-password-complete,
-thankyou,
-view{
+thankyou{
   text-align:left;
   color:#000;
   width:100%;
@@ -980,8 +898,7 @@ profile .fields,
 register .fields,
 reset-password .fields,
 reset-password-complete .fields,
-thankyou .fields,
-view .fields{
+thankyou .fields{
   display:box;
   display:flexbox;
   display:flex;
@@ -994,8 +911,7 @@ profile .inline-fields,
 register .inline-fields,
 reset-password .inline-fields,
 reset-password-complete .inline-fields,
-thankyou .inline-fields,
-view .inline-fields{
+thankyou .inline-fields{
   display:box;
   display:flexbox;
   display:flex;
@@ -1010,8 +926,7 @@ profile .inline-fields > *,
 register .inline-fields > *,
 reset-password .inline-fields > *,
 reset-password-complete .inline-fields > *,
-thankyou .inline-fields > *,
-view .inline-fields > *{
+thankyou .inline-fields > *{
   display:block !important;
   flex:1;
   margin-left:0.5em;
@@ -1024,8 +939,7 @@ profile .inline-fields > *:first-child,
 register .inline-fields > *:first-child,
 reset-password .inline-fields > *:first-child,
 reset-password-complete .inline-fields > *:first-child,
-thankyou .inline-fields > *:first-child,
-view .inline-fields > *:first-child{
+thankyou .inline-fields > *:first-child{
   margin-left:0;
 }
 deposit .inline-fields > *:last-child,
@@ -1035,8 +949,7 @@ profile .inline-fields > *:last-child,
 register .inline-fields > *:last-child,
 reset-password .inline-fields > *:last-child,
 reset-password-complete .inline-fields > *:last-child,
-thankyou .inline-fields > *:last-child,
-view .inline-fields > *:last-child{
+thankyou .inline-fields > *:last-child{
   margin-right:0;
 }
 deposit .input,
@@ -1046,8 +959,7 @@ profile .input,
 register .input,
 reset-password .input,
 reset-password-complete .input,
-thankyou .input,
-view .input{
+thankyou .input{
   margin-bottom:0.5em;
 }
 deposit h2,
@@ -1057,8 +969,7 @@ profile h2,
 register h2,
 reset-password h2,
 reset-password-complete h2,
-thankyou h2,
-view h2{
+thankyou h2{
   margin:0;
   font-size:2em;
 }
@@ -1070,7 +981,6 @@ register .button,
 reset-password .button,
 reset-password-complete .button,
 thankyou .button,
-view .button,
 deposit button,
 login button,
 orders button,
@@ -1078,8 +988,7 @@ profile button,
 register button,
 reset-password button,
 reset-password-complete button,
-thankyou button,
-view button{
+thankyou button{
   background-color:#2196f3;
   border-color:#000;
   border-radius:2px;
@@ -1100,7 +1009,6 @@ register .button:hover,
 reset-password .button:hover,
 reset-password-complete .button:hover,
 thankyou .button:hover,
-view .button:hover,
 deposit button:hover,
 login button:hover,
 orders button:hover,
@@ -1108,8 +1016,7 @@ profile button:hover,
 register button:hover,
 reset-password button:hover,
 reset-password-complete button:hover,
-thankyou button:hover,
-view button:hover{
+thankyou button:hover{
   box-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
 deposit .button.submit,
@@ -1120,7 +1027,6 @@ register .button.submit,
 reset-password .button.submit,
 reset-password-complete .button.submit,
 thankyou .button.submit,
-view .button.submit,
 deposit button.submit,
 login button.submit,
 orders button.submit,
@@ -1129,7 +1035,6 @@ register button.submit,
 reset-password button.submit,
 reset-password-complete button.submit,
 thankyou button.submit,
-view button.submit,
 deposit .button[type=submit],
 login .button[type=submit],
 orders .button[type=submit],
@@ -1138,7 +1043,6 @@ register .button[type=submit],
 reset-password .button[type=submit],
 reset-password-complete .button[type=submit],
 thankyou .button[type=submit],
-view .button[type=submit],
 deposit button[type=submit],
 login button[type=submit],
 orders button[type=submit],
@@ -1146,8 +1050,7 @@ profile button[type=submit],
 register button[type=submit],
 reset-password button[type=submit],
 reset-password-complete button[type=submit],
-thankyou button[type=submit],
-view button[type=submit]{
+thankyou button[type=submit]{
   background-color:#2196f3;
   border-color:#000;
   color:#fff;
@@ -1161,8 +1064,7 @@ profile button,
 register button,
 reset-password button,
 reset-password-complete button,
-thankyou button,
-view button{
+thankyou button{
   outline:none;
 }
 deposit .disabled,
@@ -1173,7 +1075,6 @@ register .disabled,
 reset-password .disabled,
 reset-password-complete .disabled,
 thankyou .disabled,
-view .disabled,
 deposit :disabled,
 login :disabled,
 orders :disabled,
@@ -1181,7 +1082,356 @@ profile :disabled,
 register :disabled,
 reset-password :disabled,
 reset-password-complete :disabled,
-thankyou :disabled,
+thankyou :disabled{
+  opacity:0.5;
+}
+view{
+  box-sizing:border-box;
+}
+view *{
+  box-sizing:border-box;
+}
+view .input .selectize-input{
+  background-color:transparent !important;
+  font-weight:bold !important;
+  color:$textColor1 !important;
+  font-size:1rem !important;
+  line-height:1rem !important;
+  padding:8px 0 !important;
+  box-shadow:none !important;
+  border:0 !important;
+  border-bottom:1px solid #000 !important;
+  max-width:100%;
+  border-radius:0 !important;
+  height:2rem !important;
+}
+view .input .selectize-input:after{
+  border-color:#000 transparent transparent !important;
+  top:12px;
+  right:0 !important;
+  margin-top:0;
+}
+view .input .selectize-input.dropdown-active:before{
+  display:none !important;
+}
+view .input .selectize-input.dropdown-active:after{
+  border-color:transparent transparent #000 !important;
+}
+view .input .selectize-input.full{
+  min-height:0 !important;
+}
+view .input .selectize-input input{
+  position:absolute !important;
+  width:100% !important;
+  margin-top:-6px !important;
+  left:0;
+  height:2rem !important;
+}
+view .input .selectize-input .item{
+  position:absolute !important;
+  font-size:1em;
+  font-weight:400;
+  color:#000;
+}
+view .input{
+  color:#000;
+  position:relative;
+}
+view .input.input.input,
+view .input .input.input{
+  width:100%;
+  display:block;
+  margin-top:1em;
+}
+view .input.input.input .labeled,
+view .input .input.input .labeled{
+  margin-top:0.75em;
+}
+view .input .label{
+  left:0;
+  top:1.25em;
+  position:absolute;
+  transition:all 250ms linear;
+  pointer-events:none;
+  line-height:1em;
+  font-weight:normal;
+}
+view .input .valid.valid{
+  border-color:#00bcd4;
+}
+view .input .invalid.invalid{
+  border-color:#e91e63;
+}
+view .input .valid ~ .label{
+  color:#00bcd4;
+}
+view .input .invalid ~ .label{
+  color:#e91e63;
+}
+view .input .error,
+view .input .helper{
+  margin-top:0.5em;
+  font-size:0.75em;
+  line-height:1em;
+  width:100%;
+}
+view .input .error{
+  color:#e91e63;
+}
+view .input input:focus ~ .label,
+view .input input:hover ~ .label,
+view .input .label.active{
+  top:0;
+  font-size:0.75em;
+  line-height:1em;
+}
+view .input *:disabled,
+view .input .disabled{
+  opacity:0.5;
+}
+view .input input{
+  outline:none;
+  border:0;
+  padding:0;
+  background:transparent;
+}
+view .input input:-moz-placeholder{
+  color:#000;
+}
+view .input input::-moz-placeholder{
+  color:#000;
+}
+view .input input:-ms-input-placeholder{
+  color:#000;
+}
+view .input input::-webkit-input-placeholder{
+  color:#000;
+}
+view .input input[type=text],
+view .input input[type=password]{
+  height:2rem;
+  border-bottom:1px solid;
+  border-color:#000;
+  border-width:1px;
+  border-radius:0;
+  transition:border-color 500ms ease-in-out, color 500ms ease-in-out;
+}
+view .input textarea{
+  outline:none;
+  height:6rem;
+  border:1px solid $borderColor1;
+  border-radius:2px;
+}
+view .input input[type=text],
+view .input input[type=password],
+view .input textarea{
+  width:100%;
+  font-size:1em;
+}
+view .input .select-indicator{
+  display:none;
+}
+view .input select{
+  width:100%;
+  background:none;
+  border:0;
+  border-bottom:1px solid;
+  border-color:#000;
+  border-width:1px;
+  border-radius:0;
+  line-height:2rem;
+  font-size:1em;
+  -webkit-appearance:none;
+     -moz-appearance:none;
+          appearance:none;
+  outline:none;
+}
+view .input select::-ms-expand{
+  display:none;
+}
+view .input select ~ .select-indicator{
+  position:absolute;
+  top:1rem;
+  right:0.375em;
+  font-size:0.75em;
+  transform:translateY(-50%);
+  pointer-events:none;
+  display:block;
+}
+view .input select.labeled ~ .select-indicator{
+  top:1.75rem;
+}
+view .input select:disabled ~ .select-indicator{
+  opacity:0.5;
+}
+view .input.outlined input[type=text],
+view .input.outlined input[type=password],
+view .input.outlined select{
+  border:1px solid;
+  border-radius:2px;
+}
+view .input .copy-text{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+}
+view .input .copy-text{
+  position:absolute;
+  right:0;
+  top:1rem;
+  transform:translateY(-50%);
+}
+view .input .labeled ~ .copy-text{
+  top:1.75rem;
+}
+view .input .currency-container{
+  display:flex;
+}
+view .input .currency-amount{
+  padding-right:0.25em;
+}
+view .input .right-aligned{
+  text-align:right;
+}
+view .input .currency-code{
+  display:flex;
+  justify-content:flex-end;
+  flex-direction:column;
+}
+view .input .currency-code .currency-code-text{
+  height:2rem;
+  line-height:2rem;
+  border-bottom:1px solid;
+  border-color:#000;
+  border-width:1px;
+  transition:border-color 500ms ease-in-out, color 500ms ease-in-out;
+}
+view .input .valid ~ .currency-code .currency-code-text{
+  border-color:#00bcd4;
+}
+view .input .invalid ~ .currency-code .currency-code-text{
+  border-color:#e91e63;
+}
+view .input.input.input .invalid,
+view .input .input.input .invalid{
+  border-color:#e91e63;
+}
+view .checkbox{
+  display:block;
+}
+view .checkbox label{
+  padding-top:2px;
+  line-height:1.2rem;
+  display:inline-block;
+  color:#000;
+}
+view .checkbox [type="checkbox"]:not(:checked),
+view .checkbox [type="checkbox"]:checked{
+  position:absolute;
+  left:-9999px;
+}
+view .checkbox [type="checkbox"]:not(:checked) + label,
+view .checkbox [type="checkbox"]:checked + label{
+  position:relative;
+  text-indent:25px;
+  cursor:pointer;
+}
+view .checkbox [type="checkbox"]:not(:checked) + label:before,
+view .checkbox [type="checkbox"]:checked + label:before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:2px;
+  width:17px;
+  height:17px;
+  border:1px solid #000;
+  border-radius:2px;
+}
+view .checkbox [type="checkbox"]:not(:checked) + label:after,
+view .checkbox [type="checkbox"]:checked + label:after{
+  content:'✔';
+  position:absolute;
+  top:3px;
+  left:2px;
+  font-size:18px;
+  line-height:0.8;
+  color:#00bcd4;
+  transition:all 0.2s;
+  text-indent:0;
+}
+view .checkbox [type="checkbox"]:not(:checked) + label:after{
+  opacity:0;
+  transform:scale(0);
+}
+view .checkbox [type="checkbox"]:checked + label:after{
+  opacity:1;
+  transform:scale(1);
+}
+view .checkbox [type="checkbox"]:disabled:not(:checked) + label:before,
+view .checkbox [type="checkbox"]:disabled:checked + label:before{
+  box-shadow:none;
+  border-color:#bbb;
+  background-color:#ddd;
+}
+view .checkbox [type="checkbox"]:disabled:checked + label:after{
+  color:#999;
+}
+view .checkbox [type="checkbox"]:disabled + label{
+  color:#aaa;
+}
+view .checkbox [type="checkbox"]:checked:focus + label:before,
+view .checkbox [type="checkbox"]:not(:checked):focus + label:before{
+  border:1px dotted #000;
+}
+view .checkbox label:hover:before{
+  border:1px solid #00bcd4 !important;
+}
+view .checkbox .error{
+  color:#e91e63;
+}
+view:not(.ready) > *{
+  opacity:0;
+}
+view > *{
+  transition:opacity 500ms ease-in;
+}
+view h2{
+  margin:0;
+  font-size:2em;
+}
+view .button,
+view button{
+  background-color:#2196f3;
+  border-color:#000;
+  border-radius:2px;
+  color:#fff;
+  text-align:center;
+  font-size:1em;
+  padding:0;
+  height:3rem;
+  padding:0 2rem;
+  box-shadow:0 2px 5px rgba(0,0,0,0.6);
+  transition:all 500ms ease-in-out;
+}
+view .button:hover,
+view button:hover{
+  box-shadow:0 4px 10px rgba(0,0,0,0.4);
+}
+view .button.submit,
+view button.submit,
+view .button[type=submit],
+view button[type=submit]{
+  background-color:#2196f3;
+  border-color:#000;
+  color:#fff;
+  line-height:2rem;
+  width:100%;
+}
+view button{
+  outline:none;
+}
+view .disabled,
 view :disabled{
   opacity:0.5;
 }
@@ -1521,8 +1771,7 @@ thankyou .pay-with-metamask .pay-with-metamask-button:hover{
   register .secured-text span,
   reset-password .secured-text span,
   reset-password-complete .secured-text span,
-  thankyou .secured-text span,
-  view .secured-text span{
+  thankyou .secured-text span{
     display:none;
   }
 }/*# sourceMappingURL=theme.css.map */
