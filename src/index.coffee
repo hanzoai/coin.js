@@ -62,9 +62,7 @@ import {
   PromoCode
 } from 'shop.js/src/controls'
 
-import {
-  ReCaptcha
-} from 'el-controls/src/controls/recaptcha'
+import ReCaptcha from 'el-controls/src/controls/recaptcha'
 
 import m      from './mediator'
 import Events from './events'
