@@ -1,11 +1,12 @@
 import 'shop.js/src/utils/patches'
 
 import El           from 'el.js/src'
+import Hanzo        from 'hanzo.js/src/browser'
 import Promise      from 'broken'
+import Web3         from 'web3'
 import objectAssign from 'es-object-assign'
 import refer        from 'referential'
 import store        from 'akasha'
-import Hanzo        from 'hanzo.js/src/browser'
 import {Cart}       from 'commerce.js/src'
 
 import {
