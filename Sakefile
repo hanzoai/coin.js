@@ -14,6 +14,9 @@ task 'clean', 'clean project', ->
 task 'build', 'build js', ['build:static'], ->
   bundle.write
     entry:   'src/index.coffee'
+    browser:  true
+    commonjs: true
+    external: false
     compilers:
       coffee:
         version: 1
@@ -26,15 +29,14 @@ task 'build', 'build js', ['build:static'], ->
 task 'build:web', 'build js', ->
   bundle.write
     entry:     'src/index.coffee'
-    external:  false
-    browser:   false
-    # details:   true
-    # quiet:     false
+    browser:   true
     commonjs:  true
+    external:  false
     format:    'web'
     sourceMap: false
     compilers:
-      coffee: version: 1
+      coffee:
+        version: 1
 
 task 'build:min', 'build js for production', ['build', 'build:web'], ->
   yield exec 'uglifyjs coin.js -o coin.min.js'
