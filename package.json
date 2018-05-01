@@ -43,7 +43,7 @@
     "gmaps": "0.4.24",
     "hanzo.js": "2.5.0",
     "moment-timezone": "0.5.16",
-    "shop.js": "2.2.40",
+    "shop.js": "2.2.41",
     "shop.js-util": "0.0.5",
     "web3": "1.0.0-beta.34"
   },
@@ -78,7 +78,7 @@
     "referential": "0.5.23",
     "rucksack-css": "1.0.2",
     "rupture": "0.7.1",
-    "sake-bundle": "^0.6.10",
+    "sake-bundle": "^0.6.11",
     "sake-cli": "^0.7.2",
     "sake-outdated": "^0.3.0",
     "sake-publish": "^0.1.17",
