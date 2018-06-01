@@ -473,7 +473,7 @@ register .input select.labeled ~ .select-indicator,
 reset-password .input select.labeled ~ .select-indicator,
 reset-password-complete .input select.labeled ~ .select-indicator,
 thankyou .input select.labeled ~ .select-indicator{
-  top:1.75rem;
+  top:2.25rem;
 }
 deposit .input select:disabled ~ .select-indicator,
 login .input select:disabled ~ .select-indicator,
@@ -899,8 +899,6 @@ register .fields,
 reset-password .fields,
 reset-password-complete .fields,
 thankyou .fields{
-  display:box;
-  display:flexbox;
   display:flex;
   flex-direction:column;
 }
@@ -912,8 +910,6 @@ register .inline-fields,
 reset-password .inline-fields,
 reset-password-complete .inline-fields,
 thankyou .inline-fields{
-  display:box;
-  display:flexbox;
   display:flex;
   flex-direction:row;
   justify-content:space-between;
@@ -1259,7 +1255,7 @@ view .input select ~ .select-indicator{
   display:block;
 }
 view .input select.labeled ~ .select-indicator{
-  top:1.75rem;
+  top:2.25rem;
 }
 view .input select:disabled ~ .select-indicator{
   opacity:0.5;
