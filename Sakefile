@@ -40,7 +40,8 @@ task 'build:min', 'build js for production', ['build', 'build:web'], ->
   yield exec 'cp lib/theme.css theme.css'
 
 task 'build:static', 'build static assets', ->
-  exec 'bebop compile'
+  yield exec 'mkdir -p lib'
+  yield exec 'bebop compile'
 
 server = do require 'connect'
 
