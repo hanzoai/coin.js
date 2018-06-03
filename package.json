@@ -45,7 +45,7 @@
     "moment-timezone": "^0.5.17",
     "shop.js": "^2.2.44",
     "shop.js-util": "^0.0.7",
-    "web3": "^0.19.0 < ^1"
+    "web3": "0.19.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.0",
@@ -54,7 +54,7 @@
     "chai-as-promised": "^7.1.1",
     "clean-css": "^4.1.11",
     "co-mocha": "^1.2.2",
-    "coffeescript": "^1.12.7 < ^2",
+    "coffeescript": "1.12.7",
     "connect": "^3.6.6",
     "coveralls": "^3.0.1",
     "css-mqpacker": "^6.0.2",
