@@ -41,7 +41,7 @@
     "es-md5": "^2.7.2",
     "es-raf": "^3.3.1",
     "gmaps": "0.4.24",
-    "handroll": "^0.17.7",
+    "handroll": "^0.17.9",
     "hanzo.js": "2.5.0",
     "moment-timezone": "0.5.17",
     "shop.js": "2.2.44",
@@ -88,6 +88,6 @@
     "serve-static": "^1.13.2",
     "stylus": "0.54.5",
     "tar": "^4.4.4",
-    "uglify-js": "github:mishoo/UglifyJS2#harmony"
+    "uglify-es": "^3.3.10"
   }
 }
