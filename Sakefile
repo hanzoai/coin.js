@@ -18,6 +18,7 @@ task 'build', 'build js', ['build:static'], ->
     commonjs: true
     external: false
     globals:  false
+    browser:  true
     compilers:
       coffee:
         version: 1
