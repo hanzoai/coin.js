@@ -14,25 +14,22 @@ task 'clean', 'clean project', ->
 task 'build', 'build js', ['build:static'], ->
   bundle.write
     entry:   'src/index.coffee'
-    browser:  true
+    format:   'web'
     commonjs: true
     external: false
+    globals:  false
     compilers:
       coffee:
         version: 1
-    # quiet: false
-    # details: true
-    format:    'web'
-    external: false
-    commonjs:  true
 
 task 'build:web', 'build js', ->
   bundle.write
     entry:     'src/index.coffee'
-    browser:   true
+    format:    'web'
     commonjs:  true
     external:  false
-    format:    'web'
+    globals:   false
+    browser:   true
     sourceMap: false
     compilers:
       coffee:
