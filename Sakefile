@@ -14,7 +14,6 @@ task 'clean', 'clean project', ->
 task 'build', 'build js', ['build:static'], ->
   bundle.write
     entry:   'src/index.coffee'
-    formats:  ['es', 'web']
     commonjs: true
     external: false
     globals:  false
@@ -26,7 +25,7 @@ task 'build', 'build js', ['build:static'], ->
 task 'build:web', 'build js', ->
   bundle.write
     entry:     'src/index.coffee'
-    format:    ['es', 'web']
+    format:    'web'
     commonjs:  true
     external:  false
     globals:   false
