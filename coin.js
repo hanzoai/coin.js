@@ -9133,7 +9133,7 @@ var Coin = (function () {
     return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0))
   }
 
-  var require$$1 = /*#__PURE__*/Object.freeze({
+  var require$$0 = /*#__PURE__*/Object.freeze({
     INSPECT_MAX_BYTES: INSPECT_MAX_BYTES,
     kMaxLength: _kMaxLength,
     Buffer: Buffer$1,
@@ -9196,7 +9196,7 @@ var Coin = (function () {
 
     var Buffer;
     try {
-      Buffer = require$$1.Buffer;
+      Buffer = require$$0.Buffer;
     } catch (e) {
     }
 
@@ -14133,10 +14133,10 @@ var Coin = (function () {
   });
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/@zeekay/rollup-plugin-node-builtins/src/es6/empty.js
-   var require$$0 = ( empty$1 && empty ) || empty$1;
+   var require$$0$1 = ( empty$1 && empty ) || empty$1;
 
   // node_modules/randomhex/src/crypto.js
-  var crypto$1 = require$$0;
+  var crypto$1 = require$$0$1;
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/randomhex/src/crypto.js
 
@@ -15530,10 +15530,10 @@ var Coin = (function () {
   });
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/websocket/package.json
-   var require$$0$1 = ( _package$3 && _package$2 ) || _package$3;
+   var require$$0$2 = ( _package$3 && _package$2 ) || _package$3;
 
   // node_modules/websocket/lib/version.js
-  var version$4 = require$$0$1.version;
+  var version$4 = require$$0$2.version;
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/websocket/lib/version.js
 
@@ -25619,7 +25619,7 @@ var Coin = (function () {
   } else {
     // Node.js or Web worker with no crypto support
     try {
-      var crypto$2 = require$$0;
+      var crypto$2 = require$$0$1;
       if (typeof crypto$2.randomBytes !== 'function')
         throw new Error('Not supported');
 
@@ -30678,7 +30678,7 @@ var Coin = (function () {
   };
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/elliptic/package.json
-   var require$$0$2 = ( _package$5 && _package$4 ) || _package$5;
+   var require$$0$3 = ( _package$5 && _package$4 ) || _package$5;
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/elliptic/lib/elliptic/utils.js
 
@@ -30694,7 +30694,7 @@ var Coin = (function () {
 
   var elliptic = exports;
 
-  elliptic.version = require$$0$2.version;
+  elliptic.version = require$$0$3.version;
   elliptic.utils = utils_1$2;
   elliptic.rand = brorand;
   elliptic.curve = curve_1;
@@ -30893,7 +30893,7 @@ var Coin = (function () {
   // node_modules/safe-buffer/index.js
   /* eslint-disable node/no-deprecated-api */
 
-  var Buffer = require$$1.Buffer;
+  var Buffer = require$$0.Buffer;
 
   // alternative to using Object.keys for old browsers
   function copyProps (src, dst) {
@@ -30902,10 +30902,10 @@ var Coin = (function () {
     }
   }
   if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-    module.exports = require$$1;
+    module.exports = require$$0;
   } else {
     // Copy properties from require('buffer')
-    copyProps(require$$1, exports);
+    copyProps(require$$0, exports);
     exports.Buffer = SafeBuffer;
   }
 
@@ -30951,7 +30951,7 @@ var Coin = (function () {
     if (typeof size !== 'number') {
       throw new TypeError('Argument must be a number')
     }
-    return require$$1.SlowBuffer(size)
+    return require$$0.SlowBuffer(size)
   };
   });
   var safeBuffer_1 = safeBuffer.Buffer;
@@ -33385,10 +33385,10 @@ var Coin = (function () {
   });
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/@zeekay/rollup-plugin-node-builtins/src/es6/stream.js
-   var require$$1$1 = ( stream && Stream ) || stream;
+   var require$$1 = ( stream && Stream ) || stream;
 
   var Buffer$2 = safeBuffer.Buffer;
-  var Transform$1 = require$$1$1.Transform;
+  var Transform$1 = require$$1.Transform;
 
 
   function throwIfNotStringOrBuffer (val, prefix) {
@@ -33626,7 +33626,7 @@ var Coin = (function () {
 
   var md5_js = MD5;
 
-  var Buffer$3 = require$$1.Buffer;
+  var Buffer$3 = require$$0.Buffer;
 
 
 
@@ -34619,7 +34619,7 @@ var Coin = (function () {
 
   // node_modules/cipher-base/index.js
   var Buffer$b = safeBuffer.Buffer;
-  var Transform$2 = require$$1$1.Transform;
+  var Transform$2 = require$$1.Transform;
   var StringDecoder$1 = stringDecoder.StringDecoder;
 
 
@@ -38235,7 +38235,7 @@ var Coin = (function () {
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/asn1.js/lib/asn1.js
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/@zeekay/rollup-plugin-node-builtins/src/es6/vm.js
-   var require$$0$3 = ( vm$1 && vm ) || vm$1;
+   var require$$0$4 = ( vm$1 && vm ) || vm$1;
 
   var api_1 = createCommonjsModule(function (module, exports) {
   // node_modules/asn1.js/lib/asn1/api.js
@@ -38258,7 +38258,7 @@ var Coin = (function () {
   Entity.prototype._createNamed = function createNamed(base) {
     var named;
     try {
-      named = require$$0$3.runInThisContext(
+      named = require$$0$4.runInThisContext(
         '(function ' + this.name + '(entity) {\n' +
         '  this._initNamed(entity);\n' +
         '})'
@@ -38432,7 +38432,7 @@ var Coin = (function () {
   // node_modules/asn1.js/lib/asn1/base/buffer.js
 
   var Reporter$1 = base_1.Reporter;
-  var Buffer$r = require$$1.Buffer;
+  var Buffer$r = require$$0.Buffer;
 
   function DecoderBuffer(base, options) {
     Reporter$1.call(this, options);
@@ -39610,7 +39610,7 @@ var Coin = (function () {
 
   // node_modules/asn1.js/lib/asn1/decoders/pem.js
 
-  var Buffer$s = require$$1.Buffer;
+  var Buffer$s = require$$0.Buffer;
 
 
 
@@ -39670,7 +39670,7 @@ var Coin = (function () {
 
   // node_modules/asn1.js/lib/asn1/encoders/der.js
 
-  var Buffer$t = require$$1.Buffer;
+  var Buffer$t = require$$0.Buffer;
 
 
   var base$3 = asn1_1.base;
@@ -40677,7 +40677,7 @@ var Coin = (function () {
   });
 
   function Sign (algorithm) {
-    require$$1$1.Writable.call(this);
+    require$$1.Writable.call(this);
 
     var data = algorithms$2[algorithm];
     if (!data) throw new Error('Unknown message digest')
@@ -40687,7 +40687,7 @@ var Coin = (function () {
     this._tag = data.id;
     this._signType = data.sign;
   }
-  inherits_browser(Sign, require$$1$1.Writable);
+  inherits_browser(Sign, require$$1.Writable);
 
   Sign.prototype._write = function _write (data, _, done) {
     this._hash.update(data);
@@ -40710,7 +40710,7 @@ var Coin = (function () {
   };
 
   function Verify (algorithm) {
-    require$$1$1.Writable.call(this);
+    require$$1.Writable.call(this);
 
     var data = algorithms$2[algorithm];
     if (!data) throw new Error('Unknown message digest')
@@ -40719,7 +40719,7 @@ var Coin = (function () {
     this._tag = data.id;
     this._signType = data.sign;
   }
-  inherits_browser(Verify, require$$1$1.Writable);
+  inherits_browser(Verify, require$$1.Writable);
 
   Verify.prototype._write = function _write (data, _, done) {
     this._hash.update(data);
@@ -41819,7 +41819,7 @@ var Coin = (function () {
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/uuid/index.js
 
-  var cryp = (typeof commonjsGlobal === 'undefined') ? cryptoBrowserify : require$$0;
+  var cryp = (typeof commonjsGlobal === 'undefined') ? cryptoBrowserify : require$$0$1;
 
 
 
@@ -44857,7 +44857,7 @@ var Coin = (function () {
   var src$m = Bzz;
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/web3/package.json
-   var require$$0$4 = ( _package$1 && _package ) || _package$1;
+   var require$$0$5 = ( _package$1 && _package ) || _package$1;
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/web3-eth/src/index.js
 
@@ -44865,7 +44865,7 @@ var Coin = (function () {
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/web3-bzz/src/index.js
 
-  var version$8 = require$$0$4.version;
+  var version$8 = require$$0$5.version;
 
 
 
@@ -59421,7 +59421,7 @@ var Coin = (function () {
   });
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment/src/moment.js
-   var require$$0$5 = ( moment && hooks ) || moment;
+   var require$$0$6 = ( moment && hooks ) || moment;
 
   var momentTimezone = createCommonjsModule(function (module) {
   // node_modules/moment-timezone/moment-timezone.js
@@ -59437,7 +59437,7 @@ var Coin = (function () {
   	if (typeof undefined === 'function' && undefined.amd) {
   		undefined(['moment'], factory);                 // AMD
   	} else if (module.exports) {
-  		module.exports = factory(require$$0$5); // Node
+  		module.exports = factory(require$$0$6); // Node
   	} else {
   		factory(root.moment);                        // Browser
   	}
@@ -60644,12 +60644,12 @@ var Coin = (function () {
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment-timezone/moment-timezone.js
 
   //  commonjs-proxy:/Users/dtai/work/hanzo/coin.js/node_modules/moment-timezone/data/packed/latest.json
-   var require$$1$2 = ( latest$1 && latest ) || latest$1;
+   var require$$1$1 = ( latest$1 && latest ) || latest$1;
 
   var momentTimezone$1 = createCommonjsModule(function (module) {
   // node_modules/moment-timezone/index.js
   var moment = module.exports = momentTimezone;
-  moment.tz.load(require$$1$2);
+  moment.tz.load(require$$1$1);
   });
 
   // node_modules/shop.js-util/src/language.coffee

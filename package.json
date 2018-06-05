@@ -85,7 +85,6 @@
     "sake-version": "^0.1.19",
     "serve-static": "^1.13.2",
     "stylus": "^0.54.5",
-    "tar": "^4.4.4",
     "uglify-es": "^3.3.10"
   }
 }
