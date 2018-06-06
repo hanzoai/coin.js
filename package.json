@@ -1,6 +1,6 @@
 {
   "name": "coin.js",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Token sale UI components and framework powered by Hanzo",
   "main": "lib/coin.js",
   "module": "lib/coin.mjs",
