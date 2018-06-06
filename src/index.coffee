@@ -3,7 +3,7 @@ import 'shop.js/src/utils/patches'
 import El           from 'el.js/src'
 import Hanzo        from 'hanzo.js/src/browser'
 import Promise      from 'broken'
-import Web3         from 'web3'
+import loadScript   from 'load-script'
 import objectAssign from 'es-object-assign'
 import refer        from 'referential'
 import store        from 'akasha'
@@ -291,20 +291,22 @@ initMediator = (data, cart) ->
 
 initWeb3 = (opts = {}, data) ->
   return if !opts.eth
-  return if !Web3
+
+  unless Web3?
+    load 'https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js', (err, script) ->
+      throw err if err?
+      intWeb3 opts, data
+    return
 
   ethNode = opts?.eth?.node
 
-  return web3 if !ethNode
-
-  if typeof web3 != 'undefined'
+  if web3?
     web3 = new Web3(web3.currentProvider)
   else
     # set the provider you want from Web3.providers
     web3 = new Web3(new Web3.providers.HttpProvider(ethNode))
 
   # Start Update Loop
-
   update = ->
     address = data.get 'eth.address'
 
