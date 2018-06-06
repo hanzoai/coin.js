@@ -45,7 +45,7 @@
     "moment-timezone": "^0.5.17",
     "shop.js": "^2.2.44",
     "shop.js-util": "^0.0.7",
-    "web3": "0.20.6"
+    "web3": "0.19.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.0",
