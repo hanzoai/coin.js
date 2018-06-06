@@ -293,7 +293,7 @@ initWeb3 = (opts = {}, data) ->
   return if !opts.eth
 
   unless Web3?
-    load 'https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js', (err, script) ->
+    loadScript 'https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js', (err, script) ->
       throw err if err?
       intWeb3 opts, data
     return
