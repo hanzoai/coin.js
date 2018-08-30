@@ -4056,12 +4056,18 @@ var Coin = (function () {
   })();
 
   collapsePrototype = function(collapse, proto) {
-    var parentProto;
+    var i, len, member, members, parentProto;
     if (proto === View.prototype) {
       return;
     }
     parentProto = Object.getPrototypeOf(proto);
     collapsePrototype(collapse, parentProto);
+    if (members = Object.getOwnPropertyNames(parentProto)) {
+      for (i = 0, len = members.length; i < len; i++) {
+        member = members[i];
+        collapse[member] = parentProto[member];
+      }
+    }
     return index(collapse, parentProto);
   };
 
@@ -4085,13 +4091,13 @@ var Coin = (function () {
                   var oldFn;
                   if (this[k] != null) {
                     oldFn = this[k];
-                    return this[k] = () => {
-                      oldFn.apply(this, arguments);
-                      return v.apply(this, arguments);
+                    return this[k] = (...args) => {
+                      oldFn.apply(this, args);
+                      return v.apply(this, args);
                     };
                   } else {
-                    return this[k] = () => {
-                      return v.apply(this, arguments);
+                    return this[k] = (...args) => {
+                      return v.apply(this, args);
                     };
                   }
                 })(v);
@@ -4123,12 +4129,12 @@ var Coin = (function () {
               handler = ref1[name];
               ((name, handler) => {
                 if (typeof handler === 'string') {
-                  return this.on(name, () => {
-                    return this[handler].apply(this, arguments);
+                  return this.on(name, (...args) => {
+                    return this[handler].apply(this, args);
                   });
                 } else {
-                  return this.on(name, () => {
-                    return handler.apply(this, arguments);
+                  return this.on(name, (...args) => {
+                    return handler.apply(this, args);
                   });
                 }
               })(name, handler);
@@ -6530,6 +6536,7 @@ var Coin = (function () {
               this.data.set('order', order);
               // ensure descriptions are preserved
               this.data.set('order.items', items);
+              this.invoice();
               return order;
             }).catch(function(err) {
               var ref;
@@ -6764,6 +6771,7 @@ var Coin = (function () {
   var View$2;
   var collapsePrototype$1;
   var setPrototypeOf$1;
+  var slice$1 = [].slice;
 
   setPrototypeOf$1 = (function() {
     var mixinProperties, setProtoOf;
@@ -6792,12 +6800,18 @@ var Coin = (function () {
   })();
 
   collapsePrototype$1 = function(collapse, proto) {
-    var parentProto;
+    var i, len, member, members, parentProto;
     if (proto === View$2.prototype) {
       return;
     }
     parentProto = Object.getPrototypeOf(proto);
     collapsePrototype$1(collapse, parentProto);
+    if (members = Object.getOwnPropertyNames(parentProto)) {
+      for (i = 0, len = members.length; i < len; i++) {
+        member = members[i];
+        collapse[member] = parentProto[member];
+      }
+    }
     return index(collapse, parentProto);
   };
 
@@ -6832,12 +6846,16 @@ var Coin = (function () {
                   if (_this[k] != null) {
                     oldFn = _this[k];
                     return _this[k] = function() {
-                      oldFn.apply(_this, arguments);
-                      return v.apply(_this, arguments);
+                      var args;
+                      args = 1 <= arguments.length ? slice$1.call(arguments, 0) : [];
+                      oldFn.apply(_this, args);
+                      return v.apply(_this, args);
                     };
                   } else {
                     return _this[k] = function() {
-                      return v.apply(_this, arguments);
+                      var args;
+                      args = 1 <= arguments.length ? slice$1.call(arguments, 0) : [];
+                      return v.apply(_this, args);
                     };
                   }
                 });
@@ -6868,11 +6886,15 @@ var Coin = (function () {
             return function(name, handler) {
               if (typeof handler === 'string') {
                 return _this.on(name, function() {
-                  return _this[handler].apply(_this, arguments);
+                  var args;
+                  args = 1 <= arguments.length ? slice$1.call(arguments, 0) : [];
+                  return _this[handler].apply(_this, args);
                 });
               } else {
                 return _this.on(name, function() {
-                  return handler.apply(_this, arguments);
+                  var args;
+                  args = 1 <= arguments.length ? slice$1.call(arguments, 0) : [];
+                  return handler.apply(_this, args);
                 });
               }
             };
@@ -10643,7 +10665,7 @@ var Coin = (function () {
         rect = this.root.getBoundingClientRect();
         elTop = rect.top - window.innerHeight / 2;
         wTop = window.pageYOffset;
-        if (!scrolling && elTop <= wTop) {
+        if (this.scrollToError && !scrolling && elTop <= wTop) {
           scrolling = true;
           autoPlay(true);
           t = new Tween({
@@ -10677,6 +10699,7 @@ var Coin = (function () {
     }
     Control.prototype._controlId = 0;
 
+    // scrollToError: false
     Control.prototype.name = null;
 
     return Control;
@@ -19951,7 +19974,7 @@ var Coin = (function () {
   var momentTimezone = createCommonjsModule(function (module) {
   // node_modules/moment-timezone/moment-timezone.js
   //! moment-timezone.js
-  //! version : 0.5.17
+  //! version : 0.5.21
   //! Copyright (c) JS Foundation and other contributors
   //! license : MIT
   //! github.com/moment/moment-timezone
@@ -19959,10 +19982,10 @@ var Coin = (function () {
   (function (root, factory) {
 
   	/*global define*/
-  	if (typeof undefined === 'function' && undefined.amd) {
-  		undefined(['moment'], factory);                 // AMD
-  	} else if (module.exports) {
+  	if (module.exports) {
   		module.exports = factory(require$$0); // Node
+  	} else if (typeof undefined === 'function' && undefined.amd) {
+  		undefined(['moment'], factory);                 // AMD
   	} else {
   		factory(root.moment);                        // Browser
   	}
@@ -19974,14 +19997,18 @@ var Coin = (function () {
   	// 	return moment;
   	// }
 
-  	var VERSION = "0.5.17",
+  	var VERSION = "0.5.21",
   		zones = {},
   		links = {},
   		names = {},
   		guesses = {},
-  		cachedGuess,
+  		cachedGuess;
 
-  		momentVersion = moment.version.split('.'),
+  	if (!moment || typeof moment.version !== 'string') {
+  		logError('Moment Timezone requires Moment.js. See https://momentjs.com/timezone/docs/#/use-it/browser/');
+  	}
+
+  	var momentVersion = moment.version.split('.'),
   		major = +momentVersion[0],
   		minor = +momentVersion[1];
 
@@ -20343,6 +20370,7 @@ var Coin = (function () {
   	}
 
   	function getZone (name, caller) {
+  		
   		name = normalizeName(name);
 
   		var zone = zones[name];
@@ -20501,6 +20529,9 @@ var Coin = (function () {
 
   	fn.tz = function (name, keepTime) {
   		if (name) {
+  			if (typeof name !== 'string') {
+  				throw new Error('Time zone name must be a string, got ' + name + ' [' + typeof name + ']');
+  			}
   			this._z = getZone(name);
   			if (this._z) {
   				moment.updateOffset(this, keepTime);
