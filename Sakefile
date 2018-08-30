@@ -20,7 +20,7 @@ task 'build', 'build js', ['build:static'], ->
     globals:  false
     compilers:
       coffee:
-        version: 1
+        version: 2
 
 task 'build:web', 'build js', ->
   bundle.write
@@ -33,7 +33,7 @@ task 'build:web', 'build js', ->
     sourcemap: false
     compilers:
       coffee:
-        version: 1
+        version: 2
 
 task 'build:min', 'build js for production', ['build', 'build:web'], ->
   yield exec 'uglifyjs coin.js -o coin.min.js'

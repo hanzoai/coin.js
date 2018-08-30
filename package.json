@@ -41,11 +41,11 @@
     "es-md5": "^2.7.2",
     "es-raf": "^3.3.1",
     "gmaps": "^0.4.24",
-    "hanzo.js": "^2.5.0",
-    "load-script": "^1.0.0",
+    "hanzo.js": "2.5.1",
     "moment-timezone": "^0.5.17",
-    "shop.js": "^2.2.44",
-    "shop.js-util": "^0.0.7"
+    "shop.js": "2.2.52",
+    "shop.js-util": "^0.0.7",
+    "web3": "0.19.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.0",

@@ -864,7 +864,7 @@ register:not(.ready) > *,
 reset-password:not(.ready) > *,
 reset-password-complete:not(.ready) > *,
 thankyou:not(.ready) > *{
-  opacity:0;
+  opacity:0 !important;
 }
 deposit > *,
 login > *,
@@ -1387,7 +1387,7 @@ view .checkbox .error{
   color:#e91e63;
 }
 view:not(.ready) > *{
-  opacity:0;
+  opacity:0 !important;
 }
 view > *{
   transition:opacity 500ms ease-in;
