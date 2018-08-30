@@ -42,6 +42,7 @@
     "es-raf": "^3.3.1",
     "gmaps": "^0.4.24",
     "hanzo.js": "2.5.1",
+    "load-script": "1.0.0",
     "moment-timezone": "^0.5.17",
     "shop.js": "2.2.52",
     "shop.js-util": "^0.0.7",
