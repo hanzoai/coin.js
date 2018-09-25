@@ -5090,17 +5090,18 @@ var Coin = (function () {
       this.getCustomerToken();
     }
 
-    request(blueprint, data = {}, key = this.getKey()) {
-      var opts;
-      opts = {
-        url: this.url(blueprint.url, data, key),
-        method: blueprint.method
-      };
-      if (blueprint.method !== 'GET') {
-        opts.headers = {
-          'Content-Type': 'application/json'
-        };
+    request(blueprint, opts = {}, key = this.getKey()) {
+      var data;
+      if (opts.data != null) {
+        data = opts.data;
+      } else {
+        data = opts;
       }
+      opts.url = this.url(blueprint.url, data, key);
+      opts.method = blueprint.method;
+      opts.headers = {
+        'Content-Type': 'application/json'
+      };
       if (blueprint.method === 'GET') {
         opts.url = updateQuery(opts.url, data);
       } else {
@@ -5898,6 +5899,43 @@ var Coin = (function () {
     }
   })();
 
+  // node_modules/commerce.js/src/polyfills.coffee
+  if (!Array.prototype.filter) {
+    Array.prototype.filter = function(func, thisArg) {
+      var c, i, len, res, t;
+      if (!((typeof func === 'Function' || typeof func === 'function') && this)) {
+        throw new TypeError;
+      }
+      len = this.length >>> 0;
+      res = new Array(len);
+      t = this;
+      c = 0;
+      i = -1;
+      if (thisArg === void 0) {
+        while (++i !== len) {
+          // checks to see if the key was set
+          if (i in this) {
+            if (func(t[i], i, t)) {
+              res[c++] = t[i];
+            }
+          }
+        }
+      } else {
+        while (++i !== len) {
+          // checks to see if the key was set
+          if (i in this) {
+            if (func.call(thisArg, t[i], i, t)) {
+              res[c++] = t[i];
+            }
+          }
+        }
+      }
+      res.length = c;
+      // shrink down array to proper size
+      return res;
+    };
+  }
+
   // node_modules/commerce.js/src/analytics.coffee
   var analytics;
 
@@ -6001,10 +6039,10 @@ var Coin = (function () {
     class Cart {
       // analyticsProductTransform: Takes analytics product info and transforms it.
       // storeId: ''
-      constructor(client, data1, opts = {}) {
+      constructor(client, data1, opts1 = {}) {
         this.client = client;
         this.data = data1;
-        this.opts = opts;
+        this.opts = opts1;
         this.queue = [];
         this.data.on('set', (name) => {
           switch (name) {
@@ -6053,7 +6091,10 @@ var Coin = (function () {
               this._cartSyncName();
             }
             if (name === 'user.lastName') {
-              return this._cartSyncName();
+              this._cartSyncName();
+            }
+            if (name === 'user.email') {
+              return this._cartSyncEmail();
             }
           });
         }
@@ -6101,19 +6142,43 @@ var Coin = (function () {
         }
       }
 
+      // we don't record this on the backend yet
+      _cartSyncName() {
+        var cartId;
+        cartId = this.data.get('order.cartId');
+        if (cartId && (this.client.cart != null)) {
+          return this.client.cart.update({
+            id: cartId,
+            name: this.data.get('user.firstName') + ' ' + this.data.get('user.lastName')
+          });
+        }
+      }
+
+      _cartSyncEmail() {
+        var cartId;
+        cartId = this.data.get('order.cartId');
+        if (cartId && (this.client.cart != null)) {
+          return this.client.cart.update({
+            id: cartId,
+            email: this.data.get('user.email')
+          });
+        }
+      }
+
       clear() {
-        var item, items, j, len;
+        var item, items, itemsClone, j, len;
         this.queue.length = 0;
         items = this.data.get('order.items');
-        for (j = 0, len = items.length; j < len; j++) {
-          item = items[j];
+        itemsClone = items.slice(0);
+        for (j = 0, len = itemsClone.length; j < len; j++) {
+          item = itemsClone[j];
           this.set(item.productId, 0);
         }
         return this.data.get('order.items');
       }
 
-      set(id, quantity, locked = false) {
-        this.queue.push([id, quantity, locked]);
+      set(id, quantity, locked = false, ignore = false) {
+        this.queue.push([id, quantity, locked, ignore]);
         if (this.queue.length === 1) {
           this.promise = new Promise$2((resolve, reject) => {
             this.resolve = resolve;
@@ -6143,13 +6208,14 @@ var Coin = (function () {
           return {
             id: item[0],
             quantity: item[2],
-            locked: item[3]
+            locked: item[3],
+            ignore: item[4]
           };
         }
       }
 
       _set() {
-        var a, deltaQuantity, i, id, item, items, j, k, len, len1, locked, newValue, oldValue, quantity;
+        var a, deltaQuantity, i, id, ignore, item, items, j, k, len, len1, locked, newValue, oldValue, quantity;
         items = this.data.get('order.items');
         if (this.queue.length === 0) {
           this.invoice();
@@ -6158,7 +6224,7 @@ var Coin = (function () {
           }
           return;
         }
-        [id, quantity, locked] = this.queue[0];
+        [id, quantity, locked, ignore] = this.queue[0];
         if (this.inItemlessMode() && quantity > 0) {
           this.invoice();
           if (this.resolve != null) {
@@ -6211,6 +6277,7 @@ var Coin = (function () {
           oldValue = item.quantity;
           item.quantity = quantity;
           item.locked = locked;
+          item.ignore = ignore;
           newValue = quantity;
           deltaQuantity = newValue - oldValue;
           if (deltaQuantity > 0) {
@@ -6240,6 +6307,7 @@ var Coin = (function () {
           }
           this.data.set('order.items.' + i + '.quantity', quantity);
           this.data.set('order.items.' + i + '.locked', locked);
+          this.data.set('order.items.' + i + '.ignore', ignore);
           this._cartSet(item.productId, quantity);
           this.onUpdate(item);
           this.queue.shift();
@@ -6251,7 +6319,8 @@ var Coin = (function () {
         items.push({
           id: id,
           quantity: quantity,
-          locked: locked
+          locked: locked,
+          ignore: ignore
         });
         // waiting for response so don't update
         this.waits++;
@@ -6330,6 +6399,9 @@ var Coin = (function () {
         item.price = product.price;
         item.listPrice = product.listPrice;
         item.description = product.description;
+        item.isSubscribeable = product.isSubscribeable;
+        item.interval = product.interval;
+        item.intervalCount = product.intervalCount;
         return this.onUpdate(item);
       }
 
@@ -6506,47 +6578,38 @@ var Coin = (function () {
         return this.data.set('order.total', subtotal + shipping + tax);
       }
 
-      checkout() {
-        var data;
+      checkout(opts = {}, authOnly = false) {
+        var data, newOrder, ref;
         // just to be sure
         this.invoice();
-        data = {
+        newOrder = index({}, this.data.get('order'));
+        newOrder.items = ((ref = this.data.get('order.items')) != null ? ref : []).slice(0);
+        newOrder.items = newOrder.items.filter(function(item) {
+          return !item.ignore;
+        });
+        data = index({}, opts, {
           user: this.data.get('user'),
-          order: this.data.get('order'),
+          order: newOrder,
           payment: this.data.get('payment')
-        };
+        });
         return this.client.checkout.authorize(data).then((order) => {
-          var a, i, item, items, j, len, options, p, p2, ref, referralProgram;
+          var a, i, item, items, j, len, options, p, p2, ref1, ref2, referralProgram;
+          if (order == null) {
+            throw 'Error authorizing order, please try again later.';
+          }
           this.data.set('coupon', this.data.get('order.coupon') || {});
           // save items because descriptions and metadata are stored on them
-          items = this.data.get('order.items').slice(0);
+          items = ((ref1 = this.data.get('order.items')) != null ? ref1 : []).slice(0);
           this.data.set('order', order);
           // ensure descriptions are preserved
           this.data.set('order.items', items);
-          if (order.type === 'ethereum' || order.type === 'bitcoin') {
+          if (order.type === 'ethereum' || order.type === 'bitcoin' || authOnly) {
             // ignore checkout
             p = new Promise$2(function(resolve) {
               return resolve(order);
             });
           } else {
-            // capture
-            p = this.client.checkout.capture(order.id).then((order) => {
-              // save items because descriptions and metadata are stored on them
-              items = this.data.get('order.items').slice(0);
-              this.data.set('order', order);
-              // ensure descriptions are preserved
-              this.data.set('order.items', items);
-              this.invoice();
-              return order;
-            }).catch(function(err) {
-              var ref;
-              if (typeof window !== "undefined" && window !== null) {
-                if ((ref = window.Raven) != null) {
-                  ref.captureException(err);
-                }
-              }
-              return console.log(`capture Error: ${err}`);
-            });
+            p = this.capture(opts).p;
           }
           // create referrer token
           referralProgram = this.data.get('referralProgram');
@@ -6557,10 +6620,10 @@ var Coin = (function () {
               program: referralProgram,
               programId: this.data.get('referralProgram.id')
             }).catch(function(err) {
-              var ref;
+              var ref2;
               if (typeof window !== "undefined" && window !== null) {
-                if ((ref = window.Raven) != null) {
-                  ref.captureException(err);
+                if ((ref2 = window.Raven) != null) {
+                  ref2.captureException(err);
                 }
               }
               return console.log(`new referralProgram Error: ${err}`);
@@ -6572,10 +6635,10 @@ var Coin = (function () {
               this.data.set('referrerId', referrer.id);
               return order;
             }).catch(function(err) {
-              var ref;
+              var ref2;
               if (typeof window !== "undefined" && window !== null) {
-                if ((ref = window.Raven) != null) {
-                  ref.captureException(err);
+                if ((ref2 = window.Raven) != null) {
+                  ref2.captureException(err);
                 }
               }
               return console.log(`order/referralProgram Error: ${err}`);
@@ -6593,9 +6656,9 @@ var Coin = (function () {
             currency: this.data.get('order.currency'),
             products: []
           };
-          ref = this.data.get('order.items');
-          for (i = j = 0, len = ref.length; j < len; i = ++j) {
-            item = ref[i];
+          ref2 = this.data.get('order.items');
+          for (i = j = 0, len = ref2.length; j < len; i = ++j) {
+            item = ref2[i];
             a = {
               id: item.productId,
               sku: item.productSlug,
@@ -6613,6 +6676,49 @@ var Coin = (function () {
             p: p
           };
         });
+      }
+
+      authorize() {
+        return this.checkout({}, true);
+      }
+
+      capture(opts) {
+        var data, order, p;
+        // capture
+        order = this.data.get('order');
+        if (!order.id) {
+          p = new Promise$2(function(resolve, reject) {
+            return reject(new Error('Order has no id, did you authorize?'));
+          });
+        } else {
+          data = index({}, opts, {
+            orderId: order.id
+          });
+          p = this.client.checkout.capture(data).then((order) => {
+            var items;
+            if (order == null) {
+              throw 'Error capturing order, please try again later.';
+            }
+            // save items because descriptions and metadata are stored on them
+            items = this.data.get('order.items').slice(0);
+            this.data.set('order', order);
+            // ensure descriptions are preserved
+            this.data.set('order.items', items);
+            this.invoice();
+            return order;
+          }).catch(function(err) {
+            var ref;
+            if (typeof window !== "undefined" && window !== null) {
+              if ((ref = window.Raven) != null) {
+                ref.captureException(err);
+              }
+            }
+            return console.log(`capture error: ${err}`);
+          });
+        }
+        return {
+          p: p
+        };
       }
 
     }
@@ -7738,7 +7844,7 @@ var Coin = (function () {
       }
 
       _submit(event) {
-        var email;
+        var email, opts;
         if (this.loading || this.checkedOut) {
           return;
         }
@@ -7747,7 +7853,11 @@ var Coin = (function () {
         this.errorMessage = '';
         El$1$1.scheduleUpdate();
         email = '';
-        return this.client.account.exists(this.data.get('user.email')).then((res) => {
+        opts = {
+          async: this.async === true,
+          email: this.data.get('user.email')
+        };
+        return this.client.account.exists(opts).then((res) => {
           var cart;
           if (res.exists) {
             this.data.set('user.id', this.data.get('user.email'));
@@ -7763,8 +7873,11 @@ var Coin = (function () {
             this.cart._cartUpdate(cart);
           }
           this.data.set('order.email', email);
+          opts = {
+            async: this.async === true
+          };
           El$1$1.scheduleUpdate();
-          return this.cart.checkout().then((pRef) => {
+          return this.cart.checkout(opts).then((pRef) => {
             return pRef.p.then((order) => {
               var hasErrored;
               hasErrored = false;
@@ -7841,6 +7954,8 @@ var Coin = (function () {
     CheckoutForm.prototype.checkedOut = false;
 
     CheckoutForm.prototype.configs = configs;
+
+    CheckoutForm.prototype.async = true;
 
     return CheckoutForm;
 
@@ -8819,11 +8934,16 @@ var Coin = (function () {
   const _tweens = [];
   let isStarted = false;
   let _autoPlay = false;
-  let _tick;
+  let _onRequestTick = [];
   const _ticker = requestAnimationFrame$2;
-  const _stopTicker = cancelAnimationFrame$1;
   let emptyFrame = 0;
   let powerModeThrottle = 120;
+
+  const _requestTick = () => {
+    for (let i = 0; i < _onRequestTick.length; i++) {
+      _onRequestTick[i]();
+    }
+  };
 
   /**
    * Adds tween to list
@@ -8846,8 +8966,10 @@ var Coin = (function () {
     emptyFrame = 0;
 
     if (_autoPlay && !isStarted) {
-      _tick = _ticker(update$2);
+      _ticker(update$2);
       isStarted = true;
+    } else {
+      _requestTick();
     }
   };
 
@@ -8884,24 +9006,33 @@ var Coin = (function () {
    */
 
   const update$2 = (time = now(), preserve) => {
+    if (emptyFrame >= powerModeThrottle) {
+      isStarted = false;
+      emptyFrame = 0;
+      return false
+    }
+
     if (_autoPlay && isStarted) {
-      _tick = _ticker(update$2);
+      _ticker(update$2);
+    } else {
+      _requestTick();
     }
 
     if (!_tweens.length) {
       emptyFrame++;
     }
 
-    if (emptyFrame > powerModeThrottle) {
-      _stopTicker(_tick);
-      isStarted = false;
-      emptyFrame = 0;
-      return false
-    }
-
     let i = 0;
-    while (i < _tweens.length) {
+    let length = _tweens.length;
+    while (i < length) {
       _tweens[i++].update(time, preserve);
+
+      if (length > _tweens.length) {
+        // The tween has been removed, keep same index
+        i--;
+      }
+
+      length = _tweens.length;
     }
 
     return true
