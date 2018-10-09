@@ -44,6 +44,8 @@ import {
   UserPassword
   UserPasswordConfirm
   UserUsername
+  AddressState
+  AddressCountry
   ShippingAddressName
   ShippingAddressLine1
   ShippingAddressLine2
