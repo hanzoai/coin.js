@@ -44,7 +44,7 @@
     "hanzo.js": "2.5.2",
     "load-script": "1.0.0",
     "moment-timezone": "^0.5.21",
-    "shop.js": "2.2.60",
+    "shop.js": "2.2.61",
     "shop.js-util": "^0.0.7",
     "web3": "1.0.0-beta.36"
   },
