@@ -11202,27 +11202,6 @@ var Coin = (function () {
 
   var CardNumber$1 = CardNumber;
 
-  // node_modules/shop.js/src/controls/checkout/promocode.coffee
-  // import { Text } from 'el-controls'
-  var PromoCode;
-
-  PromoCode = (function() {
-    class PromoCode extends Text$1 {
-      init() {
-        return super.init(...arguments);
-      }
-
-    }
-    PromoCode.prototype.tag = 'promocode';
-
-    PromoCode.prototype.bind = 'order.promoCode';
-
-    return PromoCode;
-
-  }).call(undefined);
-
-  PromoCode.register();
-
   // node_modules/el-controls/templates/controls/selection.pug
   var html$a = "\n<yield from=\"input\">\n  <select class=\"{invalid: errorMessage, valid: valid, labeled: label}\" id=\"{ getId() }\" name=\"{ getName() }\" onchange=\"{ change }\" onblur=\"{ change }\" autofocus=\"{ autofocus }\" disabled=\"{ disabled || !hasOptions() }\" multiple=\"{ multiple }\" size=\"{ size }\">\n    <option if=\"{ placeholder }\" value=\"\">{ placeholder }</option>\n    <option each=\"{ v, k in options() }\" value=\"{ k }\" selected=\"{ k == input.ref.get(input.name) }\">{ v }</option>\n  </select>\n  <div class=\"select-indicator\">▼</div>\n</yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>\n<yield></yield>";
 
@@ -11285,6 +11264,217 @@ var Coin = (function () {
   }).call(undefined);
 
   Select.register();
+
+  // node_modules/el-controls/src/controls/state-select.coffee
+  var StateSelect;
+
+  var StateSelect$1 = StateSelect = (function() {
+    class StateSelect extends Select$1 {
+      options() {
+        var code, countries, country, found, i, j, len, len1, options, optionsHash, ref, ref1, ref2, ref3, ref4, ref5, subdivision, subdivisions;
+        countries = (ref = (ref1 = (ref2 = this.countries) != null ? ref2 : (ref3 = this.data) != null ? ref3.get('countries') : void 0) != null ? ref1 : (ref4 = this.parent) != null ? (ref5 = ref4.data) != null ? ref5.get('countries') : void 0 : void 0) != null ? ref : [];
+        code = this.getCountry();
+        if (!code || code.length !== 2) {
+          this._optionsHash = '';
+          return;
+        }
+        code = code.toUpperCase();
+        found = false;
+        for (i = 0, len = countries.length; i < len; i++) {
+          country = countries[i];
+          if (country.code.toUpperCase() === code) {
+            found = true;
+            subdivisions = country.subdivisions;
+            optionsHash = JSON.stringify(subdivisions);
+            if (this._optionsHash === optionsHash) {
+              return this.selectOptions;
+            }
+            subdivisions = subdivisions.slice(0);
+            this._optionsHash = optionsHash;
+            this.selectOptions = options = {};
+            subdivisions.sort(function(a, b) {
+              var nameA, nameB;
+              nameA = a.name.toUpperCase();
+              nameB = b.name.toUpperCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+              return 0;
+            });
+            for (j = 0, len1 = subdivisions.length; j < len1; j++) {
+              subdivision = subdivisions[j];
+              options[subdivision.code.toUpperCase()] = subdivision.name;
+            }
+            break;
+          }
+        }
+        if (!found) {
+          this._optionsHash = '';
+        }
+        return options;
+      }
+
+      getCountry() {
+        return '';
+      }
+
+      init() {
+        return super.init(...arguments);
+      }
+
+    }
+    StateSelect.prototype.tag = 'state-select';
+
+    return StateSelect;
+
+  }).call(undefined);
+
+  StateSelect.register();
+
+  // node_modules/shop.js/src/controls/checkout/address-state.coffee
+  // import { StateSelect } from 'el-controls'
+  var AddressState;
+
+  var AddressState$1 = AddressState = (function() {
+    class AddressState extends StateSelect$1 {
+      getCountry() {
+        return this.data.get(this.countryField);
+      }
+
+      init() {
+        super.init(...arguments);
+        return this.input.ref.on('set', (k, v) => {
+          if (k.indexOf(this.countryField) > -1) {
+            // force update of selectOptions
+            this.options();
+            return this.update();
+          }
+        });
+      }
+
+    }
+    AddressState.prototype.tag = 'address-state';
+
+    AddressState.prototype.bind = 'address.state';
+
+    AddressState.prototype.countryField = 'address.country';
+
+    return AddressState;
+
+  }).call(undefined);
+
+  AddressState.register();
+
+  // node_modules/el-controls/src/controls/country-select.coffee
+  var CountrySelect;
+
+  var CountrySelect$1 = CountrySelect = (function() {
+    class CountrySelect extends Select$1 {
+      // set up the countries in selectedOptions
+      // countries should be in the form of
+      // [{
+      //     code: 'XX',
+      //     name: 'Country Name',
+      //     subdivisions: [{
+      //         code: 'YY',
+      //         name: 'Subdivision Name',
+      //     }]
+      // }]
+      options() {
+        var countries, country, i, len, options, optionsHash, ref, ref1, ref2, ref3, ref4, ref5;
+        countries = (ref = (ref1 = (ref2 = this.countries) != null ? ref2 : (ref3 = this.data) != null ? ref3.get('countries') : void 0) != null ? ref1 : (ref4 = this.parent) != null ? (ref5 = ref4.data) != null ? ref5.get('countries') : void 0 : void 0) != null ? ref : [];
+        optionsHash = JSON.stringify(countries);
+        if (this._optionsHash === optionsHash) {
+          return this.selectOptions;
+        }
+        countries = countries.slice(0);
+        this._optionsHash = optionsHash;
+        this.selectOptions = options = {};
+        countries.sort(function(a, b) {
+          var nameA, nameB;
+          nameA = a.name.toUpperCase();
+          nameB = b.name.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = 0, len = countries.length; i < len; i++) {
+          country = countries[i];
+          options[country.code.toUpperCase()] = country.name;
+        }
+        return options;
+      }
+
+      init() {
+        return super.init(...arguments);
+      }
+
+    }
+    CountrySelect.prototype.tag = 'country-select';
+
+    return CountrySelect;
+
+  }).call(undefined);
+
+  CountrySelect.register();
+
+  // node_modules/shop.js/src/controls/checkout/address-country.coffee
+  // import { CountrySelect } from 'el-controls'
+  var AddressCountry;
+
+  var AddressCountry$1 = AddressCountry = (function() {
+    class AddressCountry extends CountrySelect$1 {
+      init() {
+        super.init(...arguments);
+        return this.input.ref.on('set', (k, v) => {
+          if (k.indexOf(this.countriesField) > -1) {
+            // force update of selectOptions
+            this.options();
+            return this.update();
+          }
+        });
+      }
+
+    }
+    AddressCountry.prototype.tag = 'address-country';
+
+    AddressCountry.prototype.bind = 'address.country';
+
+    AddressCountry.prototype.countriesField = 'countries';
+
+    return AddressCountry;
+
+  }).call(undefined);
+
+  AddressCountry.register();
+
+  // node_modules/shop.js/src/controls/checkout/promocode.coffee
+  // import { Text } from 'el-controls'
+  var PromoCode;
+
+  PromoCode = (function() {
+    class PromoCode extends Text$1 {
+      init() {
+        return super.init(...arguments);
+      }
+
+    }
+    PromoCode.prototype.tag = 'promocode';
+
+    PromoCode.prototype.bind = 'order.promoCode';
+
+    return PromoCode;
+
+  }).call(undefined);
+
+  PromoCode.register();
 
   // node_modules/shop.js/src/controls/checkout/quantity-select.coffee
   // import { Select } from 'el-controls'
@@ -11358,86 +11548,20 @@ var Coin = (function () {
 
   ShippingAddressCity.register();
 
-  // node_modules/el-controls/src/controls/country-select.coffee
-  var CountrySelect;
-
-  var CountrySelect$1 = CountrySelect = (function() {
-    class CountrySelect extends Select$1 {
-      // set up the countries in selectedOptions
-      // countries should be in the form of
-      // [{
-      //     code: 'XX',
-      //     name: 'Country Name',
-      //     subdivisions: [{
-      //         code: 'YY',
-      //         name: 'Subdivision Name',
-      //     }]
-      // }]
-      options() {
-        var countries, country, i, len, options, optionsHash, ref, ref1, ref2, ref3, ref4, ref5;
-        countries = (ref = (ref1 = (ref2 = this.countries) != null ? ref2 : (ref3 = this.data) != null ? ref3.get('countries') : void 0) != null ? ref1 : (ref4 = this.parent) != null ? (ref5 = ref4.data) != null ? ref5.get('countries') : void 0 : void 0) != null ? ref : [];
-        optionsHash = JSON.stringify(countries);
-        if (this._optionsHash === optionsHash) {
-          return this.selectOptions;
-        }
-        countries = countries.slice(0);
-        this._optionsHash = optionsHash;
-        this.selectOptions = options = {};
-        countries.sort(function(a, b) {
-          var nameA, nameB;
-          nameA = a.name.toUpperCase();
-          nameB = b.name.toUpperCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        });
-        for (i = 0, len = countries.length; i < len; i++) {
-          country = countries[i];
-          options[country.code.toUpperCase()] = country.name;
-        }
-        return options;
-      }
-
-      init() {
-        return super.init(...arguments);
-      }
-
-    }
-    CountrySelect.prototype.tag = 'country-select';
-
-    return CountrySelect;
-
-  }).call(undefined);
-
-  CountrySelect.register();
-
   // node_modules/shop.js/src/controls/checkout/shippingaddress-country.coffee
   // import { CountrySelect } from 'el-controls'
   var ShippingAddressCountry;
 
   var ShippingAddressCountry$1 = ShippingAddressCountry = (function() {
-    class ShippingAddressCountry extends CountrySelect$1 {
+    class ShippingAddressCountry extends AddressCountry$1 {
       init() {
-        super.init(...arguments);
-        return this.input.ref.on('set', (k, v) => {
-          if (k.indexOf(this.countriesField) > -1) {
-            // force update of selectOptions
-            this.options();
-            return this.update();
-          }
-        });
+        return super.init(...arguments);
       }
 
     }
     ShippingAddressCountry.prototype.tag = 'shippingaddress-country';
 
     ShippingAddressCountry.prototype.bind = 'order.shippingAddress.country';
-
-    ShippingAddressCountry.prototype.countriesField = 'countries';
 
     return ShippingAddressCountry;
 
@@ -11529,94 +11653,14 @@ var Coin = (function () {
 
   ShippingAddressPostalCode.register();
 
-  // node_modules/el-controls/src/controls/state-select.coffee
-  var StateSelect;
-
-  var StateSelect$1 = StateSelect = (function() {
-    class StateSelect extends Select$1 {
-      options() {
-        var code, countries, country, found, i, j, len, len1, options, optionsHash, ref, ref1, ref2, ref3, ref4, ref5, subdivision, subdivisions;
-        countries = (ref = (ref1 = (ref2 = this.countries) != null ? ref2 : (ref3 = this.data) != null ? ref3.get('countries') : void 0) != null ? ref1 : (ref4 = this.parent) != null ? (ref5 = ref4.data) != null ? ref5.get('countries') : void 0 : void 0) != null ? ref : [];
-        code = this.getCountry();
-        if (!code || code.length !== 2) {
-          this._optionsHash = '';
-          return;
-        }
-        code = code.toUpperCase();
-        found = false;
-        for (i = 0, len = countries.length; i < len; i++) {
-          country = countries[i];
-          if (country.code.toUpperCase() === code) {
-            found = true;
-            subdivisions = country.subdivisions;
-            optionsHash = JSON.stringify(subdivisions);
-            if (this._optionsHash === optionsHash) {
-              return this.selectOptions;
-            }
-            subdivisions = subdivisions.slice(0);
-            this._optionsHash = optionsHash;
-            this.selectOptions = options = {};
-            subdivisions.sort(function(a, b) {
-              var nameA, nameB;
-              nameA = a.name.toUpperCase();
-              nameB = b.name.toUpperCase();
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              return 0;
-            });
-            for (j = 0, len1 = subdivisions.length; j < len1; j++) {
-              subdivision = subdivisions[j];
-              options[subdivision.code.toUpperCase()] = subdivision.name;
-            }
-            break;
-          }
-        }
-        if (!found) {
-          this._optionsHash = '';
-        }
-        return options;
-      }
-
-      getCountry() {
-        return '';
-      }
-
-      init() {
-        return super.init(...arguments);
-      }
-
-    }
-    StateSelect.prototype.tag = 'state-select';
-
-    return StateSelect;
-
-  }).call(undefined);
-
-  StateSelect.register();
-
   // node_modules/shop.js/src/controls/checkout/shippingaddress-state.coffee
   // import { StateSelect } from 'el-controls'
   var ShippingAddressState;
 
   var ShippingAddressState$1 = ShippingAddressState = (function() {
-    class ShippingAddressState extends StateSelect$1 {
-      getCountry() {
-        return this.data.get(this.countryField);
-      }
-
+    class ShippingAddressState extends AddressState$1 {
       init() {
-        super.init(...arguments);
-        return this.input.ref.on('set', (k, v) => {
-          if (k.indexOf(this.countryField) > -1) {
-            // force update of selectOptions
-            this.options();
-            return this.update();
-          }
-        });
+        return super.init(...arguments);
       }
 
     }
