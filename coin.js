@@ -10663,8 +10663,7 @@ var Coin = (function () {
             : Interpolation.Linear;
 
         if (typeof end === 'number') {
-          object[property] =
-            (((start + (end - start) * value) * DECIMAL) | 0) / DECIMAL;
+          object[property] = start + (end - start) * value;
         } else if (Array.isArray(end) && !Array.isArray(start)) {
           object[property] = _interpolationFunctionCall(
             end,

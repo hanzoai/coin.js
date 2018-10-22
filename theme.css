@@ -436,11 +436,23 @@ thankyou .input select{
   border-width:1px;
   border-radius:0;
   line-height:2rem;
+  height:2rem;
   font-size:1em;
   -webkit-appearance:none;
      -moz-appearance:none;
           appearance:none;
   outline:none;
+}
+deposit .input select:-moz-focusring,
+login .input select:-moz-focusring,
+orders .input select:-moz-focusring,
+profile .input select:-moz-focusring,
+register .input select:-moz-focusring,
+reset-password .input select:-moz-focusring,
+reset-password-complete .input select:-moz-focusring,
+thankyou .input select:-moz-focusring{
+  color:transparent;
+  text-shadow:0 0 0 #000;
 }
 deposit .input select::-ms-expand,
 login .input select::-ms-expand,
@@ -476,7 +488,7 @@ register .input select.labeled ~ .select-indicator,
 reset-password .input select.labeled ~ .select-indicator,
 reset-password-complete .input select.labeled ~ .select-indicator,
 thankyou .input select.labeled ~ .select-indicator{
-  top:2.25rem;
+  top:1.75rem;
 }
 deposit .input select:disabled ~ .select-indicator,
 login .input select:disabled ~ .select-indicator,
@@ -1242,11 +1254,16 @@ view .input select{
   border-width:1px;
   border-radius:0;
   line-height:2rem;
+  height:2rem;
   font-size:1em;
   -webkit-appearance:none;
      -moz-appearance:none;
           appearance:none;
   outline:none;
+}
+view .input select:-moz-focusring{
+  color:transparent;
+  text-shadow:0 0 0 #000;
 }
 view .input select::-ms-expand{
   display:none;
@@ -1261,7 +1278,7 @@ view .input select ~ .select-indicator{
   display:block;
 }
 view .input select.labeled ~ .select-indicator{
-  top:2.25rem;
+  top:1.75rem;
 }
 view .input select:disabled ~ .select-indicator{
   opacity:0.5;
