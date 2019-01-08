@@ -295,9 +295,9 @@ initWeb3 = (opts = {}, data) ->
   return if !opts.eth
 
   unless Web3?
-    loadScript 'https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js', (err, script) ->
+    loadScript 'https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js', (err, script) ->
       throw err if err?
-      intWeb3 opts, data
+      initWeb3 opts, data
     return
 
   ethNode = opts?.eth?.node
@@ -318,7 +318,7 @@ initWeb3 = (opts = {}, data) ->
           console.log 'web3 update error:', err
           return
 
-        data.set 'eth.balance', parseInt(web3.fromWei(balance, 'gwei').toNumber())
+        data.set 'eth.balance', parseInt(web3.utils.fromWei(balance, 'gwei'))
         El.scheduleUpdate()
 
   update()
