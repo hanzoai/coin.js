@@ -11691,7 +11691,7 @@ var Coin = (function () {
   ShippingAddressState.register();
 
   // node_modules/el-controls/templates/controls/checkbox.pug
-  var html$b = "\n<yield from=\"input\">\n  <div class=\"input-container {invalid: errorMessage, valid: valid, labeled: label, checked: input.ref.get(input.name)}\">\n    <input id=\"{ getId() }\" name=\"{ getName() }\" type=\"checkbox\" onchange=\"{ change }\" onblur=\"{ change }\" checked=\"{ input.ref.get(input.name) }\">\n  </div>\n</yield>\n<yield></yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>";
+  var html$b = "\n<yield from=\"input\">\n  <div class=\"input-container {invalid: errorMessage, valid: valid, labeled: label, checked: input.ref.get(input.name)}\">\n    <input id=\"{ getId() }\" name=\"{ getName() }\" type=\"checkbox\" onchange=\"{ change }\" onblur=\"{ change }\" checked=\"{ input.ref.get(input.name) }\">\n  </div>\n  <label for=\"getId()\"></label>\n</yield>\n<yield></yield>\n<yield from=\"label\">\n  <div class=\"label active\" if=\"{ label }\">{ label }</div>\n</yield>\n<yield from=\"error\">\n  <div class=\"error\" if=\"{ errorMessage }\">{ errorMessage }</div>\n</yield>\n<yield from=\"instructions\">\n  <div class=\"helper\" if=\"{ instructions &amp;&amp; !errorMessage }\">{ instructions }</div>\n</yield>";
 
   // node_modules/el-controls/src/controls/checkbox.coffee
   var CheckBox;
@@ -21680,11 +21680,11 @@ var Coin = (function () {
       return;
     }
     if (typeof Web3 === "undefined" || Web3 === null) {
-      loadScript('https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js', function(err, script) {
+      loadScript('https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js', function(err, script) {
         if (err != null) {
           throw err;
         }
-        return intWeb3(opts, data);
+        return initWeb3(opts, data);
       });
       return;
     }
@@ -21705,7 +21705,7 @@ var Coin = (function () {
             console.log('web3 update error:', err);
             return;
           }
-          data.set('eth.balance', parseInt(web3.fromWei(balance, 'gwei').toNumber()));
+          data.set('eth.balance', parseInt(web3.utils.fromWei(balance, 'gwei')));
           return El$1.scheduleUpdate();
         });
       }
